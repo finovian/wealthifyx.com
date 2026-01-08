@@ -20,6 +20,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="icon" href="/favicon.svg" />
         <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6PR1F8E717" />
         <script
           dangerouslySetInnerHTML={{

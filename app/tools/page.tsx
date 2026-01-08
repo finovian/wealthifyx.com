@@ -16,50 +16,57 @@ export const metadata: Metadata = {
 const tools = [
   {
     name: "SIP Calculator",
-    description: "Estimate future value of monthly investments",
+    description: "Estimate the future value of your monthly investments.",
     href: "/tools/sip-calculator",
   },
   {
     name: "Stock Return Calculator",
-    description: "Calculate CAGR and total returns",
+    description: "Calculate CAGR and total returns on your investments.",
     href: "/tools/stock-return",
   },
 ];
 
 export default function ToolsPage() {
   return (
-    <section className="py-16">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateBreadcrumbSchema(breadcrumbs)),
-        }}
-      />
-      <header className="mb-10">
-        <h1 className="text-3xl font-semibold tracking-tight">
-          Finance Tools
-        </h1>
-        <p className="mt-2 text-gray-600">
-          Simple, fast, and free calculators to help you make better
-          investment decisions.
-        </p>
-      </header>
+    <section className="py-24 sm:py-32">
+      <div className="mx-auto max-w-3xl px-4 lg:px-8">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(generateBreadcrumbSchema(breadcrumbs)),
+          }}
+        />
+        <header>
+          <h1 className="text-4xl font-semibold tracking-tight text-gray-900">
+            Financial Tools
+          </h1>
+          <p className="mt-4 text-lg text-gray-600">
+            A focused collection of calculators for long-term investment
+            planning and return estimation.
+          </p>
+        </header>
 
-      <div className="divide-y divide-gray-200">
-        {tools.map(tool => (
-          <Link
-            key={tool.name}
-            href={tool.href}
-            className="block py-6 transition hover:bg-gray-50"
-          >
-            <h2 className="text-lg font-medium text-gray-900">
-              {tool.name}
-            </h2>
-            <p className="mt-1 text-sm text-gray-600">
-              {tool.description}
-            </p>
-          </Link>
-        ))}
+        <div className="mt-12 border-t border-gray-200">
+          {tools.map(tool => (
+            <Link
+              key={tool.name}
+              href={tool.href}
+              className="block border-b border-gray-200 py-6"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    {tool.name}
+                  </h2>
+                  <p className="mt-1 text-base text-gray-600">
+                    {tool.description}
+                  </p>
+                </div>
+                <span className="text-gray-400">→</span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

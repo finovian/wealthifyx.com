@@ -1,4 +1,3 @@
-
 'use client'
 
 import { Input } from "@/components/ui/input";
@@ -70,7 +69,7 @@ export default function StockReturnCalculatorPage() {
     };
 
   return (
-    <section className="py-16">
+    <section className="py-16 sm:py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -91,102 +90,126 @@ export default function StockReturnCalculatorPage() {
           ),
         }}
       />
-      {/* Header */}
-      <header className="mb-10">
-        <h1 className="text-3xl font-semibold tracking-tight">
-          Stock Return & CAGR Calculator
-        </h1>
-        <p className="mt-2 text-gray-600">
-          Calculate the Compound Annual Growth Rate (CAGR) and total returns on your stock investments.
-        </p>
-      </header>
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <header className="mb-12 text-center">
+          <h1 className="text-4xl font-semibold tracking-tight">
+            Stock Return Calculator
+          </h1>
+          <p className="mt-4 text-lg text-gray-600">
+            Calculate the Compound Annual Growth Rate (CAGR) and total returns
+            for your stock investments.
+          </p>
+        </header>
 
-      {/* Calculator */}
-      <div className="max-w-sm space-y-6">
+        {/* Calculator */}
+        <div className="space-y-6">
+          <div>
+            <Label className="text-sm text-gray-600">
+              Initial Investment (₹)
+            </Label>
+            <Input
+              type="number"
+              value={initialInvestment}
+              onChange={handleNumericChange(setInitialInvestment)}
+              className="mt-2 text-lg"
+            />
+          </div>
+          <div>
+            <Label className="text-sm text-gray-600">Final Value (₹)</Label>
+            <Input
+              type="number"
+              value={finalValue}
+              onChange={handleNumericChange(setFinalValue)}
+              className="mt-2 text-lg"
+            />
+          </div>
+          <div>
+            <Label className="text-sm text-gray-600">
+              Investment Duration (Years)
+            </Label>
+            <Input
+              type="number"
+              value={years}
+              onChange={handleNumericChange(setYears)}
+              className="mt-2 text-lg"
+            />
+          </div>
+        </div>
+
+        <Separator className="my-12" />
+
+        {/* Results */}
         <div>
-          <Label className="text-sm text-gray-600">Initial Investment ($)</Label>
-          <Input
-            type="number"
-            value={initialInvestment}
-            onChange={handleNumericChange(setInitialInvestment)}
-            className="mt-1"
+          <ResultRow
+            label="CAGR"
+            value={`${result.cagr.toLocaleString()} %`}
+          />
+          <ResultRow
+            label="Total Return"
+            value={`${result.totalReturn.toLocaleString()} %`}
+          />
+          <ResultRow
+            label="Absolute Profit"
+            value={`₹ ${result.absoluteProfit.toLocaleString()}`}
+            highlight
           />
         </div>
 
-        <div>
-          <Label className="text-sm text-gray-600">Final Value ($)</Label>
-          <Input
-            type="number"
-            value={finalValue}
-            onChange={handleNumericChange(setFinalValue)}
-            className="mt-1"
-          />
-        </div>
+        {/* Explanation (SEO GOLD) */}
+        <article className="prose prose-gray mt-24 max-w-none">
+          <h2>How to Calculate Stock Returns and CAGR</h2>
+          <p>
+            This calculator helps you determine the profitability of your stock
+            investments by calculating the Compound Annual Growth Rate (CAGR),
+            total return, and absolute profit. To get started, you need to
+            provide:
+          </p>
+          <ul>
+            <li>
+              <strong>Initial Investment:</strong> The total amount you
+              invested at the beginning.
+            </li>
+            <li>
+              <strong>Final Value:</strong> The current market value of your
+              investment.
+            </li>
+            <li>
+              <strong>Investment Duration (Years):</strong> The number of years
+              you held the investment.
+            </li>
+          </ul>
+          <p>
+            These inputs will allow the calculator to provide a clear picture of
+            your investment's performance over time.
+          </p>
 
-        <div>
-          <Label className="text-sm text-gray-600">
-            Investment Duration (Years)
-          </Label>
-          <Input
-            type="number"
-            value={years}
-            onChange={handleNumericChange(setYears)}
-            className="mt-1"
-          />
-        </div>
+          <h2>Understanding CAGR and Total Return</h2>
+          <p>
+            <strong>CAGR (Compound Annual Growth Rate)</strong> is a key metric
+            used to evaluate the performance of an investment. It provides a
+            smoothed-out annual rate of return, making it easy to compare
+            different investments. It is a much more accurate measure than
+            simple annual return because it accounts for compounding.
+          </p>
+          <p>
+            <strong>Total Return</strong> represents the full return of an
+            investment, including capital gains and dividends. It is expressed
+            as a percentage of the initial investment. While useful, it doesn't
+            account for the time value of money, which is where CAGR excels.
+          </p>
+
+          <h2>Frequently Asked Questions (FAQ)</h2>
+          <div className="space-y-6">
+            {faqs.map((faq, index) => (
+              <div key={index}>
+                <h3 className="font-semibold">{faq.question}</h3>
+                <p className="mt-1 text-gray-600">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </article>
       </div>
-
-      <Separator className="my-8" />
-
-      {/* Results */}
-      <div className="space-y-4">
-        <ResultRow
-          label="CAGR"
-          value={`${result.cagr.toLocaleString()} %`}
-        />
-        <ResultRow
-          label="Total Return"
-          value={`${result.totalReturn.toLocaleString()} %`}
-        />
-        <ResultRow
-          label="Absolute Profit"
-          value={`$ ${result.absoluteProfit.toLocaleString()}`}
-          highlight
-        />
-      </div>
-
-
-      {/* Explanation (SEO GOLD) */}
-      <article className="prose prose-gray mt-16 max-w-none">
-        <h2>How to Calculate Stock Returns and CAGR</h2>
-        <p>
-          This calculator helps you determine the profitability of your stock investments by calculating the Compound Annual Growth Rate (CAGR), total return, and absolute profit. To get started, you need to provide:
-        </p>
-        <ul>
-            <li><strong>Initial Investment:</strong> The total amount you invested at the beginning.</li>
-            <li><strong>Final Value:</strong> The current market value of your investment.</li>
-            <li><strong>Investment Duration (Years):</strong> The number of years you held the investment.</li>
-        </ul>
-        <p>These inputs will allow the calculator to provide a clear picture of your investment's performance over time.</p>
-
-        <h2>Understanding CAGR and Total Return</h2>
-        <p>
-          <strong>CAGR (Compound Annual Growth Rate)</strong> is a key metric used to evaluate the performance of an investment. It provides a smoothed-out annual rate of return, making it easy to compare different investments. It is a much more accurate measure than simple annual return because it accounts for compounding.
-        </p>
-        <p>
-          <strong>Total Return</strong> represents the full return of an investment, including capital gains and dividends. It is expressed as a percentage of the initial investment. While useful, it doesn't account for the time value of money, which is where CAGR excels.
-        </p>
-
-        <h2>Frequently Asked Questions (FAQ)</h2>
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div key={index}>
-              <h3 className="font-semibold">{faq.question}</h3>
-              <p className="text-gray-600">{faq.answer}</p>
-            </div>
-          ))}
-        </div>
-      </article>
     </section>
   );
 }
@@ -201,11 +224,13 @@ function ResultRow({
   highlight?: boolean;
 }) {
   return (
-    <div className="flex items-baseline justify-between">
-      <span className="text-gray-600">{label}</span>
+    <div className="flex items-baseline justify-between border-b border-gray-200 py-4 last:border-none">
+      <span className="text-md text-gray-600">{label}</span>
       <span
-        className={`text-xl font-medium ${
-          highlight ? "font-semibold text-gray-900" : "text-gray-800"
+        className={`font-medium ${
+          highlight
+            ? "text-2xl font-semibold tracking-tight text-gray-900"
+            : "text-lg text-gray-800"
         }`}
       >
         {value}
