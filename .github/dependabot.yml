@@ -6,6 +6,10 @@ updates:
     target-branch: dev
     schedule:
       interval: daily
+    open-pull-requests-limit: 3
+
+    pull-request-branch-name:
+      separator: "-"
 
     groups:
       patch-dependencies:
@@ -23,4 +27,4 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types:
-          - major
+          - version-update:semver-major
