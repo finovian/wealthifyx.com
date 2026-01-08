@@ -18,7 +18,6 @@ export default function Home() {
         Simple finance tools for better money decisions
       </h1>
 
-
       <p className="mt-4 text-lg text-gray-600">
         Clean, fast, and free calculators for investors worldwide.
       </p>

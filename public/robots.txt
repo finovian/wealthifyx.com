@@ -1,0 +1,32 @@
+# ===================================================================
+# robots.txt for https://www.wealthifyx.com
+# -------------------------------------------------------------------
+# This file provides instructions to search engine crawlers about
+# which pages and files they can or cannot request from your site.
+# ===================================================================
+
+# Apply the following rules to all web crawlers.
+User-agent: *
+
+# -------------------------------------------------
+# Disallow Rules
+# -------------------------------------------------
+# Prevent crawling of specific routes that do not need to be indexed.
+#
+# Block Next.js internal build artifacts.
+Disallow: /_next/
+#
+# Block server-side API routes.
+Disallow: /api/
+#
+# Proactively block common private directories.
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /private/
+
+
+# -------------------------------------------------
+# Sitemap Location
+# -------------------------------------------------
+# Provide the absolute URL to your sitemap for crawlers to discover.
+Sitemap: https://www.wealthifyx.com/sitemap.xml

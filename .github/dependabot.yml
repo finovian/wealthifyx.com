@@ -1,0 +1,39 @@
+# To get started with Dependabot versioning, see:
+# https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    # Look for `package.json` and `lock` files in the `root` directory.
+    directory: "/"
+    # Check for updates daily
+    schedule:
+      interval: "daily"
+    # Open pull requests against the 'dev' branch
+    target-branch: "dev"
+    # Limit to 3 open pull requests at a time to prevent PR overload
+    open-pull-requests-limit: 3
+    # Use a hyphen as the default separator in branch names
+    # (e.g., dependabot/npm/express-4.x)
+    # This is the default, so no explicit configuration is needed.
+
+    # Ignore all major version updates
+    # This prevents Dependabot from creating PRs for breaking changes (major versions)
+    # which usually require manual intervention or specific migration steps.
+    ignore:
+      - dependency-name: "*" # Apply this rule to all dependencies
+        update-types: ["version-major"]
+
+    # Group dependency updates to reduce the number of pull requests.
+    groups:
+      # Group all patch updates into a single pull request
+      patch-dependencies:
+        patterns:
+          - "*" # Apply to all dependencies
+        update-types: ["version-patch"]
+
+      # Group all minor updates into a single pull request
+      minor-dependencies:
+        patterns:
+          - "*" # Apply to all dependencies
+        update-types: ["version-minor"]
