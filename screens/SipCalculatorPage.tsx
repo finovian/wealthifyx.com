@@ -5,7 +5,8 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { calculateSip } from "@/lib/calculators/sip";
 import type { ChangeEvent } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const faqs = [
   {
@@ -40,11 +41,27 @@ export default function SipCalculatorPage() {
   const [annualReturnRate, setAnnualReturnRate] = useState("12");
   const [years, setYears] = useState("10");
 
-  const result = calculateSip({
-    monthlyInvestment: Number(monthlyInvestment) || 0,
-    annualReturnRate: Number(annualReturnRate) || 0,
-    years: Number(years) || 0,
-  });
+  const MAX_YEARS = 50;
+  const MAX_RETURN_RATE = 50; // 50% annual (already very aggressive)
+
+  const parsedMonthly = Number(monthlyInvestment);
+  const parsedRate = Number(annualReturnRate);
+  const parsedYears = Number(years);
+
+  const hasInvalidInput =
+    parsedMonthly <= 0 ||
+    parsedRate <= 0 ||
+    parsedRate > MAX_RETURN_RATE ||
+    parsedYears <= 0 ||
+    parsedYears > MAX_YEARS;
+
+  const result = hasInvalidInput
+    ? null
+    : calculateSip({
+        monthlyInvestment: parsedMonthly,
+        annualReturnRate: parsedRate,
+        years: parsedYears,
+      });
 
   const handleNumericChange =
     (setter: (value: string) => void) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,6 +75,32 @@ export default function SipCalculatorPage() {
       }
       setter(value);
     };
+
+  useEffect(() => {
+    if (parsedMonthly <= 0) {
+      toast.error("Monthly investment must be greater than 0");
+      return;
+    }
+
+    if (parsedRate <= 0) {
+      toast.error("Annual return rate must be greater than 0%");
+      return;
+    }
+
+    if (parsedRate > MAX_RETURN_RATE) {
+      toast.error(`Annual return rate cannot exceed ${MAX_RETURN_RATE}%`);
+      return;
+    }
+
+    if (parsedYears <= 0) {
+      toast.error("Investment duration must be greater than 0 years");
+      return;
+    }
+
+    if (parsedYears > MAX_YEARS) {
+      toast.error(`Investment duration cannot exceed ${MAX_YEARS} years`);
+    }
+  }, [parsedMonthly, parsedRate, parsedYears]);
 
   return (
     <section className="py-16 sm:py-24">
@@ -91,6 +134,7 @@ export default function SipCalculatorPage() {
               Expected Annual Return (%)
             </Label>
             <Input
+            min={1} max={MAX_RETURN_RATE} step="any"
               type="number"
               value={annualReturnRate}
               onChange={handleNumericChange(setAnnualReturnRate)}
@@ -114,19 +158,24 @@ export default function SipCalculatorPage() {
 
         {/* Results */}
         <div>
-          <ResultRow
-            label="Total Invested"
-            value={`₹ ${result.investedAmount.toLocaleString()}`}
-          />
-          <ResultRow
-            label="Estimated Returns"
-            value={`₹ ${result.estimatedReturns.toLocaleString()}`}
-          />
-          <ResultRow
-            label="Total Value"
-            value={`₹ ${result.totalValue.toLocaleString()}`}
-            highlight
-          />
+         {result && (
+  <>
+    <ResultRow
+      label="Total Invested"
+      value={`₹ ${result.investedAmount.toLocaleString()}`}
+    />
+    <ResultRow
+      label="Estimated Returns"
+      value={`₹ ${result.estimatedReturns.toLocaleString()}`}
+    />
+    <ResultRow
+      label="Total Value"
+      value={`₹ ${result.totalValue.toLocaleString()}`}
+      highlight
+    />
+  </>
+)}
+
         </div>
 
         {/* Explanation (SEO GOLD) */}

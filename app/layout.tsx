@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { generateWebsiteSchema } from "@/lib/schema";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Wealthifyx – Simple Finance Tools",
@@ -41,6 +42,7 @@ export default function RootLayout({
         <Navbar />
         <main className="mx-auto max-w-6xl px-4">{children}</main>
         <Footer />
+        <Toaster />
       </body>
     </html>
   );

@@ -4,8 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { calculateStockReturn } from "@/lib/calculators/stock-return";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ChangeEvent } from "react";
+import toast from "react-hot-toast";
 
 const faqs = [
   {
@@ -31,15 +32,29 @@ const faqs = [
 ];
 
 export default function StockReturnCalculatorPage() {
+  const MAX_YEARS = 100; // realistic upper bound
+
   const [initialInvestment, setInitialInvestment] = useState("10000");
   const [finalValue, setFinalValue] = useState("25000");
   const [years, setYears] = useState("5");
 
-  const result = calculateStockReturn({
-    initialInvestment: Number(initialInvestment) || 0,
-    finalValue: Number(finalValue) || 0,
-    years: Number(years) || 0,
-  });
+  const parsedInitial = Number(initialInvestment);
+  const parsedFinal = Number(finalValue);
+  const parsedYears = Number(years);
+
+  const hasInvalidInput =
+    parsedInitial <= 0 ||
+    parsedFinal < 0 ||
+    parsedYears <= 0 ||
+    parsedYears > MAX_YEARS;
+
+  const result = hasInvalidInput
+    ? null
+    : calculateStockReturn({
+        initialInvestment: parsedInitial,
+        finalValue: parsedFinal,
+        years: parsedYears,
+      });
 
   const handleNumericChange =
     (setter: (value: string) => void) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +68,27 @@ export default function StockReturnCalculatorPage() {
       }
       setter(value);
     };
+
+  useEffect(() => {
+    if (parsedInitial <= 0) {
+      toast.error("Initial investment must be greater than 0");
+      return;
+    }
+
+    if (parsedFinal < 0) {
+      toast.error("Final value cannot be negative");
+      return;
+    }
+
+    if (parsedYears <= 0) {
+      toast.error("Investment duration must be greater than 0 years");
+      return;
+    }
+
+    if (parsedYears > MAX_YEARS) {
+      toast.error(`Investment duration cannot exceed ${MAX_YEARS} years`);
+    }
+  }, [parsedInitial, parsedFinal, parsedYears]);
 
   return (
     <section className="py-16 sm:py-24">
@@ -76,6 +112,8 @@ export default function StockReturnCalculatorPage() {
             </Label>
             <Input
               type="number"
+              min={1}
+              step={1}
               value={initialInvestment}
               onChange={handleNumericChange(setInitialInvestment)}
               className="mt-2 text-lg"
@@ -85,6 +123,8 @@ export default function StockReturnCalculatorPage() {
             <Label className="text-sm text-gray-600">Final Value ($)</Label>
             <Input
               type="number"
+              min={1}
+              step={1}
               value={finalValue}
               onChange={handleNumericChange(setFinalValue)}
               className="mt-2 text-lg"
@@ -96,6 +136,9 @@ export default function StockReturnCalculatorPage() {
             </Label>
             <Input
               type="number"
+              min={1}
+              max={MAX_YEARS}
+              step={1}
               value={years}
               onChange={handleNumericChange(setYears)}
               className="mt-2 text-lg"
@@ -107,16 +150,20 @@ export default function StockReturnCalculatorPage() {
 
         {/* Results */}
         <div>
-          <ResultRow label="CAGR" value={`${result.cagr.toLocaleString()} %`} />
-          <ResultRow
-            label="Total Return"
-            value={`${result.totalReturn.toLocaleString()} %`}
-          />
-          <ResultRow
-            label="Absolute Profit"
-            value={`$ ${result.absoluteProfit.toLocaleString()}`}
-            highlight
-          />
+          {result && (
+            <>
+              <ResultRow label="CAGR" value={`${result.cagr.toFixed(2)} %`} />
+              <ResultRow
+                label="Total Return"
+                value={`${result.totalReturn.toFixed(2)} %`}
+              />
+              <ResultRow
+                label="Absolute Profit"
+                value={`$ ${result.absoluteProfit.toLocaleString()}`}
+                highlight
+              />
+            </>
+          )}
         </div>
 
         {/* Explanation (SEO GOLD) */}
