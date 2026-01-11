@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { generateBreadcrumbSchema } from "@/lib/schema";
+import ExploreToolsLink from "@/components/ExploreToolsLink";
+import ToolLink from "@/components/ToolLink";
 
 const breadcrumbs = [{ name: "Home", url: "/" }];
 
@@ -21,12 +21,7 @@ export default function Home() {
         <p className="mt-6 text-lg leading-8 text-gray-600">
           Clean, fast, and free calculators for investors worldwide.
         </p>
-        <Link
-          href="/tools"
-          className={cn(buttonVariants({ variant: "outline" }), "mt-10")}
-        >
-          Explore tools
-        </Link>
+        <ExploreToolsLink />
       </div>
 
       <div className="mx-auto mt-24 max-w-2xl px-4">
@@ -35,10 +30,7 @@ export default function Home() {
         </h2>
 
         <div className="mt-8 border-t border-gray-200">
-          <Link
-            href="/tools/sip-calculator"
-            className="block border-b border-gray-200 py-6"
-          >
+          <ToolLink href="/tools/sip-calculator" toolName="sip_calculator">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
@@ -50,11 +42,8 @@ export default function Home() {
               </div>
               <span className="text-gray-400">→</span>
             </div>
-          </Link>
-          <Link
-            href="/tools/stock-return"
-            className="block border-b border-gray-200 py-6"
-          >
+          </ToolLink>
+          <ToolLink href="/tools/stock-return" toolName="stock_return">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
@@ -66,7 +55,7 @@ export default function Home() {
               </div>
               <span className="text-gray-400">→</span>
             </div>
-          </Link>
+          </ToolLink>
         </div>
       </div>
 

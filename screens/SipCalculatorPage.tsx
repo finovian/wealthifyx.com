@@ -1,12 +1,15 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { calculateSip } from "@/lib/calculators/sip";
+import { useHumanEngagement } from "@/lib/hooks/useHumanEngagement";
+import { useToolAnalytics } from "@/lib/hooks/useToolAnalytics";
 import type { ChangeEvent } from "react";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useEffect, useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 const faqs = [
   {
@@ -37,31 +40,102 @@ const faqs = [
 ];
 
 export default function SipCalculatorPage() {
+  const hasCalculatedRef = useRef(false);
+
+  // Global engagement hook to identify real human users.
+  useHumanEngagement();
+
+  // Tool-specific analytics hook for the SIP calculator.
+  const {
+    trackInputStart,
+    trackInputCompleted,
+    trackCalculate,
+    trackResultViewed,
+    trackToolCompleted,
+  } = useToolAnalytics();
+
   const [monthlyInvestment, setMonthlyInvestment] = useState("5000");
   const [annualReturnRate, setAnnualReturnRate] = useState("12");
   const [years, setYears] = useState("10");
 
   const MAX_YEARS = 50;
-  const MAX_RETURN_RATE = 50; // 50% annual (already very aggressive)
+  const MAX_RETURN_RATE = 50;
 
   const parsedMonthly = Number(monthlyInvestment);
   const parsedRate = Number(annualReturnRate);
   const parsedYears = Number(years);
 
-  const hasInvalidInput =
-    parsedMonthly <= 0 ||
-    parsedRate <= 0 ||
-    parsedRate > MAX_RETURN_RATE ||
-    parsedYears <= 0 ||
-    parsedYears > MAX_YEARS;
+  const isFormValid =
+    parsedMonthly > 0 &&
+    parsedRate > 0 &&
+    parsedRate <= MAX_RETURN_RATE &&
+    parsedYears > 0 &&
+    parsedYears <= MAX_YEARS;
 
-  const result = hasInvalidInput
-    ? null
-    : calculateSip({
+  const result = isFormValid
+    ? calculateSip({
         monthlyInvestment: parsedMonthly,
         annualReturnRate: parsedRate,
         years: parsedYears,
-      });
+      })
+    : null;
+
+  // Track when all inputs are valid for the first time.
+  useEffect(() => {
+    if (isFormValid) {
+      // Why: This event is a key milestone, showing the user has provided
+      // all necessary data to use the tool and is ready to calculate.
+      trackInputCompleted();
+    }
+  }, [isFormValid, trackInputCompleted]);
+
+  useEffect(() => {
+    if (!isFormValid) {
+      hasCalculatedRef.current = false;
+    }
+  }, [isFormValid]);
+
+  // Track the primary "Calculate" action.
+  useEffect(() => {
+    if (!isFormValid) return;
+    if (hasCalculatedRef.current) return;
+
+    hasCalculatedRef.current = true;
+    trackCalculate();
+  }, [isFormValid, trackCalculate]);
+
+  // Set up IntersectionObserver for the results section.
+  const { ref: resultsRef, inView: isResultsVisible } = useInView({
+    threshold: 0.5,
+    triggerOnce: true, // Fire only once when the results are 50% visible
+  });
+
+  // Track when the user sees the calculated results.
+  useEffect(() => {
+    if (hasCalculatedRef.current && isResultsVisible) {
+      trackResultViewed();
+    }
+  }, [isResultsVisible, trackResultViewed]);
+
+  // Track if the user interacts with the results (e.g., by scrolling).
+  useEffect(() => {
+    if (!hasCalculatedRef.current || !isResultsVisible) return;
+
+    const startY = window.scrollY;
+
+    const handleScroll = () => {
+      if (Math.abs(window.scrollY - startY) > 120) {
+        trackToolCompleted();
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isResultsVisible, trackToolCompleted]);
 
   const handleNumericChange =
     (setter: (value: string) => void) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -75,32 +149,6 @@ export default function SipCalculatorPage() {
       }
       setter(value);
     };
-
-  useEffect(() => {
-    if (parsedMonthly <= 0) {
-      toast.error("Monthly investment must be greater than 0");
-      return;
-    }
-
-    if (parsedRate <= 0) {
-      toast.error("Annual return rate must be greater than 0%");
-      return;
-    }
-
-    if (parsedRate > MAX_RETURN_RATE) {
-      toast.error(`Annual return rate cannot exceed ${MAX_RETURN_RATE}%`);
-      return;
-    }
-
-    if (parsedYears <= 0) {
-      toast.error("Investment duration must be greater than 0 years");
-      return;
-    }
-
-    if (parsedYears > MAX_YEARS) {
-      toast.error(`Investment duration cannot exceed ${MAX_YEARS} years`);
-    }
-  }, [parsedMonthly, parsedRate, parsedYears]);
 
   return (
     <section className="py-16 sm:py-24">
@@ -126,6 +174,7 @@ export default function SipCalculatorPage() {
               type="number"
               value={monthlyInvestment}
               onChange={handleNumericChange(setMonthlyInvestment)}
+              onFocus={trackInputStart} // Why: Tracks when the user starts interacting with the form.
               className="mt-2 text-lg"
             />
           </div>
@@ -134,10 +183,13 @@ export default function SipCalculatorPage() {
               Expected Annual Return (%)
             </Label>
             <Input
-            min={1} max={MAX_RETURN_RATE} step="any"
+              min={1}
+              max={MAX_RETURN_RATE}
+              step="any"
               type="number"
               value={annualReturnRate}
               onChange={handleNumericChange(setAnnualReturnRate)}
+              onFocus={trackInputStart} // This fires the same event, but the hook ensures it only runs once.
               className="mt-2 text-lg"
             />
           </div>
@@ -149,6 +201,7 @@ export default function SipCalculatorPage() {
               type="number"
               value={years}
               onChange={handleNumericChange(setYears)}
+              onFocus={trackInputStart}
               className="mt-2 text-lg"
             />
           </div>
@@ -157,25 +210,24 @@ export default function SipCalculatorPage() {
         <Separator className="my-12" />
 
         {/* Results */}
-        <div>
-         {result && (
-  <>
-    <ResultRow
-      label="Total Invested"
-      value={`₹ ${result.investedAmount.toLocaleString()}`}
-    />
-    <ResultRow
-      label="Estimated Returns"
-      value={`₹ ${result.estimatedReturns.toLocaleString()}`}
-    />
-    <ResultRow
-      label="Total Value"
-      value={`₹ ${result.totalValue.toLocaleString()}`}
-      highlight
-    />
-  </>
-)}
-
+        <div ref={resultsRef}>
+          {result && (
+            <>
+              <ResultRow
+                label="Total Invested"
+                value={`₹ ${result.investedAmount.toLocaleString()}`}
+              />
+              <ResultRow
+                label="Estimated Returns"
+                value={`₹ ${result.estimatedReturns.toLocaleString()}`}
+              />
+              <ResultRow
+                label="Total Value"
+                value={`₹ ${result.totalValue.toLocaleString()}`}
+                highlight
+              />
+            </>
+          )}
         </div>
 
         {/* Explanation (SEO GOLD) */}

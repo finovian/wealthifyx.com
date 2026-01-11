@@ -1,6 +1,6 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { generateBreadcrumbSchema } from "@/lib/schema";
+import ToolsLink from "@/components/ToolsLink";
 
 const breadcrumbs = [
   { name: "Home", url: "/" },
@@ -47,11 +47,12 @@ export default function ToolsPage() {
         </header>
 
         <div className="mt-12 border-t border-gray-200">
-          {tools.map(tool => (
-            <Link
+          {tools.map((tool) => (
+            <ToolsLink
               key={tool.name}
               href={tool.href}
-              className="block border-b border-gray-200 py-6"
+              toolName={tool.name.toLowerCase().replace(/\s+/g, "_")}
+              location="tools_page"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -64,7 +65,7 @@ export default function ToolsPage() {
                 </div>
                 <span className="text-gray-400">→</span>
               </div>
-            </Link>
+            </ToolsLink>
           ))}
         </div>
       </div>

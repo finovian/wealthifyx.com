@@ -4,9 +4,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { calculateStockReturn } from "@/lib/calculators/stock-return";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useInView } from "react-intersection-observer";
+import { useHumanEngagement } from "@/lib/hooks/useHumanEngagement";
+import { useToolAnalytics } from "@/lib/hooks/useToolAnalytics";
+
+import { useState } from "react";
 import type { ChangeEvent } from "react";
-import toast from "react-hot-toast";
 
 const faqs = [
   {
@@ -33,14 +37,31 @@ const faqs = [
 
 export default function StockReturnCalculatorPage() {
   const MAX_YEARS = 100; // realistic upper bound
+  const hasStartedInputRef = useRef(false);
+  const hasCalculatedRef = useRef(false);
 
   const [initialInvestment, setInitialInvestment] = useState("10000");
   const [finalValue, setFinalValue] = useState("25000");
   const [years, setYears] = useState("5");
 
+  const { ref: resultsRef, inView: isResultsVisible } = useInView({
+    threshold: 0.5,
+    triggerOnce: true,
+  });
+
   const parsedInitial = Number(initialInvestment);
   const parsedFinal = Number(finalValue);
   const parsedYears = Number(years);
+
+  useHumanEngagement();
+
+  const {
+    trackInputStart,
+    trackInputCompleted,
+    trackCalculate,
+    trackResultViewed,
+    trackToolCompleted,
+  } = useToolAnalytics();
 
   const hasInvalidInput =
     parsedInitial <= 0 ||
@@ -70,25 +91,46 @@ export default function StockReturnCalculatorPage() {
     };
 
   useEffect(() => {
-    if (parsedInitial <= 0) {
-      toast.error("Initial investment must be greater than 0");
+    if (hasStartedInputRef.current && !hasInvalidInput) {
+      trackInputCompleted();
+    }
+  }, [hasInvalidInput, trackInputCompleted]);
+  useEffect(() => {
+    if (hasInvalidInput) {
+      hasCalculatedRef.current = false;
       return;
     }
 
-    if (parsedFinal < 0) {
-      toast.error("Final value cannot be negative");
-      return;
+    if (!hasCalculatedRef.current) {
+      hasCalculatedRef.current = true;
+      trackCalculate();
     }
+  }, [hasInvalidInput, trackCalculate]);
 
-    if (parsedYears <= 0) {
-      toast.error("Investment duration must be greater than 0 years");
-      return;
+  useEffect(() => {
+    if (hasCalculatedRef.current && isResultsVisible) {
+      trackResultViewed();
     }
+  }, [isResultsVisible, trackResultViewed]);
 
-    if (parsedYears > MAX_YEARS) {
-      toast.error(`Investment duration cannot exceed ${MAX_YEARS} years`);
-    }
-  }, [parsedInitial, parsedFinal, parsedYears]);
+  useEffect(() => {
+    if (!hasCalculatedRef.current || !isResultsVisible) return;
+
+    const startY = window.scrollY;
+
+    const handleScroll = () => {
+      if (Math.abs(window.scrollY - startY) > 120) {
+        trackToolCompleted();
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isResultsVisible, trackToolCompleted]);
 
   return (
     <section className="py-16 sm:py-24">
@@ -111,6 +153,10 @@ export default function StockReturnCalculatorPage() {
               Initial Investment ($)
             </Label>
             <Input
+              onFocus={() => {
+                hasStartedInputRef.current = true;
+                trackInputStart();
+              }}
               type="number"
               min={1}
               step={1}
@@ -122,6 +168,10 @@ export default function StockReturnCalculatorPage() {
           <div>
             <Label className="text-sm text-gray-600">Final Value ($)</Label>
             <Input
+              onFocus={() => {
+                hasStartedInputRef.current = true;
+                trackInputStart();
+              }}
               type="number"
               min={1}
               step={1}
@@ -135,6 +185,10 @@ export default function StockReturnCalculatorPage() {
               Investment Duration (Years)
             </Label>
             <Input
+              onFocus={() => {
+                hasStartedInputRef.current = true;
+                trackInputStart();
+              }}
               type="number"
               min={1}
               max={MAX_YEARS}
@@ -149,7 +203,7 @@ export default function StockReturnCalculatorPage() {
         <Separator className="my-12" />
 
         {/* Results */}
-        <div>
+        <div ref={resultsRef}>
           {result && (
             <>
               <ResultRow label="CAGR" value={`${result.cagr.toFixed(2)} %`} />
