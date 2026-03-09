@@ -119,10 +119,10 @@ export default function HeroSection() {
                 }
 
                 @media (max-width: 320px) {
-                    .hero-headline { font-size: 38px; letter-spacing: -1px; }
+                    .hero-headline { font-size: 32px; letter-spacing: 0px; }
                 }
                 @media (min-width: 321px) and (max-width: 480px) {
-                    .hero-headline { font-size: 42px; letter-spacing: -1.5px; }
+                    .hero-headline { font-size: 32px; letter-spacing: 0px; }
                 }
                 @media (min-width: 481px) and (max-width: 767px) {
                     .hero-headline { font-size: 52px; }
