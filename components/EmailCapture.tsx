@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { trackEmailSignup } from '@/lib/analytics';
 
 export default function EmailCapture() {
     const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ export default function EmailCapture() {
         e.preventDefault();
         if (email.includes('@')) {
             setSubmitted(true);
+            trackEmailSignup({ location: 'homepage_email_capture' });
         }
     };
 

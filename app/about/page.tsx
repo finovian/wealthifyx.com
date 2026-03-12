@@ -108,14 +108,14 @@ export default function AboutPage() {
       <main className="min-h-screen">
 
         {/* ── Hero ── */}
-        <section className="bg-[var(--bg-subtle)] border-b border-[var(--border)] p-[90px_48px_60px] max-[1023px]:p-[80px_32px_48px] max-[767px]:p-[72px_20px_40px]">
+        <section className="bg-[var(--bg-subtle)] border-b border-[var(--border)] p-[90px_48px_60px] md:max-lg:p-[80px_32px_48px] max-md:p-[80px_20px_40px]">
           <div className="max-w-[1100px] m-[0_auto]">
             <span className="section-eyebrow block mb-[16px]">{'// ABOUT WEALTHIFYX'}</span>
-            <h1 className="font-sans font-[400] tracking-[-2px] leading-[1.05] text-[var(--text-primary)] m-[0_0_24px_0] text-[clamp(36px,6vw,64px)] max-[767px]:text-[36px] max-[767px]:tracking-[-1px]">
+            <h1 className="font-sans font-[400] tracking-[-2px] leading-[1.05] text-[var(--text-primary)] m-[0_0_24px_0] text-[clamp(36px,6vw,64px)] max-md:text-[36px] max-md:tracking-[-1px]">
               Finance tools built for <br className="hidden md:block" />
               <span className="text-[var(--accent)] ">investors, not accountants.</span>
             </h1>
-            <p className="font-sans text-[18px] max-[1023px]:text-[17px] max-[767px]:text-[15px] text-[var(--text-muted)] leading-[1.7] max-w-[680px] m-[0]">
+            <p className="font-sans text-[18px] md:max-lg:text-[17px] max-md:text-[15px] text-[var(--text-muted)] leading-[1.7] max-w-[680px] m-[0]">
               Most finance calculators are either paywalled, account-gated, or quietly harvest your data.
               WealthifyX exists to fix that — free, private, precise tools that work for anyone
               trying to understand their money.
@@ -140,11 +140,11 @@ export default function AboutPage() {
         </section>
 
         {/* ── Stats bar ── */}
-        <section className="bg-[var(--bg-base)] border-b border-[var(--border)] p-[24px_48px] max-[1023px]:p-[24px_32px] max-[767px]:p-[24px_20px]">
+        <section className="bg-[var(--bg-base)] border-b border-[var(--border)] p-[24px_48px] md:max-lg:p-[24px_32px] max-md:p-[24px_20px]">
           <div className="max-w-[1100px] m-[0_auto] grid grid-cols-2 md:grid-cols-4 gap-[24px] md:gap-0 md:divide-x md:divide-[var(--border)]">
             {stats.map((s) => (
               <div key={s.label} className="flex flex-col items-start md:items-center md:px-[24px] gap-[4px]">
-                <span className="font-mono text-[28px] md:text-[32px] font-[500] text-[var(--text-primary)] leading-none">
+                <span className="font-sans text-[28px] md:text-[32px] font-[500] text-[var(--text-primary)] leading-none">
                   {s.value}
                 </span>
                 <span className="font-sans text-[11px] text-[var(--text-faint)] uppercase tracking-[1px]">
@@ -156,25 +156,25 @@ export default function AboutPage() {
         </section>
 
         {/* ── Mission / Values ── */}
-        <section id="mission" className="p-[80px_48px] max-[1023px]:p-[64px_32px] max-[767px]:p-[48px_20px] bg-[var(--bg-base)]">
+        <section id="mission" className="p-[80px_48px] md:max-lg:p-[64px_32px] max-md:p-[48px_20px] bg-[var(--bg-base)]">
           <div className="max-w-[1100px] m-[0_auto]">
-            <div className="section-header mb-[48px] max-[767px]:mb-[32px]">
+            <div className="section-header mb-[48px] max-md:mb-[32px]">
               <span className="section-eyebrow">{'// OUR MISSION'}</span>
               <h2 className="section-heading mt-[8px]">What we stand for.</h2>
               <p className="section-subtext max-w-[560px] mt-[12px]">
                 Four principles that govern every decision we make — from how we write formulas to how we pay the bills.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-[16px] md:gap-[20px]">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-[16px] md:gap-[20px]">
               {values.map((v, i) => {
                 const Icon = v.icon;
                 return (
-                  <div key={i} className="card p-[32px] max-[1023px]:p-[28px] max-[767px]:p-[24px] flex flex-col gap-[16px]">
-                    <div className="w-[48px] h-[48px] max-[767px]:w-[40px] max-[767px]:h-[40px] rounded-xl bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-[var(--accent)] shrink-0">
+                  <div key={i} className="card p-[32px] md:max-lg:p-[28px] max-md:p-[24px] flex flex-col gap-[16px]">
+                    <div className="w-[48px] h-[48px] max-md:w-[40px] max-md:h-[40px] rounded-xl bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-[var(--accent)] shrink-0">
                       <Icon size={22} aria-hidden="true" />
                     </div>
                     <div>
-                      <h3 className="font-sans font-semibold text-[17px] max-[767px]:text-[16px] text-[var(--text-primary)] mb-[8px] leading-snug">
+                      <h3 className="font-sans font-semibold text-[17px] max-md:text-[16px] text-[var(--text-primary)] mb-[8px] leading-snug">
                         {v.title}
                       </h3>
                       <p className="font-sans text-[14px] md:text-[15px] text-[var(--text-muted)] leading-[1.65] m-0">
@@ -189,11 +189,11 @@ export default function AboutPage() {
         </section>
 
         {/* ── How it works ── */}
-        <section id="how-it-works" className="p-[80px_48px] max-[1023px]:p-[64px_32px] max-[767px]:p-[48px_20px] bg-[var(--bg-subtle)] border-y border-[var(--border)]">
+        <section id="how-it-works" className="p-[80px_48px] md:max-lg:p-[64px_32px] max-md:p-[48px_20px] bg-[var(--bg-subtle)] border-y border-[var(--border)]">
           <div className="max-w-[1100px] m-[0_auto] grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-[48px] lg:gap-[64px] items-center">
             <div>
               <span className="section-eyebrow mb-[16px] block">{'// HOW IT WORKS'}</span>
-              <h2 className="section-heading mb-[24px] max-[767px]:mb-[16px]">How is this free?</h2>
+              <h2 className="section-heading mb-[24px] max-md:mb-[16px]">How is this free?</h2>
               <div className="font-sans text-[15px] md:text-[16px] text-[var(--text-muted)] leading-[1.8] flex flex-col gap-[20px]">
                 <p>
                   WealthifyX is a labor of love. We believe professional-grade financial modeling
@@ -223,7 +223,7 @@ export default function AboutPage() {
                 ].map((row) => (
                   <div key={row.label} className="flex items-center justify-between gap-[16px]">
                     <span className="font-sans text-[13px] text-[var(--text-muted)]">{row.label}</span>
-                    <span className={`font-mono text-[11px] font-[500] px-[8px] py-[2px] rounded-full border ${
+                    <span className={`font-sans text-[11px] font-[500] px-[8px] py-[2px] rounded-full border ${
                       row.pct === 'Never'
                         ? 'bg-red-50 border-red-100 text-red-500'
                         : row.pct === 'Primary'
@@ -245,21 +245,21 @@ export default function AboutPage() {
                 </div>
                 <div className="flex flex-col gap-[24px]">
                   <div>
-                    <div className="font-mono text-[56px] max-[767px]:text-[48px] font-[500] text-[var(--text-primary)] leading-none">0</div>
+                    <div className="font-sans text-[56px] max-md:text-[48px] font-[500] text-[var(--text-primary)] leading-none">0</div>
                     <div className="font-sans text-[12px] text-[var(--text-faint)] uppercase tracking-[1px] mt-[8px]">
                       Data points ever stored
                     </div>
                   </div>
                   <div className="w-full h-px bg-[var(--border)]" />
                   <div>
-                    <div className="font-mono text-[56px] max-[767px]:text-[48px] font-[500] text-[var(--text-primary)] leading-none">100%</div>
+                    <div className="font-sans text-[56px] max-md:text-[48px] font-[500] text-[var(--text-primary)] leading-none">100%</div>
                     <div className="font-sans text-[12px] text-[var(--text-faint)] uppercase tracking-[1px] mt-[8px]">
                       Client-side math
                     </div>
                   </div>
                   <div className="w-full h-px bg-[var(--border)]" />
                   <div>
-                    <div className="font-mono text-[56px] max-[767px]:text-[48px] font-[500] text-[var(--accent)] leading-none">∞</div>
+                    <div className="font-sans text-[56px] max-md:text-[48px] font-[500] text-[var(--accent)] leading-none">∞</div>
                     <div className="font-sans text-[12px] text-[var(--text-faint)] uppercase tracking-[1px] mt-[8px]">
                       Calculations available
                     </div>
@@ -273,9 +273,9 @@ export default function AboutPage() {
         </section>
 
         {/* ── The Math ── */}
-        <section id="the-math" className="p-[80px_48px] max-[1023px]:p-[64px_32px] max-[767px]:p-[48px_20px] bg-[var(--bg-base)]">
+        <section id="the-math" className="p-[80px_48px] md:max-lg:p-[64px_32px] max-md:p-[48px_20px] bg-[var(--bg-base)]">
           <div className="max-w-[1100px] m-[0_auto]">
-            <div className="section-header mb-[48px] max-[767px]:mb-[32px]">
+            <div className="section-header mb-[48px] max-md:mb-[32px]">
               <span className="section-eyebrow">{'// THE MATH'}</span>
               <h2 className="section-heading mt-[8px]">Why our numbers are different.</h2>
               <p className="section-subtext max-w-[600px] mt-[12px]">
@@ -283,7 +283,7 @@ export default function AboutPage() {
                 Here's exactly what we do differently.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-[16px] md:gap-[20px]">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-[16px] md:gap-[20px]">
               {[
                 {
                   icon: Calculator,
@@ -319,7 +319,7 @@ export default function AboutPage() {
         </section>
 
         {/* ── Tools list ── */}
-        <section className="p-[80px_48px] max-[1023px]:p-[64px_32px] max-[767px]:p-[48px_20px] bg-[var(--bg-subtle)] border-y border-[var(--border)]">
+        <section className="p-[80px_48px] md:max-lg:p-[64px_32px] max-md:p-[48px_20px] bg-[var(--bg-subtle)] border-y border-[var(--border)]">
           <div className="max-w-[1100px] m-[0_auto]">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-[48px] items-start">
               <div>
@@ -355,18 +355,18 @@ export default function AboutPage() {
         <FAQSection faqs={faqs} id="faq" />
 
         {/* ── Final CTA ── */}
-        <section className="p-[100px_48px] max-[1023px]:p-[80px_32px] max-[767px]:p-[64px_20px] bg-[var(--bg-subtle)] border-t border-[var(--border)] text-center">
+        <section className="p-[100px_48px] md:max-lg:p-[80px_32px] max-md:p-[64px_20px] bg-[var(--bg-subtle)] border-t border-[var(--border)] text-center">
           <div className="max-w-[640px] m-[0_auto]">
             <span className="section-eyebrow mb-[16px] block">{'// GET STARTED'}</span>
             <h2 className="section-heading mb-[20px]">Ready to run the numbers?</h2>
-            <p className="section-subtext mb-[32px] max-[767px]:text-[14px]">
+            <p className="section-subtext mb-[32px] max-md:text-[14px]">
               No account. No credit card. No data collected. Just open a tool and start calculating.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-[12px]">
-              <a href="/tools" className="btn-primary px-[32px] py-[12px] text-[15px] max-[767px]:w-full no-underline">
+              <a href="/tools" className="btn-primary px-[32px] py-[12px] text-[15px] max-md:w-full no-underline">
                 Browse All Tools →
               </a>
-              <a href="/tools/compound-interest-calculator" className="btn-ghost px-[32px] py-[12px] text-[15px] max-[767px]:w-full no-underline">
+              <a href="/tools/compound-interest-calculator" className="btn-ghost px-[32px] py-[12px] text-[15px] max-md:w-full no-underline">
                 Try Calculator
               </a>
             </div>

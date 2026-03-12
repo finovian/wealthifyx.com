@@ -8,12 +8,17 @@
    TAILWIND v4 THEME TOKENS
    ======================================== */
 @theme inline {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
   --color-background: var(--bg-base);
   --color-foreground: var(--text-primary);
 
-  --font-serif: "Ubuntu", serif;
+  --font-serif: "Instrument Serif", serif;
   --font-sans: "DM Sans", sans-serif;
-  --font-mono: "Ubuntu", sans-serif;
+  --font-mono: "DM Mono", monospace;
   --font-ubuntu: "Ubuntu", sans-serif;
 
   --color-accent: var(--accent);
@@ -479,20 +484,40 @@ input[type="number"] {
 }
 
 /* ========================================
-   SCROLLBAR
+   SCROLLBAR — CLEAN & MINIMAL
    ======================================== */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
+  height: 5px;
 }
+
 ::-webkit-scrollbar-track {
-  background: var(--bg-subtle);
+  background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--border-strong);
-  border-radius: 3px;
+  border-radius: 10px;
+  transition: background 0.2s ease;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-faint);
+}
+
+/* Firefox Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* ========================================
@@ -524,7 +549,7 @@ input[type="number"] {
   .section-wrapper {
     padding-left: 20px !important;
     padding-right: 20px !important;
-    padding-top: 48px !important;
+    padding-top: 68px !important;
     padding-bottom: 48px !important;
   }
 

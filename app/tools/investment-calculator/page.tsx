@@ -1,18 +1,21 @@
-import CompoundInterestCalculator from "@/components/tools/CompoundInterestCalculator";
-import { faqs } from "@/constants/compound-interest";
 import type { Metadata } from "next";
 
 
+import InvestmentCalculator from "@/components/tools/InvestmentCalculator";
+import { faqs } from "@/constants/investment-calculator";
+
 export const metadata: Metadata = {
-  title: "Compound Interest Calculator",
-  description: "Calculate how your money grows with compound interest. Supports monthly contributions, daily/monthly/quarterly/annual compounding. Free, no sign-up.",
+  title: "Investment Calculator",
+  description:
+    "Calculate how your investment grows over time with compound returns. Set your initial amount, expected return rate, time horizon, and monthly contributions. Free, no sign-up.",
   alternates: {
-    canonical: "https://wealthifyx.com/tools/compound-interest-calculator",
+    canonical: "https://wealthifyx.com/tools/investment-calculator",
   },
   openGraph: {
-    title: "Compound Interest Calculator",
-    description: "See exactly how compound interest grows your money over time.",
-    url: "https://wealthifyx.com/tools/compound-interest-calculator",
+    title: "Investment Calculator",
+    description:
+      "Project the future value of any investment with compound growth. Free calculator, no account required.",
+    url: "https://wealthifyx.com/tools/investment-calculator",
     type: "website",
   },
 };
@@ -43,12 +46,12 @@ export default function Page() {
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: "https://wealthifyx.com" },
               { "@type": "ListItem", position: 2, name: "Tools", item: "https://wealthifyx.com/tools" },
-              { "@type": "ListItem", position: 3, name: "Compound Interest Calculator", item: "https://wealthifyx.com/tools/compound-interest-calculator" },
+              { "@type": "ListItem", position: 3, name: "Investment Calculator", item: "https://wealthifyx.com/tools/investment-calculator" },
             ],
           }),
         }}
       />
-      <CompoundInterestCalculator />
+      <InvestmentCalculator />
     </>
   );
 }

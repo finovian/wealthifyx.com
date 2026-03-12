@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { Lock, Shield, Zap } from 'lucide-react';
+import { trackCTAClick } from '@/lib/analytics';
 
 /* ============================================
    ANIMATED COUNTER COMPONENT
@@ -109,7 +110,7 @@ export default function HeroSection() {
             <div className="section-header w-[100%] flex flex-col">
                 {/* Badge (Eyebrow equivalent) */}
                 <div
-                    className="animate-fade-up delay-1 mb-[24px] self-center max-[767px]:self-start"
+                    className="animate-fade-up delay-1 mb-[24px] self-center max-md:self-start"
                 >
                     <div
                         className="inline-flex items-center gap-[8px] bg-[var(--accent-bg)] border-[1px] border-[var(--accent-border)] rounded-[100px] py-[5px] px-[14px]"
@@ -126,7 +127,7 @@ export default function HeroSection() {
                 </div>
 
                 {/* Main headline */}
-                <h1 className="animate-fade-up delay-2 font-sans font-[400] tracking-[-2px] max-[480px]:tracking-[0px] leading-[1.05] text-[var(--text-primary)] m-[0_auto_20px] max-w-[820px] text-center text-[clamp(56px,7vw,85px)] max-[767px]:text-left max-[767px]:ml-[0] max-[767px]:text-[52px] max-[480px]:text-[32px]">
+                <h1 className="animate-fade-up delay-2 font-sans font-[400] tracking-[-2px] max-sm:tracking-[0px] leading-[1.05] text-[var(--text-primary)] m-[0_auto_20px] max-w-[820px] text-center text-[clamp(56px,7vw,85px)] max-md:text-left max-md:ml-[0] max-md:text-[52px] max-sm:text-[32px]">
                     The smartest way to
                     <br />
                     <span style={{ position: 'relative', display: 'inline-block', color : 'var(--accent)' }}>
@@ -138,31 +139,36 @@ export default function HeroSection() {
                 </h1>
 
                 {/* Subheadline */}
-                <p className="animate-fade-up delay-3 font-sans text-[18px] max-[480px]:text-[15px] font-[400] text-[var(--text-muted)] leading-[1.7] max-[480px]:leading-[1.65] mb-[28px] text-center max-[767px]:text-left max-[767px]:max-w-[100%]">
+                <p className="animate-fade-up delay-3 font-sans text-[18px] max-sm:text-[15px] font-[400] text-[var(--text-muted)] leading-[1.7] max-sm:leading-[1.65] mb-[28px] text-center max-md:text-left max-md:max-w-[100%]">
                     Free finance calculators built for investors who want precision, not guesswork.
                     No accounts. No data stored. Always free.
                 </p>
             </div>
 
             {/* CTA Row */}
-            <div className="animate-fade-up delay-4 flex gap-[10px] mb-[28px] flex-wrap justify-center max-[767px]:justify-start max-[480px]:flex-col max-[480px]:w-[100%]">
+            <div className="animate-fade-up delay-4 flex gap-[10px] mb-[28px] flex-wrap justify-center max-md:justify-start max-sm:flex-col max-sm:w-[100%]">
                 <a
                   href="/tools"
-                    className="btn-primary py-[12px] px-[28px] text-[15px] no-underline max-[480px]:w-[100%] max-[480px]:justify-center max-[480px]:h-[50px] max-[480px]:text-center"
+                  onClick={() => trackCTAClick({
+                    cta_label: 'Explore All Tools',
+                    cta_location: 'hero',
+                    href: '/tools',
+                  })}
+                    className="btn-primary py-[12px] px-[28px] text-[15px] no-underline max-sm:w-[100%] max-sm:justify-center max-sm:h-[50px] max-sm:text-center"
                 >
                     Explore All Tools →
                 </a>
      
                 <a
                     href="#features"
-                    className="btn-ghost py-[12px] px-[28px] text-[15px] no-underline max-[480px]:w-[100%] max-[480px]:justify-center max-[480px]:h-[50px] max-[480px]:text-center"
+                    className="btn-ghost py-[12px] px-[28px] text-[15px] no-underline max-sm:w-[100%] max-sm:justify-center max-sm:h-[50px] max-sm:text-center"
                 >
                     How it works
                 </a>
             </div>
 
             {/* Trust Row — no dividers, uses gap only */}
-            <div className="animate-fade-up delay-5 flex items-center justify-center max-[767px]:justify-start flex-wrap gap-[12px_20px] mb-[0]">
+            <div className="animate-fade-up delay-5 flex items-center justify-center max-md:justify-start flex-wrap gap-[12px_20px] mb-[0]">
                 {[
                     { icon: <Lock size={14} />, text: 'No Accounts' },
                     { icon: <Shield size={14} />, text: 'No Data Stored' },
@@ -182,11 +188,11 @@ export default function HeroSection() {
             </div>
 
             {/* Stats Strip */}
-            <div className="animate-fade-up delay-6 flex gap-[16px] mt-[48px] justify-center max-w-[860px] w-[100%] max-[767px]:mt-[32px] max-[640px]:flex-col max-[640px]:gap-[10px] max-[640px]:max-w-[100%]">
+            <div className="animate-fade-up delay-6 flex gap-[16px] mt-[48px] justify-center max-w-[860px] w-[100%] max-md:mt-[32px] max-sm:flex-col max-sm:gap-[10px] max-sm:max-w-[100%]">
                 {[
                     {
                         label: 'S&P 500 CAGR (10Y)',
-                        value: 10.7,
+                        value: 14,
                         suffix: '%',
                         color: 'var(--positive)',
                         decimals: 1,
@@ -208,10 +214,10 @@ export default function HeroSection() {
                 ].map((stat, i) => (
                     <div
                         key={i}
-                        className="card flex flex-col gap-[6px] flex-[1] p-[24px_32px] text-center max-[640px]:p-[14px_16px] max-[640px]:flex-row max-[640px]:items-center max-[640px]:justify-between max-[640px]:gap-[12px]"
+                        className="card flex flex-col gap-[6px] flex-[1] p-[24px_32px] text-center max-sm:p-[14px_16px] max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-[12px]"
                     >
                         <span
-                            className="font-ubuntu text-[10px] max-[640px]:text-[11px] font-[500] tracking-[1.5px] uppercase text-[var(--text-faint)] max-[640px]:text-left max-[640px]:flex-[1] max-[640px]:whitespace-nowrap"
+                            className="font-ubuntu text-[10px] max-sm:text-[11px] font-[500] tracking-[1.5px] uppercase text-[var(--text-faint)] max-sm:text-left max-sm:flex-[1] max-sm:whitespace-nowrap"
                         >
                             {stat.label}
                         </span>

@@ -17,11 +17,11 @@ export default function SocialProofBar() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.45, ease: 'easeOut' }}
-            className="w-[100%] bg-[var(--bg-subtle)] border-y-[1px] border-y-[var(--border)] mt-[0] p-[16px_48px] max-[767px]:p-[14px_20px] max-[767px]:flex max-[767px]:flex-col max-[767px]:align-center max-[767px]:text-center max-[767px]:gap-[6px]"
+            className="w-[100%] bg-[var(--bg-subtle)] border-y-[1px] border-y-[var(--border)] mt-[0] p-[16px_48px] max-md:p-[14px_20px] max-md:flex max-md:flex-col max-md:align-center max-md:text-center max-md:gap-[6px]"
         >
             {/* Desktop layout */}
             <div
-                className="max-w-[1100px] m-[0_auto] flex items-center justify-between gap-[12px] max-[767px]:hidden"
+                className="max-w-[1100px] m-[0_auto] flex items-center justify-between gap-[12px] max-md:hidden"
             >
                 <span
                     className="font-sans text-[10px] font-[500] tracking-[1.5px] uppercase text-[var(--text-faint)] whitespace-nowrap shrink-0"
@@ -37,7 +37,7 @@ export default function SocialProofBar() {
 
             {/* Mobile layout — stacked, centered, flags in a wrap row */}
             <div
-                className="max-w-[1100px] m-[0_auto] hidden flex-col items-center gap-[10px] text-center max-[767px]:flex"
+                className="max-w-[1100px] m-[0_auto] hidden flex-col items-center gap-[10px] text-center max-md:flex"
             >
                 <span
                     className="font-sans text-[10px] font-[500] tracking-[1.5px] uppercase text-[var(--text-faint)]"

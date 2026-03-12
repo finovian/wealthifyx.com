@@ -181,14 +181,14 @@ export default function MethodologyPage() {
 
       <main className="min-h-screen">
         {/* ── Hero ── */}
-        <section className="bg-[var(--bg-subtle)] border-b border-[var(--border)] p-[90px_48px_60px] max-[1023px]:p-[80px_32px_48px] max-[767px]:p-[72px_20px_40px]">
+        <section className="bg-[var(--bg-subtle)] border-b border-[var(--border)] p-[90px_48px_60px] md:max-lg:p-[80px_32px_48px] max-md:p-[80px_20px_40px]">
           <div className="max-w-[1100px] m-[0_auto]">
             <span className="section-eyebrow block mb-[16px]">{'// METHODOLOGY'}</span>
-            <h1 className="font-sans font-[400] tracking-[-2px] leading-[1.05] text-[var(--text-primary)] m-[0_0_24px_0] text-[clamp(40px,6vw,64px)] max-[767px]:text-[36px] max-[767px]:tracking-[-1px]">
+            <h1 className="font-sans font-[400] tracking-[-2px] leading-[1.05] text-[var(--text-primary)] m-[0_0_24px_0] text-[clamp(40px,6vw,64px)] max-md:text-[36px] max-md:tracking-[-1px]">
               How our finance <br className="hidden md:block" />
               <span className="text-[var(--accent)] ">calculators work.</span>
             </h1>
-            <p className="font-sans text-[18px] max-[1023px]:text-[17px] max-[767px]:text-[15px] text-[var(--text-muted)] leading-[1.7] max-w-[720px] m-[0]">
+            <p className="font-sans text-[18px] md:max-lg:text-[17px] max-md:text-[15px] text-[var(--text-muted)] leading-[1.7] max-w-[720px] m-[0]">
               We use the same financial formulas taught in CFA and CFP certification programs — with full 
               floating-point precision and zero intermediate rounding. Here&apos;s exactly how every calculation works.
             </p>
@@ -196,9 +196,9 @@ export default function MethodologyPage() {
         </section>
 
         {/* ── Section 1: Precision Standards ── */}
-        <section className="p-[80px_48px] max-[1023px]:p-[64px_32px] max-[767px]:p-[48px_20px] bg-[var(--bg-base)]">
+        <section className="p-[80px_48px] md:max-lg:p-[64px_32px] max-md:p-[48px_20px] bg-[var(--bg-base)]">
           <div className="max-w-[1100px] m-[0_auto]">
-            <div className="grid grid-cols-[1fr_1.5fr] max-[1023px]:grid-cols-[1fr] gap-[48px] items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-[48px] items-start">
               <div>
                 <span className="section-eyebrow mb-[12px]">{'// MATH STANDARDS'}</span>
                 <h2 className="section-heading mb-[16px]">Precision Standards</h2>
@@ -223,13 +223,13 @@ export default function MethodologyPage() {
 
               {/* Comparison Table */}
               <div className="card overflow-hidden">
-                <div className="grid grid-cols-[1.5fr_1fr_1fr] bg-[var(--bg-subtle)] border-b border-[var(--border)] p-[14px_20px] max-[640px]:p-[12px_16px]">
+                <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[var(--bg-subtle)] border-b border-[var(--border)] p-[14px_20px] max-sm:p-[12px_16px]">
                   <div className="font-mono text-[10px] uppercase tracking-[1.5px] text-[var(--text-faint)]">What</div>
-                  <div className="font-mono text-[10px] uppercase tracking-[1.5px] text-[var(--text-faint)]">Typical Tool</div>
+                  <div className="font-mono text-[10px] uppercase tracking-[1.5px] text-[var(--text-faint)]">Typical</div>
                   <div className="font-mono text-[10px] uppercase tracking-[1.5px] text-[var(--text-faint)]">WealthifyX</div>
                 </div>
                 {comparisonData.map((row, i) => (
-                  <div key={i} className={`grid grid-cols-[1.5fr_1fr_1fr] p-[14px_20px] max-[640px]:p-[12px_16px] border-b border-[var(--border)] last:border-0 ${i % 2 === 0 ? 'bg-[var(--bg-card)]' : 'bg-[var(--bg-subtle)]'}`}>
+                  <div key={i} className={`grid grid-cols-[1.2fr_1fr_1fr] p-[14px_20px] max-sm:p-[12px_16px] border-b border-[var(--border)] last:border-0 ${i % 2 === 0 ? 'bg-[var(--bg-card)]' : 'bg-[var(--bg-subtle)]'}`}>
                     <div className="font-sans text-[13px] text-[var(--text-primary)] font-[500] pr-4">{row.label}</div>
                     <div className="font-sans text-[12px] text-[var(--text-muted)] pr-4">{row.typical}</div>
                     <div className="font-sans text-[12px] text-[var(--accent)] font-[600]">{row.wealthify}</div>
@@ -241,9 +241,9 @@ export default function MethodologyPage() {
         </section>
 
         {/* ── Section 2: Formulas ── */}
-        <section className="p-[80px_48px] max-[1023px]:p-[64px_32px] max-[767px]:p-[48px_20px] bg-[var(--bg-subtle)] border-y border-[var(--border)]">
+        <section className="p-[80px_48px] md:max-lg:p-[64px_32px] max-md:p-[48px_20px] bg-[var(--bg-subtle)] border-y border-[var(--border)]">
           <div className="max-w-[1100px] m-[0_auto]">
-            <div className="section-header mb-[48px] max-[767px]:mb-[32px]">
+            <div className="section-header mb-[48px] max-md:mb-[32px]">
               <span className="section-eyebrow">{'// FORMULARY'}</span>
               <h2 className="section-heading">Formula transparency.</h2>
               <p className="section-subtext max-w-[600px]">The exact mathematical logic powering our calculator suite.</p>
@@ -251,11 +251,11 @@ export default function MethodologyPage() {
 
             <div className="flex flex-col gap-[24px]">
               {formulas.map((f) => (
-                <div key={f.name} className="card p-[40px] max-[767px]:p-[24px]">
+                <div key={f.name} className="card p-[40px] max-md:p-[24px]">
                   <span className="font-mono text-[10px] text-[var(--text-faint)] uppercase tracking-[2px] block mb-[20px]">
                     {f.eyebrow}
                   </span>
-                  <div className="font-mono text-[28px] max-[767px]:text-[18px] text-[var(--accent)] tracking-[1px] mb-[32px] pb-[24px] border-b border-[var(--border)] overflow-x-auto whitespace-nowrap scrollbar-none">
+                  <div className="font-sans text-[28px] max-md:text-[18px] text-[var(--accent)] tracking-[1px] mb-[32px] pb-[24px] border-b border-[var(--border)] overflow-x-auto whitespace-nowrap scrollbar-none">
                     {f.formula}
                     {f.secondaryFormula && (
                       <div className="mt-[12px] pt-[12px] border-t border-[var(--border)] opacity-80">
@@ -263,16 +263,16 @@ export default function MethodologyPage() {
                       </div>
                     )}
                   </div>
-                  <div className="grid grid-cols-2 max-[640px]:grid-cols-1 gap-x-[40px] gap-y-[12px]">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[40px] gap-y-[12px]">
                     {f.variables.map((v) => (
                       <div key={v.sym} className="flex gap-[16px] items-baseline border-b border-[var(--border)] border-dotted pb-[8px]">
-                        <span className="font-mono text-[13px] font-[600] text-[var(--accent)] w-[32px] shrink-0">{v.sym}</span>
-                        <span className="font-sans text-[14px] text-[var(--text-muted)] leading-tight">{v.def}</span>
+                        <span className="font-sans text-[13px] font-[600] text-[var(--accent)] w-[32px] shrink-0">{v.sym}</span>
+                        <span className="font-sans text-[14px] text-[var(--text-muted)] leading-[1.5]">{v.def}</span>
                       </div>
                     ))}
                   </div>
                   <div className="mt-[32px] pt-[24px] border-t border-[var(--border)]">
-                    <a href={`/tools/${f.id}`} className="font-ubuntu text-[13px] font-[600] text-[var(--text-primary)] no-underline flex items-center gap-[8px] hover:text-[var(--accent)] transition-colors group">
+                    <a href={`/tools/${f.id}`} className="font-sans text-[13px] font-[600] text-[var(--text-primary)] no-underline flex items-center gap-[8px] hover:text-[var(--accent)] transition-colors group">
                       Use this calculator <ArrowRight size={14} className="group-hover:translate-x-[4px] transition-transform" />
                     </a>
                   </div>
@@ -283,15 +283,15 @@ export default function MethodologyPage() {
         </section>
 
         {/* ── Section 3: Edge Cases ── */}
-        <section className="p-[80px_48px] max-[1023px]:p-[64px_32px] max-[767px]:p-[48px_20px] bg-[var(--bg-base)]">
+        <section className="p-[80px_48px] md:max-lg:p-[64px_32px] max-md:p-[48px_20px] bg-[var(--bg-base)]">
           <div className="max-w-[1100px] m-[0_auto]">
-            <div className="section-header mb-[48px] max-[767px]:mb-[32px]">
+            <div className="section-header mb-[48px] max-md:mb-[32px]">
               <span className="section-eyebrow">{'// PRECISION DETAILS'}</span>
               <h2 className="section-heading">Edge cases we handle correctly.</h2>
             </div>
-            <div className="grid grid-cols-2 max-[767px]:grid-cols-1 gap-[24px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
               {edgeCases.map((item, i) => (
-                <div key={i} className="card p-[32px] max-[767px]:p-[24px] flex flex-col gap-[16px]">
+                <div key={i} className="card p-[32px] max-md:p-[24px] flex flex-col gap-[16px]">
                   <div className="w-[40px] h-[40px] rounded-[10px] bg-[var(--bg-subtle)] border border-[var(--border)] flex items-center justify-center text-[var(--text-primary)]">
                     <item.icon size={20} />
                   </div>
@@ -306,13 +306,13 @@ export default function MethodologyPage() {
         </section>
 
         {/* ── Section 4: Disclosures ── */}
-        <section className="p-[80px_48px] max-[1023px]:p-[64px_32px] max-[767px]:p-[48px_20px] bg-[var(--bg-subtle)] border-y border-[var(--border)]">
+        <section className="p-[80px_48px] md:max-lg:p-[64px_32px] max-md:p-[48px_20px] bg-[var(--bg-subtle)] border-y border-[var(--border)]">
           <div className="max-w-[1100px] m-[0_auto]">
-            <div className="section-header mb-[48px] max-[767px]:mb-[32px]">
+            <div className="section-header mb-[48px] max-md:mb-[32px]">
               <span className="section-eyebrow">{'// DISCLOSURES'}</span>
               <h2 className="section-heading">Important Caveats</h2>
             </div>
-            <div className="grid grid-cols-2 max-[767px]:grid-cols-1 gap-[24px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
               {disclosures.map((item, i) => (
                 <div key={i} className="card p-[24px] border-l-[4px] border-l-[#f59e0b]">
                   <div className="flex items-center gap-[10px] mb-[12px]">
@@ -330,18 +330,18 @@ export default function MethodologyPage() {
         <FAQSection faqs={faqs} id="faq" />
 
         {/* ── Final CTA ── */}
-        <section className="p-[100px_48px] max-[1023px]:p-[80px_32px] max-[767px]:p-[64px_20px] bg-[var(--bg-subtle)] border-t border-[var(--border)] text-center">
+        <section className="p-[100px_48px] md:max-lg:p-[80px_32px] max-md:p-[64px_20px] bg-[var(--bg-subtle)] border-t border-[var(--border)] text-center">
           <div className="max-w-[700px] m-[0_auto]">
             <span className="section-eyebrow block mb-[16px]">{'// GET STARTED'}</span>
-            <h2 className="section-heading mb-[20px] max-[767px]:mb-[12px]">See the math in action.</h2>
-            <p className="section-subtext mb-[32px] max-[767px]:mb-[24px] m-[0_auto] max-[767px]:text-[14px]">
+            <h2 className="section-heading mb-[20px] max-md:mb-[12px]">See the math in action.</h2>
+            <p className="section-subtext mb-[32px] max-md:mb-[24px] m-[0_auto] max-md:text-[14px]">
               Every formula on this page powers a live calculator. Open any tool and run your own numbers — free, no account required.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-[12px]">
-              <a href="/tools" className="btn-primary inline-flex py-[14px] px-[32px] max-[767px]:px-[28px] max-[767px]:h-[50px] text-[16px] max-[767px]:text-[15px] no-underline">
+              <a href="/tools" className="btn-primary inline-flex py-[14px] px-[32px] max-md:px-[28px] max-md:h-[50px] text-[16px] max-md:text-[15px] no-underline">
                 Browse All Calculators →
               </a>
-              <a href="/tools/compound-interest-calculator" className="btn-ghost inline-flex py-[14px] px-[32px] max-[767px]:px-[28px] max-[767px]:h-[50px] text-[16px] max-[767px]:text-[15px] no-underline">
+              <a href="/tools/compound-interest-calculator" className="btn-ghost inline-flex py-[14px] px-[32px] max-md:px-[28px] max-md:h-[50px] text-[16px] max-md:text-[15px] no-underline">
                 Compound Interest Calculator
               </a>
             </div>

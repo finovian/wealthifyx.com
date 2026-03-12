@@ -11,8 +11,8 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
-import { TrendingUp, ArrowRight } from "lucide-react";
-import { faqs, relatedTools } from "@/constants/compound-interest";
+import { BarChart3, ArrowRight } from "lucide-react";
+import { faqs, relatedTools } from "@/constants/investment-calculator";
 import FAQSection from "../FAQSection";
 import {
   trackCalculatorResult,
@@ -34,7 +34,7 @@ interface CalcResult {
   }[];
 }
 
-/* ─── Compound Interest Formula ─────────────────────── */
+/* ─── Investment formula ─────────────────────────────── */
 function calculate(
   principal: number,
   rate: number,
@@ -149,19 +149,19 @@ function CurvedUnderline() {
 }
 
 /* ─── Main component ─────────────────────────────────── */
-export default function CompoundInterestCalculator() {
+export default function InvestmentCalculator() {
   const [principal, setPrincipal] = useState("10000");
   const [rate, setRate] = useState("10");
   const [years, setYears] = useState("10");
-  const [frequency, setFrequency] = useState(12);
-  const [contribution, setContribution] = useState("500");
+  const [frequency, setFrequency] = useState(1);
+  const [contribution, setContribution] = useState("");
 
   const debouncedTrackResult = useMemo(
     () =>
       debounce(
         (finalBalance: number, years: number, rate: number, hasContributions: boolean) => {
           trackCalculatorResult({
-            calculator_name: "compound_interest",
+            calculator_name: "investment_calculator",
             final_balance: Math.round(finalBalance),
             years,
             rate,
@@ -192,23 +192,23 @@ export default function CompoundInterestCalculator() {
       <div className="bg-[var(--bg-subtle)] border-b-[1px] border-b-[var(--border)] p-[90px_48px_48px] max-md:p-[80px_20px_28px]">
         <div className="max-w-[1100px] m-[0_auto]">
           <div className="flex items-center justify-center w-fit gap-[6px] bg-[var(--accent-bg)] border-[1px] border-[var(--accent-border)] rounded-[100px] p-[4px_12px] font-sans text-[11px] font-[500] text-[var(--accent)] tracking-[0.5px] m-[0_auto_16px]">
-            <TrendingUp size={13} />
-            <span>Compound Interest Calculator</span>
+            <BarChart3 size={13} />
+            <span>Investment Calculator</span>
           </div>
           <h1 className="font-sans font-[400] tracking-[-2px] leading-[1.05] text-[var(--text-primary)] m-[0_auto_20px] max-w-[860px] text-center text-[clamp(56px,7vw,75px)] max-md:text-[32px] max-md:tracking-[0px] sm:max-md:text-[52px]">
-            Calculate{" "}
+            Calculate how your{" "}
             <span
               className="relative inline-block text-[var(--accent)]"
             >
-              compound
+              investments
               <CurvedUnderline />
             </span>{" "}
-              interest and watch your money grow.
+            grow over time.
           </h1>
           <p className="font-sans text-[16px] max-md:text-[14px] text-[var(--text-muted)] leading-[1.7] max-w-[780px] m-[auto] text-center">
-            See exactly how small monthly contributions grow into significant
-            wealth over time. Supports daily, monthly, and annual compounding
-            with precise mathematical accuracy.
+            Project the future value of any investment with a custom return rate,
+            time horizon, and optional monthly contributions. Uses the same
+            compound growth formula as professional financial models.
           </p>
         </div>
       </div>
@@ -227,7 +227,9 @@ export default function CompoundInterestCalculator() {
 
                 {/* Principal */}
                 <div className="flex flex-col gap-[6px]">
-                  <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-secondary)]">Initial Investment</label>
+                  <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-secondary)] flex items-center gap-[8px]">
+                    Initial Investment
+                  </label>
                   <div className="relative">
                     <span className="absolute left-[14px] top-[50%] -translate-y-[50%] font-ubuntu text-[14px] text-[var(--text-faint)] pointer-events-none">$</span>
                     <input
@@ -238,6 +240,70 @@ export default function CompoundInterestCalculator() {
                       value={principal}
                       onChange={(e) => setPrincipal(e.target.value)}
                     />
+                  </div>
+                </div>
+
+                {/* Rate */}
+                <div className="flex flex-col gap-[6px]">
+                  <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-muted)] flex items-center gap-[8px]">
+                    Expected Annual Return
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      inputMode="decimal"
+                      className="input-field min-h-[46px] pr-[36px]"
+                      placeholder="10"
+                      value={rate}
+                      onChange={(e) => setRate(e.target.value)}
+                    />
+                    <span className="absolute right-[14px] top-[50%] -translate-y-[50%] font-ubuntu text-[14px] text-[var(--text-faint)] pointer-events-none">%</span>
+                  </div>
+                  <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
+                    S&P 500 historical avg: ~10.7% · Bonds: ~4%
+                  </div>
+                </div>
+
+                {/* Years */}
+                <div className="flex flex-col gap-[6px]">
+                  <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-muted)] flex items-center gap-[8px]">
+                    Time Horizon (Years)
+                  </label>
+                  <input
+                    type="number"
+                    inputMode="decimal"
+                    className="input-field min-h-[46px]"
+                    placeholder="10"
+                    value={years}
+                    onChange={(e) => setYears(e.target.value)}
+                  />
+                </div>
+
+                {/* Compounding frequency */}
+                <div className="flex flex-col gap-[6px]">
+                  <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-muted)] flex items-center gap-[8px]">
+                    Compounding Frequency
+                  </label>
+                  <div className="grid grid-cols-[repeat(4,1fr)] max-md:grid-cols-[repeat(2,1fr)] gap-[6px]">
+                    {FREQUENCIES.map((f) => (
+                      <button
+                        key={f.value}
+                        onClick={() => {
+                          setFrequency(f.value);
+                          trackFrequencyChange({
+                            calculator_name: "investment_calculator",
+                            frequency: f.label.toLowerCase() as any,
+                          });
+                        }}
+                        className={`h-[36px] border-[1px] rounded-[8px] font-ubuntu text-[12px] font-[500] cursor-pointer transition-all duration-[0.15s] ease-[ease] ${
+                          frequency === f.value
+                            ? "bg-[var(--accent)] border-[var(--accent)] text-[#fff] font-[700]"
+                            : "border-[var(--border)] bg-[var(--bg-subtle)] text-[var(--text-muted)] hover:border-[var(--accent-border)] hover:text-[var(--accent)] hover:bg-[var(--accent-bg)]"
+                        }`}
+                      >
+                        {f.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
 
@@ -255,68 +321,10 @@ export default function CompoundInterestCalculator() {
                       type="number"
                       inputMode="decimal"
                       className="input-field min-h-[46px] !pl-[22px]"
-                      placeholder="500"
+                      placeholder="0"
                       value={contribution}
                       onChange={(e) => setContribution(e.target.value)}
                     />
-                  </div>
-                </div>
-
-                {/* Rate */}
-                <div className="flex flex-col gap-[6px]">
-                  <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-muted)]">Expected Annual Return</label>
-                  <div className="relative">
-                    <input
-                      type="number"
-                      inputMode="decimal"
-                      className="input-field min-h-[46px] pr-[36px]"
-                      placeholder="10"
-                      value={rate}
-                      onChange={(e) => setRate(e.target.value)}
-                    />
-                    <span className="absolute right-[14px] top-[50%] -translate-y-[50%] font-ubuntu text-[14px] text-[var(--text-faint)] pointer-events-none">%</span>
-                  </div>
-                  <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
-                    S&P 500 historical avg: ~10.7%
-                  </div>
-                </div>
-
-                {/* Years */}
-                <div className="flex flex-col gap-[6px]">
-                  <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-muted)]">Time Horizon (Years)</label>
-                  <input
-                    type="number"
-                    inputMode="decimal"
-                    className="input-field min-h-[46px]"
-                    placeholder="10"
-                    value={years}
-                    onChange={(e) => setYears(e.target.value)}
-                  />
-                </div>
-
-                {/* Compounding frequency */}
-                <div className="flex flex-col gap-[6px]">
-                  <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-muted)]">Compounding Frequency</label>
-                  <div className="grid grid-cols-[repeat(4,1fr)] max-md:grid-cols-[repeat(2,1fr)] gap-[6px]">
-                    {FREQUENCIES.map((f) => (
-                      <button
-                        key={f.value}
-                        onClick={() => {
-                          setFrequency(f.value);
-                          trackFrequencyChange({
-                            calculator_name: "compound_interest",
-                            frequency: f.label.toLowerCase() as any,
-                          });
-                        }}
-                        className={`h-[36px] border-[1px] rounded-[8px] font-ubuntu text-[12px] font-[500] cursor-pointer transition-all duration-[0.15s] ease-[ease] ${
-                          frequency === f.value
-                            ? "bg-[var(--accent)] border-[var(--accent)] text-[#fff] font-[700]"
-                            : "border-[var(--border)] bg-[var(--bg-subtle)] text-[var(--text-muted)] hover:border-[var(--accent-border)] hover:text-[var(--accent)] hover:bg-[var(--accent-bg)]"
-                        }`}
-                      >
-                        {f.label}
-                      </button>
-                    ))}
                   </div>
                 </div>
               </div>
@@ -329,7 +337,7 @@ export default function CompoundInterestCalculator() {
               <div className="grid grid-cols-[1fr_1fr] md:max-lg:grid-cols-[repeat(3,1fr)] max-md:grid-cols-[1fr] gap-[12px] max-md:gap-[8px] mb-[16px]">
                 {[
                   {
-                    label: "Final Balance",
+                    label: "Final Portfolio",
                     value: result ? fmt(result.finalAmount) : "—",
                     color: "var(--positive)",
                     large: true,
@@ -464,22 +472,23 @@ export default function CompoundInterestCalculator() {
         <div className="max-w-[1100px] m-[0_auto]">
           <div className="section-header">
             <span className="section-eyebrow">{"// HOW IT WORKS"}</span>
-            <h2 className="section-heading">The compound interest formula.</h2>
+            <h2 className="section-heading">The investment growth formula.</h2>
           </div>
           <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px] mb-[24px]">
             <div
               className="font-sans text-[24px] max-md:text-[18px] tracking-[1px] mb-[24px] pb-[20px] border-b-[1px] border-b-[var(--border)]"
               style={{ color: "var(--accent)" }}
             >
-              A = P(1 + r/n)<sup>nt</sup>
+              FV = PV(1 + r/n)<sup>nt</sup> + PMT × [((1 + r/n)<sup>nt</sup> - 1) / (r/n)]
             </div>
             <div className="flex flex-col gap-[10px]">
               {[
-                { sym: "A", def: "Final Balance — the total amount including interest" },
-                { sym: "P", def: "Principal — your initial investment amount" },
-                { sym: "r", def: "Annual interest rate as a decimal (10% = 0.10)" },
+                { sym: "FV", def: "Future Value — what your investment is worth at the end" },
+                { sym: "PV", def: "Present Value — your initial investment amount" },
+                { sym: "r", def: "Annual return rate as a decimal (10% = 0.10)" },
                 { sym: "n", def: "Compounding periods per year (12 = monthly, 1 = annually)" },
                 { sym: "t", def: "Time in years" },
+                { sym: "PMT", def: "Payment per period — your recurring contribution amount" },
               ].map((v) => (
                 <div key={v.sym} className="flex items-start gap-[16px]">
                   <span className="font-mono text-[14px] font-[500] text-[var(--accent)] w-[28px] shrink-0">
@@ -493,14 +502,17 @@ export default function CompoundInterestCalculator() {
             </div>
           </div>
           <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
-            The formula above covers your initial investment. For recurring
-            monthly contributions, we use the future value of an ordinary
-            annuity formula and combine the results. This ensures your
-            projections are 100% accurate across any time horizon.
+            This is the standard Time Value of Money (TVM) formula used in
+            professional financial modeling. The key insight: returns compound
+            on themselves each period — so a 10% annual return on{" "}
+            <strong className="text-[var(--text-primary)] font-[600]">$10,000</strong> in
+            year one adds $1,000, but in year ten it adds over $2,300 on the
+            same original investment.
           </p>
         </div>
       </div>
 
+      {/* ── FAQ ── */}
       <FAQSection faqs={faqs} id="faq" />
 
       {/* ── Related tools ── */}
@@ -517,7 +529,7 @@ export default function CompoundInterestCalculator() {
                 href={tool.href}
                 onClick={() =>
                   trackRelatedToolClick({
-                    from_calculator: "compound_interest",
+                    from_calculator: "investment_calculator",
                     to_calculator: tool.name.toLowerCase().replace(/\s+/g, "_"),
                     href: tool.href,
                   })
@@ -538,6 +550,7 @@ export default function CompoundInterestCalculator() {
           </div>
         </div>
       </div>
+
     </div>
   );
 }

@@ -69,14 +69,14 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen">
       {/* ── Hero ── */}
-      <section className="bg-[var(--bg-subtle)] border-b border-[var(--border)] p-[90px_48px_60px] max-[1023px]:p-[80px_32px_48px] max-[767px]:p-[72px_20px_40px]">
+      <section className="bg-[var(--bg-subtle)] border-b border-[var(--border)] p-[90px_48px_60px] md:max-lg:p-[80px_32px_48px] max-md:p-[72px_20px_40px]">
         <div className="max-w-[1100px] m-[0_auto]">
           <span className="section-eyebrow block mb-[16px]">{'// CONTACT'}</span>
-          <h1 className="font-sans font-[400] tracking-[-2px] leading-[1.05] text-[var(--text-primary)] m-[0_0_24px_0] text-[clamp(40px,6vw,64px)] max-[767px]:text-[36px] max-[767px]:tracking-[-1px]">
+          <h1 className="font-sans font-[400] tracking-[-2px] leading-[1.05] text-[var(--text-primary)] m-[0_0_24px_0] text-[clamp(40px,6vw,64px)] max-md:text-[36px] max-md:tracking-[-1px]">
             Contact WealthifyX.<br />
-            <span className="text-[var(--accent)] italic font-serif">We&apos;d love to hear from you.</span>
+            <span className="text-[var(--accent)]  ">We&apos;d love to hear from you.</span>
           </h1>
-          <p className="font-sans text-[18px] max-[1023px]:text-[17px] max-[767px]:text-[15px] text-[var(--text-muted)] leading-[1.7] max-w-[600px] m-[0]">
+          <p className="font-sans text-[18px] md:max-lg:text-[17px] max-md:text-[15px] text-[var(--text-muted)] leading-[1.7] max-w-[600px] m-[0]">
             Tool request · Bug report · Partnership inquiry <br className="hidden sm:block" />
             We read every message and respond within 24–48 hours.
           </p>
@@ -97,11 +97,11 @@ export default function ContactPage() {
       </section>
 
       {/* ── Stats Bar ── */}
-      <section className="bg-[var(--bg-base)] border-b border-[var(--border)] p-[24px_48px] max-[1023px]:p-[24px_32px] max-[767px]:p-[24px_20px]">
+      <section className="bg-[var(--bg-base)] border-b border-[var(--border)] p-[24px_48px] md:max-lg:p-[24px_32px] max-md:p-[24px_20px]">
         <div className="max-w-[1100px] m-[0_auto] grid grid-cols-2 md:grid-cols-4 gap-[24px] md:gap-0 md:divide-x md:divide-[var(--border)]">
           {stats.map((s) => (
             <div key={s.label} className="flex flex-col items-start md:items-center md:px-[24px] gap-[4px]">
-              <span className="font-mono text-[28px] md:text-[32px] font-[500] text-[var(--text-primary)] leading-none">
+              <span className="font-sans text-[28px] md:text-[32px] font-[500] text-[var(--text-primary)] leading-none">
                 {s.value}
               </span>
               <span className="font-sans text-[11px] text-[var(--text-faint)] uppercase tracking-[1px]">
@@ -113,12 +113,12 @@ export default function ContactPage() {
       </section>
 
       {/* ── Main Content ── */}
-      <section className="p-[80px_48px] max-[1023px]:p-[64px_32px] max-[767px]:p-[48px_20px] bg-[var(--bg-base)]">
+      <section className="p-[80px_48px] md:max-lg:p-[64px_32px] max-md:p-[48px_20px] bg-[var(--bg-base)]">
         <div className="max-w-[1100px] m-[0_auto] grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-[48px] lg:gap-[64px] items-start">
           
           {/* Left Column: Contact Info */}
           <div className="flex flex-col gap-[16px]">
-            <div className="card p-[24px] max-[767px]:p-[20px] flex flex-col gap-[16px]">
+            <div className="card p-[24px] max-md:p-[20px] flex flex-col gap-[16px]">
               <div className="flex items-center gap-[12px]">
                 <div className="w-[40px] h-[40px] rounded-[10px] bg-[var(--accent-bg)] border-[1px] border-[var(--accent-border)] flex items-center justify-center text-[var(--accent)] shrink-0">
                   <Mail size={18} />
@@ -131,7 +131,7 @@ export default function ContactPage() {
               <p className="font-sans text-[13px] text-[var(--text-faint)] m-[0]">Fastest response for bug reports</p>
             </div>
 
-            <div className="card p-[24px] max-[767px]:p-[20px] flex flex-col gap-[16px]">
+            <div className="card p-[24px] max-md:p-[20px] flex flex-col gap-[16px]">
               <div className="flex items-center gap-[12px]">
                 <div className="w-[40px] h-[40px] rounded-[10px] bg-[var(--bg-subtle)] border-[1px] border-[var(--border)] flex items-center justify-center text-[var(--text-muted)] shrink-0">
                   <ExternalLink size={18} />
@@ -144,7 +144,7 @@ export default function ContactPage() {
               <p className="font-sans text-[13px] text-[var(--text-faint)] m-[0]">Tool announcements and updates</p>
             </div>
 
-            <div className="card p-[24px] max-[767px]:p-[20px] flex flex-col gap-[16px]">
+            <div className="card p-[24px] max-md:p-[20px] flex flex-col gap-[16px]">
               <div className="flex items-center gap-[12px]">
                 <div className="w-[40px] h-[40px] rounded-[10px] bg-[var(--bg-subtle)] border-[1px] border-[var(--border)] flex items-center justify-center text-[var(--text-muted)] shrink-0">
                   <MessageSquare size={18} />
@@ -157,7 +157,7 @@ export default function ContactPage() {
               <p className="font-sans text-[13px] text-[var(--text-faint)] m-[0]">We ship new tools monthly</p>
             </div>
 
-            <div className="card p-[24px] max-[767px]:p-[20px] bg-[var(--bg-subtle)] border border-[var(--border)] mt-[16px]">
+            <div className="card p-[24px] max-md:p-[20px] bg-[var(--bg-subtle)] border border-[var(--border)] mt-[16px]">
               <h3 className="font-sans font-[600] text-[15px] text-[var(--text-primary)] mb-[16px]">What happens next</h3>
               <div className="flex flex-col gap-[12px]">
                 {[
@@ -178,7 +178,7 @@ export default function ContactPage() {
           </div>
 
           {/* Right Column: Contact Form */}
-          <div id="contact-form" className="card p-[40px] max-[767px]:p-[24px] shadow-[var(--shadow-md)]">
+          <div id="contact-form" className="card p-[40px] max-md:p-[24px] shadow-[var(--shadow-md)]">
             <form onSubmit={handleSubmit} className="flex flex-col gap-[20px]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-[16px]">
                 <div className="flex flex-col gap-[6px]">
@@ -268,18 +268,18 @@ export default function ContactPage() {
       <FAQSection faqs={faqs} id="faq" background="subtle" />
 
       {/* ── Final CTA ── */}
-      <section className="p-[100px_48px] max-[1023px]:p-[80px_32px] max-[767px]:p-[64px_20px] bg-[var(--bg-base)] text-center">
+      <section className="p-[100px_48px] md:max-lg:p-[80px_32px] max-md:p-[64px_20px] bg-[var(--bg-base)] text-center">
         <div className="max-w-[640px] m-[0_auto]">
           <span className="section-eyebrow block mb-[16px]">{'// WHILE YOU\'RE HERE'}</span>
-          <h2 className="section-heading mb-[20px] max-[767px]:mb-[12px]">Try a calculator while you wait.</h2>
-          <p className="section-subtext mb-[32px] max-[767px]:text-[14px] m-[0_auto]">
+          <h2 className="section-heading mb-[20px] max-md:mb-[12px]">Try a calculator while you wait.</h2>
+          <p className="section-subtext mb-[32px] max-md:text-[14px] m-[0_auto]">
             Most users hear back within a day. In the meantime, our tools are ready to use.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-[12px]">
-            <a href="/tools" className="btn-primary inline-flex items-center justify-center px-[32px] py-[12px] text-[15px] max-[767px]:w-full no-underline h-[50px]">
+            <a href="/tools" className="btn-primary inline-flex items-center justify-center px-[32px] py-[12px] text-[15px] max-md:w-full no-underline h-[50px]">
               Browse All Tools →
             </a>
-            <a href="/tools/compound-interest-calculator" className="btn-ghost inline-flex items-center justify-center px-[32px] py-[12px] text-[15px] max-[767px]:w-full no-underline h-[50px]">
+            <a href="/tools/compound-interest-calculator" className="btn-ghost inline-flex items-center justify-center px-[32px] py-[12px] text-[15px] max-md:w-full no-underline h-[50px]">
               Try Calculator
             </a>
           </div>

@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import Script from "next/script";
+import { Suspense } from "react";
+import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import { ThemeProvider } from "../components/ThemeProvider";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -84,6 +87,25 @@ export default function RootLayout({
       </head>
       <body style={{ fontFamily: "'DM Sans', sans-serif" }}>
         <ThemeProvider>
+          {/* ── Google Analytics 4 ── */}
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-6PR1F8E717"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-6PR1F8E717', {
+                page_path: window.location.pathname,
+                send_page_view: true
+              });
+            `}
+          </Script>
+          <Suspense fallback={null}>
+            <AnalyticsProvider />
+          </Suspense>
           <Navbar />
           {children}
           <Footer />

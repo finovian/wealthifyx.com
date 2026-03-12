@@ -53,12 +53,12 @@ export default function Navbar() {
             WealthifyX
           </span>
           <span
-            className="w-[6px] h-[6px] rounded-[50%] bg-[var(--accent)] ml-[2px] mb-[-4px] inline-block shrink-0"
+            className="w-[6px] h-[6px] rounded-[50%] bg-accent ml-[2px] mb-[-4px] inline-block shrink-0"
           />
         </a>
 
         {/* Center nav links — desktop only (≥1024px) */}
-        <div
+        {/* <div
           className="hidden lg:flex items-center gap-[32px]"
         >
           {navLinks.map((link) => (
@@ -66,10 +66,10 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-        </div>
+        </div> */}
 
         {/* Right actions */}
-        <div className="flex items-center gap-[8px]">
+        <div className="flex items-center gap-[2px]">
           {/* Theme toggle — visible on all screens */}
           <button
             onClick={toggleTheme}
@@ -105,20 +105,20 @@ export default function Navbar() {
           </button>
 
           {/* Separator — desktop only */}
-          <div
+          {/* <div
             className="hidden lg:block w-[1px] h-[16px] bg-[var(--border)] shrink-0"
-          />
+          /> */}
 
           {/* Free. Always. — desktop only */}
-          <span
+          {/* <span
             className="hidden lg:inline font-mono text-[11px] text-[var(--text-faint)] whitespace-nowrap"
           >
             Free. Always.
-          </span>
+          </span> */}
 
           {/* Hamburger — mobile only (<1024px) */}
           <button
-            className="flex lg:hidden bg-transparent border-none cursor-pointer text-[var(--text-primary)] items-center justify-center min-w-[44px] min-h-[44px]"
+            className="flex bg-transparent border-none cursor-pointer text-[var(--text-primary)] items-center justify-center min-w-[44px] min-h-[44px]"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
           >

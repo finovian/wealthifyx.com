@@ -10,6 +10,7 @@ import {
   Receipt,
   DollarSign,
 } from "lucide-react";
+import { trackToolCardClick } from '@/lib/analytics';
 
 const tools = [
   {
@@ -26,14 +27,14 @@ const tools = [
       "Project returns on any investment with custom rate and time horizon.",
     icon: BarChart3,
     href: "/tools/investment-calculator",
-    live: false,
+    live: true,
   },
   {
     name: "Roth IRA Calculator",
     description: "Estimate your Roth IRA growth and retirement balance.",
     icon: Landmark,
     href: "/tools/roth-ira-calculator",
-    live: false,
+    live: true,
   },
   {
     name: "401k Calculator",
@@ -82,7 +83,7 @@ export default function ToolsDirectory() {
       className="section-wrapper"
     >
       <div className="max-w-[1100px] m-[0_auto]">
-        {/* Section header — left on mobile via globals.css */}
+        {/* Section header */}
         <div className="section-header">
           <span className="section-eyebrow">{"// CALCULATORS"}</span>
           <h2 className="section-heading">Every tool you need.</h2>
@@ -90,12 +91,16 @@ export default function ToolsDirectory() {
         </div>
 
         {/* Tools grid */}
-        <div className="grid grid-cols-[repeat(2,1fr)] max-[767px]:grid-cols-[1fr] gap-[12px] max-[767px]:gap-[8px] items-stretch">
+        <div className="grid grid-cols-[repeat(2,1fr)] max-md:grid-cols-[1fr] gap-[12px] max-md:gap-[8px] items-stretch">
           {tools.map((tool, index) =>
             tool.live ? (
               <motion.a
                 key={tool.name}
                 href={tool.href}
+                onClick={() => trackToolCardClick({
+                  tool_name: tool.name.toLowerCase().replace(/\s+/g, '_'),
+                  from_page: 'homepage',
+                })}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
@@ -104,7 +109,7 @@ export default function ToolsDirectory() {
                   delay: index * 0.05,
                   ease: "easeOut",
                 }}
-                className="group card card-hoverable flex items-center justify-between no-underline text-inherit cursor-pointer p-[20px_22px] min-[768px]:max-[1023px]:p-[16px_18px] max-[767px]:p-[14px_16px]"
+                className="group card card-hoverable flex items-center justify-between no-underline text-inherit cursor-pointer p-[20px_22px] md:max-lg:p-[16px_18px] max-md:p-[14px_16px]"
                 role="link"
                 tabIndex={0}
               >
@@ -112,7 +117,7 @@ export default function ToolsDirectory() {
                   className="flex items-center gap-[14px] min-w-[0]"
                 >
                   <div
-                    className="flex items-center justify-center shrink-0 w-[40px] h-[40px] rounded-[10px] bg-[var(--accent-bg)] border-[1.5px] border-[var(--accent-border)] max-[767px]:w-[36px] max-[767px]:h-[36px] max-[767px]:rounded-[9px]"
+                    className="flex items-center justify-center shrink-0 w-[40px] h-[40px] rounded-[10px] bg-[var(--accent-bg)] border-[1.5px] border-[var(--accent-border)] max-md:w-[36px] max-md:h-[36px] max-md:rounded-[9px]"
                   >
                     <tool.icon
                       size={18}
@@ -121,11 +126,11 @@ export default function ToolsDirectory() {
                     />
                   </div>
                   <div className="min-w-[0]">
-                    <div className="font-sans font-[600] text-[var(--text-primary)] text-[15px] min-[768px]:max-[1023px]:text-[14px] max-[767px]:text-[14px] leading-[1.3] max-[767px]:leading-[1.35] overflow-hidden max-[767px]:overflow-visible text-ellipsis max-[767px]:text-clip whitespace-nowrap max-[767px]:whitespace-normal">{tool.name}</div>
-                    <div className="font-sans text-[var(--text-muted)] mt-[3px] max-[767px]:mt-[2px] leading-[1.45] text-[13px] min-[768px]:max-[1023px]:text-[12px] max-[767px]:text-[12px] whitespace-normal overflow-hidden line-clamp-2 max-[767px]:line-clamp-1">{tool.description}</div>
+                    <div className="font-sans font-[600] text-[var(--text-primary)] text-[15px] md:max-lg:text-[14px] max-md:text-[14px] leading-[1.3] max-md:leading-[1.35] overflow-hidden max-md:overflow-visible text-ellipsis max-md:text-clip whitespace-nowrap max-md:whitespace-normal">{tool.name}</div>
+                    <div className="font-sans text-[var(--text-muted)] mt-[3px] max-md:mt-[2px] leading-[1.45] text-[13px] md:max-lg:text-[12px] max-md:text-[12px] whitespace-normal overflow-hidden line-clamp-2 max-md:line-clamp-1">{tool.description}</div>
                   </div>
                 </div>
-                <span className="font-mono text-[11px] text-[var(--text-faint)] transition-[color,transform] duration-[0.15s] ease-[ease] shrink-0 ml-[12px] whitespace-nowrap group-hover:text-[var(--accent)] group-hover:translate-x-[2px] max-[767px]:hidden">Open →</span>
+                <span className="font-mono text-[11px] text-[var(--text-faint)] transition-[color,transform] duration-[0.15s] ease-[ease] shrink-0 ml-[12px] whitespace-nowrap group-hover:text-[var(--accent)] group-hover:translate-x-[2px] max-md:hidden">Open →</span>
               </motion.a>
             ) : (
               <motion.div
@@ -138,13 +143,13 @@ export default function ToolsDirectory() {
                   delay: index * 0.05,
                   ease: "easeOut",
                 }}
-                className="card flex items-center justify-between cursor-default opacity-[0.55] p-[20px_22px] min-[768px]:max-[1023px]:p-[16px_18px] max-[767px]:p-[14px_16px]"
+                className="card flex items-center justify-between cursor-default opacity-[0.55] p-[20px_22px] md:max-lg:p-[16px_18px] max-md:p-[14px_16px]"
               >
                 <div
                   className="flex items-center gap-[14px] min-w-[0]"
                 >
                   <div
-                    className="flex items-center justify-center shrink-0 w-[40px] h-[40px] rounded-[10px] bg-[var(--bg-subtle)] border-[1.5px] border-[var(--border)] max-[767px]:w-[36px] max-[767px]:h-[36px] max-[767px]:rounded-[9px]"
+                    className="flex items-center justify-center shrink-0 w-[40px] h-[40px] rounded-[10px] bg-[var(--bg-subtle)] border-[1.5px] border-[var(--border)] max-md:w-[36px] max-md:h-[36px] max-md:rounded-[9px]"
                   >
                     <tool.icon
                       size={18}
@@ -154,11 +159,11 @@ export default function ToolsDirectory() {
                   </div>
                   <div className="min-w-[0]">
                     <div
-                      className="font-sans font-[600] text-[var(--text-muted)] text-[15px] min-[768px]:max-[1023px]:text-[14px] max-[767px]:text-[14px] leading-[1.3] max-[767px]:leading-[1.35] overflow-hidden max-[767px]:overflow-visible text-ellipsis max-[767px]:text-clip whitespace-nowrap max-[767px]:whitespace-normal"
+                      className="font-sans font-[600] text-[var(--text-muted)] text-[15px] md:max-lg:text-[14px] max-md:text-[14px] leading-[1.3] max-md:leading-[1.35] overflow-hidden max-md:overflow-visible text-ellipsis max-md:text-clip whitespace-nowrap max-md:whitespace-normal"
                     >
                       {tool.name}
                     </div>
-                    <div className="font-sans text-[var(--text-muted)] mt-[3px] max-[767px]:mt-[2px] leading-[1.45] text-[13px] min-[768px]:max-[1023px]:text-[12px] max-[767px]:text-[12px] whitespace-normal overflow-hidden line-clamp-2 max-[767px]:line-clamp-1">{tool.description}</div>
+                    <div className="font-sans text-[var(--text-muted)] mt-[3px] max-md:mt-[2px] leading-[1.45] text-[13px] md:max-lg:text-[12px] max-md:text-[12px] whitespace-normal overflow-hidden line-clamp-2 max-md:line-clamp-1">{tool.description}</div>
                   </div>
                 </div>
                 <span className="font-mono text-[9px] font-[500] tracking-[1px] uppercase bg-[var(--bg-subtle)] border-[1px] border-[var(--border)] rounded-[100px] p-[3px_8px] text-[var(--text-faint)] shrink-0 ml-[12px] whitespace-nowrap">Soon</span>
