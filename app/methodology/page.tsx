@@ -287,7 +287,7 @@ export default function MethodologyPage() {
               <div className="card overflow-hidden">
                 <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[var(--bg-subtle)] border-b border-[var(--border)] p-[14px_20px] max-sm:p-[12px_16px]">
                   {['What', 'Typical', 'WealthifyX'].map((h) => (
-                    <div key={h} className="font-mono text-[10px] uppercase tracking-[1.5px] text-[var(--text-faint)]">{h}</div>
+                    <div key={h} className="font-sans text-[10px] uppercase tracking-[1.5px] text-[var(--text-faint)]">{h}</div>
                   ))}
                 </div>
                 {comparisonData.map((row, i) => (

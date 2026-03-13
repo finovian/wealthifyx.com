@@ -129,7 +129,7 @@ function fmtK(v: number) {
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-mono text-[12px] shadow-[var(--shadow-md)] min-w-[180px]">
+    <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[180px]">
       <div className="text-[var(--text-faint)] mb-[8px] text-[11px]">Age {label}</div>
       {payload.map((p: any) => (
         <div key={p.name} className="flex justify-between gap-[16px] mb-[4px]">
@@ -507,8 +507,8 @@ export default function FourOhOneKCalculator() {
                     { label: "Total going in / year", value: fmt(result.totalAnnual), color: "var(--accent)" },
                   ].map((item) => (
                     <div key={item.label} className="flex flex-col gap-[3px]">
-                      <span className="font-mono text-[10px] uppercase tracking-[1px] text-[var(--text-faint)]">{item.label}</span>
-                      <span className="font-mono text-[18px] font-[500]" style={{ color: item.color }}>{item.value}</span>
+                      <span className="font-sans text-[10px] uppercase tracking-[1px] text-[var(--text-faint)]">{item.label}</span>
+                      <span className="font-sans text-[18px] font-[500]" style={{ color: item.color }}>{item.value}</span>
                     </div>
                   ))}
                 </div>
@@ -545,7 +545,7 @@ export default function FourOhOneKCalculator() {
                       {card.label}
                     </span>
                     <span
-                      className={`font-mono font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
+                      className={`font-sans font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
                       style={{ color: card.color }}
                     >
                       {card.value}
@@ -618,15 +618,15 @@ export default function FourOhOneKCalculator() {
                           dataKey="age"
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 11, fill: "var(--text-faint)", fontFamily: "DM Mono" }}
+                          tick={{ fontSize: 11, fill: "var(--text-faint)", fontFamily: "DM Sans" }}
                           interval="preserveStartEnd"
-                          label={{ value: "Age", position: "insideBottomRight", offset: -4, style: { fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Mono" } }}
+                          label={{ value: "Age", position: "insideBottomRight", offset: -4, style: { fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Sans" } }}
                         />
                         <YAxis
                           hide={false}
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Mono" }}
+                          tick={{ fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Sans" }}
                           tickFormatter={fmtK}
                           width={52}
                         />
@@ -653,7 +653,7 @@ export default function FourOhOneKCalculator() {
           </div>
           <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px] mb-[24px]">
             <div
-              className="font-mono text-[22px] max-md:text-[16px] tracking-[1px] mb-[24px] pb-[20px] border-b-[1px] border-b-[var(--border)]"
+              className="font-sans text-[22px] max-md:text-[16px] tracking-[1px] mb-[24px] pb-[20px] border-b-[1px] border-b-[var(--border)]"
               style={{ color: "var(--accent)" }}
             >
               FV = B₀(1 + r)<sup>t</sup> + C<sub>total</sub> × [((1 + r)<sup>t</sup> − 1) / r]

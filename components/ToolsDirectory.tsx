@@ -141,7 +141,7 @@ export default function ToolsDirectory() {
                     </div>
                   </div>
                 </div>
-                <span className="font-mono text-[11px] text-[var(--text-faint)] transition-[color,transform] duration-[0.15s] ease-[ease] shrink-0 ml-[12px] whitespace-nowrap group-hover:text-[var(--accent)] group-hover:translate-x-[2px] max-md:hidden">
+                <span className="font-sans text-[11px] text-[var(--text-faint)] transition-[color,transform] duration-[0.15s] ease-[ease] shrink-0 ml-[12px] whitespace-nowrap group-hover:text-[var(--accent)] group-hover:translate-x-[2px] max-md:hidden">
                   Open →
                 </span>
               </motion.a>

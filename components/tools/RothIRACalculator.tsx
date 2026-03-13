@@ -135,7 +135,7 @@ function fmtK(v: number) {
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-mono text-[12px] shadow-[var(--shadow-md)] min-w-[180px]">
+    <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[180px]">
       <div className="text-[var(--text-faint)] mb-[8px] text-[11px]">Age {label}</div>
       {payload.map((p: any) => (
         <div key={p.name} className="flex justify-between gap-[16px] mb-[4px]">
@@ -482,7 +482,7 @@ export default function RothIRACalculator() {
                     transition={{ duration: 0.3 }}
                   >
                     <span className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--text-faint)]">{card.label}</span>
-                    <span className={`font-mono font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`} style={{ color: card.color }}>
+                    <span className={`font-sans font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`} style={{ color: card.color }}>
                       {card.value}
                     </span>
                   </motion.div>
@@ -515,8 +515,8 @@ export default function RothIRACalculator() {
                           </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
-                        <XAxis dataKey="age" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: "var(--text-faint)", fontFamily: "DM Mono" }} interval="preserveStartEnd" />
-                        <YAxis hide={false} axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Mono" }} tickFormatter={fmtK} width={48} />
+                        <XAxis dataKey="age" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: "var(--text-faint)", fontFamily: "DM Sans" }} interval="preserveStartEnd" />
+                        <YAxis hide={false} axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Sans" }} tickFormatter={fmtK} width={48} />
                         <Tooltip content={<CustomTooltip />} />
                         <Area type="monotone" dataKey="contributions" name="Contributed" stroke="var(--border-strong)" strokeWidth={1.5} fill="url(#gContrib)" stackId="1" />
                         <Area type="monotone" dataKey="growth" name="Growth" stroke="var(--accent)" strokeWidth={2} fill="url(#gGrowth)" stackId="1" animationDuration={600} />

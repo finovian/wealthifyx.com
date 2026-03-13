@@ -161,7 +161,7 @@ function CustomTooltip({ active, payload, label }: any) {
   const pnl = payload[0]?.value as number;
   const isPos = pnl >= 0;
   return (
-    <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-mono text-[12px] shadow-[var(--shadow-md)] min-w-[160px]">
+    <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[160px]">
       <div className="text-[var(--text-faint)] mb-[8px] text-[11px]">
         Stock @ {fmtPrice(label)}
       </div>

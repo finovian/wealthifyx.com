@@ -178,7 +178,7 @@ function pct(n: number, dp = 1) {
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[10px] p-[12px_16px] font-mono text-[12px] shadow-[var(--shadow-md)] min-w-[160px]">
+    <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[160px]">
       <div className="text-[var(--text-faint)] mb-[6px] text-[11px]">{label}</div>
       <div className="flex justify-between gap-[16px]">
         <span style={{ color: payload[0]?.fill }}>{label}</span>

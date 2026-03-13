@@ -97,7 +97,7 @@ function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
     <div
-      className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-mono text-[12px] shadow-[var(--shadow-md)] min-w-[180px]"
+      className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[180px]"
     >
       <div
         className="text-[var(--text-faint)] mb-[8px] text-[11px]"
@@ -365,7 +365,7 @@ export default function InvestmentCalculator() {
                       {card.label}
                     </span>
                     <span
-                      className={`font-mono font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
+                      className={`font-sans font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
                       style={{ color: card.color }}
                     >
                       {card.value}
@@ -424,14 +424,14 @@ export default function InvestmentCalculator() {
                           dataKey="year"
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 11, fill: "var(--text-faint)", fontFamily: "DM Mono" }}
+                          tick={{ fontSize: 11, fill: "var(--text-faint)", fontFamily: "DM Sans" }}
                           interval="preserveStartEnd"
                         />
                         <YAxis
                           hide={false}
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Mono" }}
+                          tick={{ fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Sans" }}
                           tickFormatter={(v) =>
                             v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : `$${v}`
                           }

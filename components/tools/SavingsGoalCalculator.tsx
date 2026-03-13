@@ -163,7 +163,7 @@ function formatDuration(months: number): string {
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-mono text-[12px] shadow-[var(--shadow-md)] min-w-[180px]">
+    <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[180px]">
       <div className="text-[var(--text-faint)] mb-[8px] text-[11px]">{label}</div>
       {payload.map((p: any) => (
         <div key={p.name} className="flex justify-between gap-[16px] mb-[4px]">
@@ -569,7 +569,7 @@ export default function SavingsGoalCalculator() {
                         {card.label}
                       </span>
                       <span
-                        className={`font-mono font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
+                        className={`font-sans font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
                         style={{ color: card.color }}
                       >
                         {card.value}
@@ -611,7 +611,7 @@ export default function SavingsGoalCalculator() {
                         {card.label}
                       </span>
                       <span
-                        className={`font-mono font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
+                        className={`font-sans font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
                         style={{ color: card.color }}
                       >
                         {card.value}
@@ -660,13 +660,13 @@ export default function SavingsGoalCalculator() {
                           dataKey="label"
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 11, fill: "var(--text-faint)", fontFamily: "DM Mono" }}
+                          tick={{ fontSize: 11, fill: "var(--text-faint)", fontFamily: "DM Sans" }}
                           interval="preserveStartEnd"
                         />
                         <YAxis
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Mono" }}
+                          tick={{ fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Sans" }}
                           tickFormatter={fmtK}
                           width={52}
                         />
@@ -678,7 +678,7 @@ export default function SavingsGoalCalculator() {
                           label={{
                             value: "Goal",
                             position: "insideTopRight",
-                            style: { fontSize: 10, fill: "var(--accent)", fontFamily: "DM Mono" },
+                            style: { fontSize: 10, fill: "var(--accent)", fontFamily: "DM Sans" },
                           }}
                         />
                         <Tooltip content={<CustomTooltip />} />
@@ -720,7 +720,7 @@ export default function SavingsGoalCalculator() {
           </div>
           <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px] mb-[24px]">
             <div
-              className="font-mono text-[20px] max-md:text-[15px] tracking-[0.5px] mb-[24px] pb-[20px] border-b-[1px] border-b-[var(--border)]"
+              className="font-sans text-[20px] max-md:text-[15px] tracking-[0.5px] mb-[24px] pb-[20px] border-b-[1px] border-b-[var(--border)]"
               style={{ color: "var(--accent)" }}
             >
               C = (Goal − B<sub>0</sub>(1+r)<sup>n</sup>) ÷ [((1+r)<sup>n</sup> − 1) ÷ r]

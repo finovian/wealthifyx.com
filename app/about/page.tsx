@@ -240,7 +240,7 @@ export default function AboutPage() {
             {/* Stats card */}
             <div className="relative bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-[32px] md:p-[40px] overflow-hidden shadow-[var(--shadow-lg)] w-full">
               <div className="relative z-10">
-                <div className="font-mono text-[10px] text-[var(--accent)] uppercase tracking-[2px] mb-[32px]">
+                <div className="font-sans text-[10px] text-[var(--accent)] uppercase tracking-[2px] mb-[32px]">
                   Privacy Dashboard
                 </div>
                 <div className="flex flex-col gap-[24px]">

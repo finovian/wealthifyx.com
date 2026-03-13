@@ -138,7 +138,7 @@ function pct(n: number) {
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[10px] p-[12px_16px] font-mono text-[12px] shadow-[var(--shadow-md)] min-w-[200px]">
+    <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[200px]">
       <div className="text-[var(--text-faint)] mb-[8px] text-[11px]">{label}</div>
       {payload.map((p: any) => (
         <div key={p.name} className="flex justify-between gap-[16px] mb-[4px]">
@@ -474,8 +474,8 @@ export default function DividendCalculator() {
                       { label: "Final Shares",   value: result.finalShares.toLocaleString("en-US", { maximumFractionDigits: 2 }), color: "var(--text-primary)" },
                     ].map((m) => (
                       <div key={m.label} className="flex flex-col gap-[3px]">
-                        <span className="font-mono text-[10px] uppercase tracking-[1px] text-[var(--text-faint)]">{m.label}</span>
-                        <span className="font-mono text-[20px] font-[600]" style={{ color: m.color }}>{m.value}</span>
+                        <span className="font-sans text-[10px] uppercase tracking-[1px] text-[var(--text-faint)]">{m.label}</span>
+                        <span className="font-sans text-[20px] font-[600]" style={{ color: m.color }}>{m.value}</span>
                       </div>
                     ))}
                   </div>
@@ -494,7 +494,7 @@ export default function DividendCalculator() {
                     style={{ opacity: result ? 1 : 0.4, transition: "opacity 0.3s ease" }}
                   >
                     <span className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--text-faint)]">{card.label}</span>
-                    <span className={`font-mono font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
+                    <span className={`font-sans font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
                       style={{ color: card.color }}>{card.value}</span>
                   </div>
                 ))}
@@ -604,7 +604,7 @@ export default function DividendCalculator() {
           <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[14px] p-[28px_32px] mb-[24px]">
             <div className="grid grid-cols-2 max-md:grid-cols-1 gap-[24px] mb-[20px] pb-[20px] border-b border-[var(--border)]">
               <div>
-                <div className="font-mono text-[11px] uppercase tracking-[1px] text-[var(--accent)] mb-[10px]">With DRIP (quarterly)</div>
+                <div className="font-sans text-[11px] uppercase tracking-[1px] text-[var(--accent)] mb-[10px]">With DRIP (quarterly)</div>
                 <div className="font-mono text-[14px] text-[var(--text-primary)] mb-[8px]">
                   New shares = (S × DPS/4) ÷ P
                 </div>
@@ -613,7 +613,7 @@ export default function DividendCalculator() {
                 </div>
               </div>
               <div>
-                <div className="font-mono text-[11px] uppercase tracking-[1px] text-[var(--text-faint)] mb-[10px]">Without DRIP (cash)</div>
+                <div className="font-sans text-[11px] uppercase tracking-[1px] text-[var(--text-faint)] mb-[10px]">Without DRIP (cash)</div>
                 <div className="font-mono text-[14px] text-[var(--text-primary)] mb-[8px]">
                   Annual income = S × DPS
                 </div>

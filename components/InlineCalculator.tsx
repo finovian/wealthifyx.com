@@ -75,7 +75,7 @@ export default function InlineCalculator() {
                     Compound Growth
                   </span>
                 </div>
-                <div className="font-mono text-[10px] uppercase tracking-[1px] text-[var(--text-faint)]">
+                <div className="font-sans text-[10px] uppercase tracking-[1px] text-[var(--text-faint)]">
                   LIVE PREVIEW
                 </div>
               </div>

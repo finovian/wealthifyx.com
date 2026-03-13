@@ -358,7 +358,7 @@ export default function CompoundInterestCalculator() {
                       {card.label}
                     </span>
                     <span
-                      className={`font-mono font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
+                      className={`font-sans font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
                       style={{ color: card.color }}
                     >
                       {card.value}
@@ -417,14 +417,14 @@ export default function CompoundInterestCalculator() {
                           dataKey="year"
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 11, fill: "var(--text-faint)", fontFamily: "DM Mono" }}
+                          tick={{ fontSize: 11, fill: "var(--text-faint)", fontFamily: "DM Sans" }}
                           interval="preserveStartEnd"
                         />
                         <YAxis
                           hide={false}
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Mono" }}
+                          tick={{ fontSize: 10, fill: "var(--text-faint)", fontFamily: "DM Sans" }}
                           tickFormatter={(v) =>
                             v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : `$${v}`
                           }
@@ -483,7 +483,7 @@ export default function CompoundInterestCalculator() {
                 { sym: "t", def: "Time in years" },
               ].map((v) => (
                 <div key={v.sym} className="flex items-start gap-[16px]">
-                  <span className="font-mono text-[14px] font-[500] text-[var(--accent)] w-[28px] shrink-0">
+                  <span className="font-sans text-[14px] font-[500] text-[var(--accent)] w-[28px] shrink-0">
                     {v.sym}
                   </span>
                   <span className="font-sans text-[14px] text-[var(--text-muted)] leading-[1.5]">

@@ -167,7 +167,7 @@ export default function ContactPage() {
                   "If it's a tool request, it goes on the roadmap",
                 ].map((step, i) => (
                   <div key={i} className="flex items-start gap-[12px]">
-                    <span className="font-mono text-[11px] text-[var(--accent)] shrink-0 mt-[3px]">
+                    <span className="font-sans text-[11px] text-[var(--accent)] shrink-0 mt-[3px]">
                       0{i + 1} —
                     </span>
                     <span className="font-sans text-[13px] text-[var(--text-muted)] leading-[1.5]">{step}</span>
