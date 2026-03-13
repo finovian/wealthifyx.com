@@ -178,7 +178,7 @@ function DripToggle({ drip, onChange }: { drip: boolean; onChange: (v: boolean) 
               : "text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-transparent hover:bg-[var(--bg-card)]"
           }`}>
           <span className="text-[12px] font-[600]">{opt.label}</span>
-          <span className={`text-[10px] font-[400] ${drip === opt.value ? "text-white/80" : "text-[var(--text-faint)]"}`}>
+          <span className={`text-[10px] font-[400] ${drip === opt.value ? "text-[white]/80" : "text-[var(--text-faint)]"}`}>
             {opt.sub}
           </span>
         </button>
