@@ -174,11 +174,11 @@ function DripToggle({ drip, onChange }: { drip: boolean; onChange: (v: boolean) 
         <button key={String(opt.value)} onClick={() => onChange(opt.value)}
           className={`flex-1 h-[42px] px-[10px] border-none rounded-[8px] font-ubuntu text-[12px] font-[500] cursor-pointer transition-all duration-[0.15s] flex flex-col items-center justify-center gap-[1px] ${
             drip === opt.value
-              ? "bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-primary)] shadow-[0_1px_3px_rgba(0,0,0,0.08)]"
-              : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+              ? "bg-[var(--accent)] text-[white] shadow-[0_2px_4px_rgba(0,0,0,0.1)]"
+              : "text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)]"
           }`}>
           <span className="text-[12px] font-[600]">{opt.label}</span>
-          <span className={`text-[10px] font-[400] ${drip === opt.value ? "text-[var(--text-faint)]" : "text-[var(--text-faint)]"}`}>
+          <span className={`text-[10px] font-[400] ${drip === opt.value ? "text-white/80" : "text-[var(--text-faint)]"}`}>
             {opt.sub}
           </span>
         </button>
@@ -354,8 +354,8 @@ export default function DividendCalculator() {
                         <button key={m} onClick={() => setInputMode(m)}
                           className={`h-[26px] border-none px-[10px] rounded-[6px] font-ubuntu text-[11px] font-[500] cursor-pointer transition-all duration-[0.1s] ${
                             inputMode === m
-                              ? "bg-[var(--bg-card)] text-[var(--text-primary)] shadow-[0_1px_2px_rgba(0,0,0,0.07)]"
-                              : "text-[var(--text-faint)] hover:text-[var(--text-muted)]"
+                              ? "bg-[var(--accent)] text-[white] shadow-[0_1px_2px_rgba(0,0,0,0.15)]"
+                              : "text-[var(--text-faint)] hover:text-[var(--text-muted)] hover:bg-[var(--bg-card)]"
                           }`}>
                           {m === "yield" ? "Yield %" : "Per share"}
                         </button>
@@ -529,8 +529,8 @@ export default function DividendCalculator() {
                         <button key={opt.value} onClick={() => setChartView(opt.value)}
                           className={`h-[26px] border-none px-[10px] rounded-[6px] font-ubuntu text-[11px] font-[500] cursor-pointer transition-all duration-[0.1s] ${
                             chartView === opt.value
-                              ? "bg-[var(--bg-card)] text-[var(--text-primary)] shadow-[0_1px_2px_rgba(0,0,0,0.07)]"
-                              : "text-[var(--text-faint)] hover:text-[var(--text-muted)]"
+                              ? "bg-[var(--accent)] text-[white] shadow-[0_1px_2px_rgba(0,0,0,0.15)]"
+                              : "text-[var(--text-faint)] hover:text-[var(--text-muted)] hover:bg-[var(--bg-card)]"
                           }`}>{opt.label}</button>
                       ))}
                     </div>
