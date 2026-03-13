@@ -335,7 +335,7 @@ export default function OptionsProfitCalculator() {
             {/* LEFT — inputs */}
             <div className="w-[100%]">
               <div className="card p-[28px] max-md:p-[20px_18px] flex flex-col gap-[20px] max-md:gap-[16px]">
-                <h2 className="font-mono text-[10px] font-[500] tracking-[1.5px] uppercase text-[var(--accent)] m-[0]">
+                <h2 className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--accent)] m-[0]">
                   Your trade
                 </h2>
 
@@ -393,7 +393,7 @@ export default function OptionsProfitCalculator() {
                       onChange={(e) => setPremiumPerShare(e.target.value)}
                     />
                   </div>
-                  <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
+                  <div className="font-sans text-[10px] text-[var(--text-faint)] mt-[2px]">
                     {isShort ? "Premium received per share · 1 contract = 100 shares" : "Premium paid per share · 1 contract = 100 shares"}
                   </div>
                 </div>
@@ -413,7 +413,7 @@ export default function OptionsProfitCalculator() {
                     onChange={(e) => setContracts(e.target.value)}
                   />
                   {result && (
-                    <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
+                    <div className="font-sans text-[10px] text-[var(--text-faint)] mt-[2px]">
                       {isShort ? "Total credit received: " : "Total premium paid: "}
                       <span className="text-[var(--text-secondary)]">{fmt(result.totalCost)}</span>
                     </div>
@@ -438,7 +438,7 @@ export default function OptionsProfitCalculator() {
                       onChange={(e) => setTargetPrice(e.target.value)}
                     />
                   </div>
-                  <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
+                  <div className="font-sans text-[10px] text-[var(--text-faint)] mt-[2px]">
                     Where do you expect the stock to be at expiry?
                   </div>
                 </div>

@@ -315,7 +315,7 @@ export default function DividendCalculator() {
             {/* LEFT — inputs */}
             <div className="w-[100%]">
               <div className="card p-[28px] max-md:p-[20px_18px] flex flex-col gap-[20px] max-md:gap-[16px]">
-                <h2 className="font-mono text-[10px] font-[500] tracking-[1.5px] uppercase text-[var(--accent)] m-[0]">
+                <h2 className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--accent)] m-[0]">
                   Your position
                 </h2>
 
@@ -380,7 +380,7 @@ export default function DividendCalculator() {
                     </div>
                   )}
                   {result && (
-                    <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
+                    <div className="font-sans text-[10px] text-[var(--text-faint)] mt-[2px]">
                       {inputMode === "yield"
                         ? `= $${(effectiveDPS).toFixed(2)} per share · $${fmt(effectiveDPS * parseFloat(shares || "0"))} / yr today`
                         : `= ${pct((effectiveDPS / (parseFloat(sharePrice) || 1)) * 100)} current yield`}
@@ -423,7 +423,7 @@ export default function DividendCalculator() {
                     </div>
                   </div>
                 </div>
-                <div className="font-mono text-[10px] text-[var(--text-faint)] -mt-[14px]">
+                <div className="font-sans text-[10px] text-[var(--text-faint)] -mt-[14px]">
                   Dividend Aristocrats avg: ~6–8% div growth · Conservative: 3–4%
                 </div>
 
@@ -446,7 +446,7 @@ export default function DividendCalculator() {
                     className="input-field min-h-[46px]"
                     placeholder="0" min={0} value={additionalShares}
                     onChange={(e) => setAdditionalShares(e.target.value)} />
-                  <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
+                  <div className="font-sans text-[10px] text-[var(--text-faint)] mt-[2px]">
                     Shares you plan to buy each year beyond DRIP
                   </div>
                 </div>
@@ -493,7 +493,7 @@ export default function DividendCalculator() {
                     className={`card flex flex-col gap-[6px] p-[20px_22px] ${card.large ? "col-[1/-1] max-lg:col-auto p-[24px_28px]" : ""}`}
                     style={{ opacity: result ? 1 : 0.4, transition: "opacity 0.3s ease" }}
                   >
-                    <span className="font-mono text-[10px] font-[500] tracking-[1.2px] uppercase text-[var(--text-faint)]">{card.label}</span>
+                    <span className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--text-faint)]">{card.label}</span>
                     <span className={`font-mono font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`}
                       style={{ color: card.color }}>{card.value}</span>
                   </div>
@@ -518,7 +518,7 @@ export default function DividendCalculator() {
               {result && result.chartData.length > 1 && (
                 <div className="card p-[20px_20px_16px] calc-slide-up">
                   <div className="flex items-center justify-between mb-[16px] flex-wrap gap-[8px]">
-                    <span className="font-mono text-[10px] font-[500] tracking-[1.2px] uppercase text-[var(--text-faint)]">
+                    <span className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--text-faint)]">
                       {chartView === "value" ? "Portfolio value over time" : "Annual dividend income over time"}
                     </span>
                     <div className="flex bg-[var(--bg-muted)] border border-[var(--border)] rounded-[8px] p-[2px] gap-[2px]">

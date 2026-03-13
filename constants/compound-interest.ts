@@ -24,8 +24,8 @@ export const faqs = [
 ];
 
 export const relatedTools = [
-  { name: "Investment Calculator", desc: "Project returns on any investment", href: "/tools/investment-calculator" },
-  { name: "Savings Goal Calculator", desc: "How long to reach your target", href: "/tools/savings-goal-calculator" },
-  { name: "Inflation Adjusted Return", desc: "See your real purchasing power", href: "/tools/inflation-adjusted-calculator" },
-  { name: "Roth IRA Calculator", desc: "Estimate your retirement growth", href: "/tools/roth-ira-calculator" },
+  { name: "Investment Calculator",      desc: "Project returns on any investment",          href: "/tools/investment-calculator" },
+  { name: "Savings Goal Calculator",    desc: "How long to reach your target",              href: "/tools/savings-goal-calculator" },
+  { name: "Capital Gains Tax Calculator", desc: "Estimate tax owed when you sell",         href: "/tools/capital-gains-calculator" },
+  { name: "Roth IRA Calculator",        desc: "Estimate your tax-free retirement growth",   href: "/tools/roth-ira-calculator" },
 ];

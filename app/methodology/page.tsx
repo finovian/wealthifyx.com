@@ -316,7 +316,7 @@ export default function MethodologyPage() {
             <div className="flex flex-col gap-[24px]">
               {formulas.map((f) => (
                 <div key={f.name} className="card p-[40px] max-md:p-[24px]">
-                  <span className="font-mono text-[10px] text-[var(--text-faint)] uppercase tracking-[2px] block mb-[20px]">
+                  <span className="font-sans text-[10px] text-[var(--text-faint)] uppercase tracking-[2px] block mb-[20px]">
                     {f.eyebrow}
                   </span>
                   <div className="font-mono text-[18px] max-md:text-[14px] text-[var(--accent)] tracking-[0.5px] mb-[24px] pb-[20px] border-b border-[var(--border)] overflow-x-auto">

@@ -381,7 +381,7 @@ export default function SavingsGoalCalculator() {
             <div className="w-[100%]">
               <div className="card p-[28px] max-md:p-[20px_18px] flex flex-col gap-[20px] max-md:gap-[16px]">
                 <div className="flex items-center justify-between flex-wrap gap-[10px]">
-                  <h2 className="font-mono text-[10px] font-[500] tracking-[1.5px] uppercase text-[var(--accent)] m-[0]">
+                  <h2 className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--accent)] m-[0]">
                     Your numbers
                   </h2>
                   <ModeToggle mode={mode} onChange={setMode} />
@@ -440,7 +440,7 @@ export default function SavingsGoalCalculator() {
                     />
                     <span className="absolute right-[14px] top-[50%] -translate-y-[50%] font-ubuntu text-[14px] text-[var(--text-faint)] pointer-events-none">%</span>
                   </div>
-                  <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
+                  <div className="font-sans text-[10px] text-[var(--text-faint)] mt-[2px]">
                     HYSA: 4–5% · Index funds: 7% · Savings account: 1–2%
                   </div>
                 </div>
@@ -473,7 +473,7 @@ export default function SavingsGoalCalculator() {
                     </label>
                     <div className="grid grid-cols-2 max-md:grid-cols-1 gap-5">
                       <div className="flex flex-col gap-[4px]">
-                        <span className="font-mono text-[10px] text-[var(--text-faint)] uppercase tracking-[0.8px]">Years</span>
+                        <span className="font-sans text-[10px] text-[var(--text-faint)] uppercase tracking-[0.8px]">Years</span>
                         <input
                           type="number"
                           inputMode="numeric"
@@ -485,7 +485,7 @@ export default function SavingsGoalCalculator() {
                         />
                       </div>
                       <div className="flex flex-col gap-[4px]">
-                        <span className="font-mono text-[10px] text-[var(--text-faint)] uppercase tracking-[0.8px]">Months</span>
+                        <span className="font-sans text-[10px] text-[var(--text-faint)] uppercase tracking-[0.8px]">Months</span>
                         <input
                           type="number"
                           inputMode="numeric"
@@ -565,7 +565,7 @@ export default function SavingsGoalCalculator() {
                       className={`card flex flex-col gap-[6px] p-[20px_22px] ${card.large ? "col-[1/-1] max-lg:col-auto p-[24px_28px]" : ""}`}
                       style={{ opacity: result ? 1 : 0.4, transition: "opacity 0.3s ease" }}
                     >
-                      <span className="font-mono text-[10px] font-[500] tracking-[1.2px] uppercase text-[var(--text-faint)]">
+                      <span className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--text-faint)]">
                         {card.label}
                       </span>
                       <span
@@ -607,7 +607,7 @@ export default function SavingsGoalCalculator() {
                       className={`card flex flex-col gap-[6px] p-[20px_22px] ${card.large ? "col-[1/-1] max-lg:col-auto p-[24px_28px]" : ""}`}
                       style={{ opacity: result ? 1 : 0.4, transition: "opacity 0.3s ease" }}
                     >
-                      <span className="font-mono text-[10px] font-[500] tracking-[1.2px] uppercase text-[var(--text-faint)]">
+                      <span className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--text-faint)]">
                         {card.label}
                       </span>
                       <span
@@ -625,7 +625,7 @@ export default function SavingsGoalCalculator() {
               {result && result.chartData.length > 1 && (
                 <div className="card p-[20px_20px_16px] calc-slide-up">
                   <div className="flex items-center justify-between mb-[16px]">
-                    <span className="font-mono text-[10px] font-[500] tracking-[1.2px] uppercase text-[var(--text-faint)] flex-[1] min-w-[0] whitespace-nowrap overflow-hidden text-ellipsis">
+                    <span className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--text-faint)] flex-[1] min-w-[0] whitespace-nowrap overflow-hidden text-ellipsis">
                       Balance over time
                     </span>
                     <div className="flex items-center gap-[12px] font-sans text-[11px] text-[var(--text-muted)]">

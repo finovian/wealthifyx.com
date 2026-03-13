@@ -288,7 +288,7 @@ export default function FourOhOneKCalculator() {
             {/* LEFT — inputs */}
             <div className="w-[100%]">
               <div className="card p-[28px] max-md:p-[20px_18px] flex flex-col gap-[20px] max-md:gap-[16px]">
-                <h2 className="font-mono text-[10px] font-[500] tracking-[1.5px] uppercase text-[var(--accent)] m-[0]">
+                <h2 className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--accent)] m-[0]">
                   Your numbers
                 </h2>
 
@@ -370,7 +370,7 @@ export default function FourOhOneKCalculator() {
                     />
                     <span className="absolute right-[14px] top-[50%] -translate-y-[50%] font-ubuntu text-[14px] text-[var(--text-faint)] pointer-events-none">%</span>
                   </div>
-                  <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
+                  <div className="font-sans text-[10px] text-[var(--text-faint)] mt-[2px]">
                     {parseInt(currentAge) >= 50
                       ? `2024 IRS limit: $30,500 (catch-up eligible, age 50+)`
                       : `2024 IRS limit: $23,000 · $30,500 at age 50+ (catch-up)`}
@@ -390,7 +390,7 @@ export default function FourOhOneKCalculator() {
                   </label>
                   <div className="grid grid-cols-2 max-md:grid-cols-1 gap-5">
                     <div className="flex flex-col gap-[4px]">
-                      <span className="font-mono text-[10px] text-[var(--text-faint)] uppercase tracking-[0.8px]">Match rate</span>
+                      <span className="font-sans text-[10px] text-[var(--text-faint)] uppercase tracking-[0.8px]">Match rate</span>
                       <div className="relative">
                         <input
                           type="number"
@@ -405,7 +405,7 @@ export default function FourOhOneKCalculator() {
                       </div>
                     </div>
                     <div className="flex flex-col gap-[4px]">
-                      <span className="font-mono text-[10px] text-[var(--text-faint)] uppercase tracking-[0.8px]">Up to</span>
+                      <span className="font-sans text-[10px] text-[var(--text-faint)] uppercase tracking-[0.8px]">Up to</span>
                       <div className="relative">
                         <input
                           type="number"
@@ -421,7 +421,7 @@ export default function FourOhOneKCalculator() {
                       </div>
                     </div>
                   </div>
-                  <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
+                  <div className="font-sans text-[10px] text-[var(--text-faint)] mt-[2px]">
                     e.g. 50% match up to 6% of salary — most common US plan
                   </div>
                 </div>
@@ -478,7 +478,7 @@ export default function FourOhOneKCalculator() {
                     />
                     <span className="absolute right-[14px] top-[50%] -translate-y-[50%] font-ubuntu text-[14px] text-[var(--text-faint)] pointer-events-none">%</span>
                   </div>
-                  <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
+                  <div className="font-sans text-[10px] text-[var(--text-faint)] mt-[2px]">
                     7% = S&P 500 inflation-adjusted avg · 5% = conservative
                   </div>
                 </div>
@@ -541,7 +541,7 @@ export default function FourOhOneKCalculator() {
                     className={`card flex flex-col gap-[6px] p-[20px_22px] ${card.large ? "col-[1/-1] max-lg:col-auto p-[24px_28px]" : ""}`}
                     style={{ opacity: result ? 1 : 0.4, transition: "opacity 0.3s ease" }}
                   >
-                    <span className="font-mono text-[10px] font-[500] tracking-[1.2px] uppercase text-[var(--text-faint)]">
+                    <span className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--text-faint)]">
                       {card.label}
                     </span>
                     <span
@@ -575,7 +575,7 @@ export default function FourOhOneKCalculator() {
               {result && result.chartData.length > 1 && (
                 <div className="card p-[20px_20px_16px] calc-slide-up">
                   <div className="flex items-center justify-between mb-[16px]">
-                    <span className="font-mono text-[10px] font-[500] tracking-[1.2px] uppercase text-[var(--text-faint)] flex-[1] min-w-[0] whitespace-nowrap overflow-hidden text-ellipsis">
+                    <span className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--text-faint)] flex-[1] min-w-[0] whitespace-nowrap overflow-hidden text-ellipsis">
                       401k growth by age
                     </span>
                     <div className="flex items-center gap-[12px] font-sans text-[11px] text-[var(--text-muted)]">

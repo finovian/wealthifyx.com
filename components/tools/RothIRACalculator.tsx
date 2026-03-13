@@ -283,7 +283,7 @@ export default function RothIRACalculator() {
             {/* LEFT — inputs */}
             <div className="w-[100%]">
               <div className="card p-[28px] max-md:p-[20px_18px] flex flex-col gap-[20px] max-md:gap-[16px]">
-                <h2 className="font-mono text-[10px] font-[500] tracking-[1.5px] uppercase text-[var(--accent)] m-[0]">
+                <h2 className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--accent)] m-[0]">
                   Your numbers
                 </h2>
 
@@ -346,7 +346,7 @@ export default function RothIRACalculator() {
                       onChange={(e) => setContribution(e.target.value)}
                     />
                   </div>
-                  <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">
+                  <div className="font-sans text-[10px] text-[var(--text-faint)] mt-[2px]">
                     2024 IRS limit: {fmt(maxContribution)}
                   </div>
                 </div>
@@ -384,7 +384,7 @@ export default function RothIRACalculator() {
                     />
                     <span className="absolute right-[14px] top-[50%] -translate-y-[50%] font-ubuntu text-[14px] text-[var(--text-faint)] pointer-events-none">%</span>
                   </div>
-                  <div className="font-mono text-[10px] text-[var(--text-faint)] mt-[2px]">7% = Conservative avg · 10% = Aggressive</div>
+                  <div className="font-sans text-[10px] text-[var(--text-faint)] mt-[2px]">7% = Conservative avg · 10% = Aggressive</div>
                 </div>
 
                 <div className="border-t-[1px] border-t-[var(--border)]" />
@@ -481,7 +481,7 @@ export default function RothIRACalculator() {
                     animate={{ opacity: result ? 1 : 0.4 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <span className="font-mono text-[10px] font-[500] tracking-[1.2px] uppercase text-[var(--text-faint)]">{card.label}</span>
+                    <span className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--text-faint)]">{card.label}</span>
                     <span className={`font-mono font-[500] leading-[1.1] ${card.large ? "text-[40px] max-md:text-[32px] md:max-lg:text-[28px]" : "text-[28px] max-md:text-[22px]"}`} style={{ color: card.color }}>
                       {card.value}
                     </span>
@@ -493,7 +493,7 @@ export default function RothIRACalculator() {
               {result && result.chartData.length > 1 && (
                 <motion.div className="card p-[20px_20px_16px]" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                   <div className="flex items-center justify-between mb-[16px]">
-                    <span className="font-mono text-[10px] font-[500] tracking-[1.2px] uppercase text-[var(--text-faint)] flex-[1] min-w-[0] whitespace-nowrap overflow-hidden text-ellipsis">Growth by age</span>
+                    <span className="font-sans text-[10px] font-[600] tracking-[1px] uppercase text-[var(--text-faint)] flex-[1] min-w-[0] whitespace-nowrap overflow-hidden text-ellipsis">Growth by age</span>
                     <div className="flex items-center gap-[8px] font-sans text-[11px] text-[var(--text-muted)]">
                       <span className="w-[8px] h-[8px] rounded-[50%] shrink-0" style={{ background: "var(--accent)" }} />
                       <span>Growth</span>
