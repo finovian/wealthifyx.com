@@ -57,7 +57,7 @@ const tools = [
     icon: PiggyBank,
     href: "/tools/savings-goal-calculator",
     category: "Savings",
-    live: false,
+    live: true,
   },
   {
   name: "Options Profit Calculator",
@@ -109,7 +109,7 @@ export default function ToolsPage() {
             
           </h1>
           <p className="font-sans text-[18px] md:max-lg:text-[17px] max-md:text-[15px] text-[var(--text-muted)] leading-[1.7] max-w-[600px] m-[0]">
-            3 live now · 5 more coming soon. All free, no sign-up, no data stored.
+            4 live now · 4 more coming soon. All free, no sign-up, no data stored.
           </p>
         </div>
       </div>

@@ -154,7 +154,7 @@ export default function CompoundInterestCalculator() {
   const [rate, setRate] = useState("10");
   const [years, setYears] = useState("10");
   const [frequency, setFrequency] = useState(12);
-  const [contribution, setContribution] = useState("500");
+  const [contribution, setContribution] = useState("");
 
   const debouncedTrackResult = useMemo(
     () =>
@@ -241,26 +241,7 @@ export default function CompoundInterestCalculator() {
                   </div>
                 </div>
 
-                {/* Monthly contribution */}
-                <div className="flex flex-col gap-[6px]">
-                  <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-secondary)] flex items-center gap-[8px]">
-                    Monthly Contribution
-                    <span className="text-[10px] font-[400] text-[var(--text-faint)] bg-[var(--bg-muted)] rounded-[4px] p-[1px_6px]">
-                      optional
-                    </span>
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-[14px] top-[50%] -translate-y-[50%] font-ubuntu text-[14px] text-[var(--text-faint)] pointer-events-none">$</span>
-                    <input
-                      type="number"
-                      inputMode="decimal"
-                      className="input-field min-h-[46px] !pl-[22px]"
-                      placeholder="500"
-                      value={contribution}
-                      onChange={(e) => setContribution(e.target.value)}
-                    />
-                  </div>
-                </div>
+                
 
                 {/* Rate */}
                 <div className="flex flex-col gap-[6px]">
@@ -317,6 +298,26 @@ export default function CompoundInterestCalculator() {
                         {f.label}
                       </button>
                     ))}
+                  </div>
+                </div>
+                {/* Monthly contribution */}
+                <div className="flex flex-col gap-[6px]">
+                  <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-secondary)] flex items-center gap-[8px]">
+                    Monthly Contribution
+                    <span className="text-[10px] font-[400] text-[var(--text-faint)] bg-[var(--bg-muted)] rounded-[4px] p-[1px_6px]">
+                      optional
+                    </span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-[14px] top-[50%] -translate-y-[50%] font-ubuntu text-[14px] text-[var(--text-faint)] pointer-events-none">$</span>
+                    <input
+                      type="number"
+                      inputMode="decimal"
+                      className="input-field min-h-[46px] !pl-[22px]"
+                      placeholder="0"
+                      value={contribution}
+                      onChange={(e) => setContribution(e.target.value)}
+                    />
                   </div>
                 </div>
               </div>
