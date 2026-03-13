@@ -70,7 +70,7 @@ const tools = [
     icon: Receipt,
     href: "/tools/capital-gains-calculator",
     category: "Tax",
-    live: false,
+    live: true,
   },
   {
     name: "Dividend Calculator",
