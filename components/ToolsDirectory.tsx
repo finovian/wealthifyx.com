@@ -46,7 +46,7 @@ const tools = [
     icon: Landmark,
     href: "/tools/401k-calculator",
     category: "Retirement",
-    live: false,
+    live: true,
   },
   {
     name: "Savings Goal Calculator",
