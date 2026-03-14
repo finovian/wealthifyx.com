@@ -180,7 +180,7 @@ export default function Navbar() {
               />
             </button>
 
-            <div className="absolute top-[100%] left-10 right-10 h-[20px]" />
+            <div className="absolute top-[100%] left-[-20px] right-[-20px] h-[10px]" />
 
             {/* Mega-menu — stays open while hovering wrapper */}
             {dropOpen && (
@@ -292,7 +292,7 @@ export default function Navbar() {
             onClick={() => setMobileOpen(false)}
           />
 
-          <div className="drawer-slide fixed top-0 right-0 bottom-0 w-[min(340px,100vw)] z-[200] bg-[var(--bg-base)] border-l border-[var(--border)] flex flex-col overflow-hidden">
+          <div className="drawer-slide fixed top-0 right-0 bottom-0 w-[min(100%,100vw)] z-[200] bg-[var(--bg-base)] border-l border-[var(--border)] flex flex-col overflow-hidden">
             {/* Header */}
             <div className="flex items-center justify-between h-[60px] px-[20px] border-b border-[var(--border)] shrink-0">
               <a
@@ -329,7 +329,7 @@ export default function Navbar() {
               </button>
 
               {mobileCalcOpen && (
-                <div className="py-[10px] flex flex-col gap-[2px]">
+                <div className="py-[10px] flex flex-col gap-[2px] max-h-[60vh] overflow-y-auto">
                   {tools.map((group) => (
                     <div key={group.category} className="mb-[8px]">
                       <div className="font-sans text-[10px] font-[600] uppercase tracking-[1.2px] text-[var(--text-faint)] px-[4px] py-[6px]">
