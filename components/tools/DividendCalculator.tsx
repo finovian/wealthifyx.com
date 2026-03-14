@@ -325,7 +325,7 @@ export default function DividendCalculator() {
                 <div className="border-t border-[var(--border)]" />
 
                 {/* Share price + shares */}
-                <div className="grid grid-cols-2 max-md:grid-cols-1 gap-5">
+                <div className="grid grid-cols-2 max-md:grid-cols-1 gap-[10px]">
                   <div className="flex flex-col gap-[6px]">
                     <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-secondary)]">Share Price</label>
                     <div className="relative">
@@ -401,7 +401,7 @@ export default function DividendCalculator() {
                 <div className="border-t border-[var(--border)]" />
 
                 {/* Growth rates */}
-                <div className="grid grid-cols-2 max-md:grid-cols-1 gap-5">
+                <div className="grid grid-cols-2 max-md:grid-cols-1 gap-[10px]">
                   <div className="flex flex-col gap-[6px]">
                     <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-muted)]">Stock Growth / yr</label>
                     <div className="relative">

@@ -311,7 +311,7 @@ export default function FourOhOneKCalculator() {
                 </div>
 
                 {/* Age row */}
-                <div className="grid grid-cols-2 max-md:grid-cols-1 gap-5">
+                <div className="grid grid-cols-2 max-md:grid-cols-1 gap-[10px]">
                   <div className="flex flex-col gap-[6px]">
                     <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-secondary)]">
                       Current Age
@@ -388,7 +388,7 @@ export default function FourOhOneKCalculator() {
                   <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-secondary)] flex items-center gap-[8px]">
                     Employer Match
                   </label>
-                  <div className="grid grid-cols-2 max-md:grid-cols-1 gap-5">
+                  <div className="grid grid-cols-2 max-md:grid-cols-1 gap-[10px]">
                     <div className="flex flex-col gap-[4px]">
                       <span className="font-sans text-[10px] text-[var(--text-faint)] uppercase tracking-[0.8px]">Match rate</span>
                       <div className="relative">

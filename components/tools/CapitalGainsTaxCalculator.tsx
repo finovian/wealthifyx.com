@@ -330,7 +330,7 @@ export default function CapitalGainsTaxCalculator() {
                 </h2>
 
                 {/* Buy / Sell prices */}
-                <div className="grid grid-cols-2 max-md:grid-cols-1 gap-5">
+                <div className="grid grid-cols-2 max-md:grid-cols-1 gap-[8px]">
                   <div className="flex flex-col gap-[6px]">
                     <label className="font-ubuntu text-[13px] font-[500] text-[var(--text-secondary)]">
                       Purchase Price
