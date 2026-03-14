@@ -9,9 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@upstash/redis": "^1.37.0",
     "framer-motion": "^12.35.1",
     "lucide-react": "^0.577.0",
-    "mongodb": "^7.1.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
