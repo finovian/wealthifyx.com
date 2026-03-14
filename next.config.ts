@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
         permanent: true, // 301 redirect
       },
       {
-        source: '/tools/cagr-calculator',
+        source: '/tools/stock-return',
         destination: '/tools',
         permanent: true,
       },
