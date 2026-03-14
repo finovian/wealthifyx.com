@@ -43,6 +43,7 @@ export default function ContactPage() {
     message: '',
   });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handlePillClick = (subject: string) => {
     setFormData((prev) => ({ ...prev, subject }));
@@ -55,15 +56,34 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
+    setErrorMessage('');
 
-    // TODO: connect to form API
-    setTimeout(() => {
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: 'Tool Request', message: '' });
-      
-      // Reset after 5 seconds
-      setTimeout(() => setStatus('idle'), 5000);
-    }, 1500);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', subject: 'Tool Request', message: '' });
+        
+        // Reset after 5 seconds
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+        setErrorMessage(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      console.error('[ContactPage] error:', err);
+      setStatus('error');
+      setErrorMessage('Failed to connect. Please check your internet and try again.');
+    }
   };
 
   return (
@@ -240,6 +260,12 @@ export default function ContactPage() {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 />
               </div>
+
+              {status === 'error' && errorMessage && (
+                <div className="bg-red-500/10 border border-red-500/20 rounded-[8px] p-[12px] text-red-500 font-sans text-[13px] text-center">
+                  {errorMessage}
+                </div>
+              )}
 
               <button
                 type="submit"

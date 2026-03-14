@@ -36,7 +36,7 @@ export default function Home() {
       <ToolsDirectory />
       <FeatureCards />
       <InlineCalculator />
-      <EmailCapture />
+      
       <FAQSection />
     </main>
   );

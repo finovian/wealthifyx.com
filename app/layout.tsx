@@ -6,6 +6,7 @@ import { ThemeProvider } from "../components/ThemeProvider";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import EmailCapture from "@/components/EmailCapture";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wealthifyx.com"),
@@ -111,6 +112,7 @@ export default function RootLayout({
           </Suspense>
           <Navbar />
           {children}
+          <EmailCapture />
           <Footer />
         </ThemeProvider>
       </body>
