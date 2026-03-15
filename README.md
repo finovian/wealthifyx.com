@@ -442,3 +442,4 @@ It must NOT feel like:
 - Any competitor (CalculatorSoup, Calculator.net, Bankrate, NerdWallet)
 
 The dark luxury aesthetic, gold accents, Playfair Display typography, and animated data visualizations are NON-NEGOTIABLE. This is the single biggest differentiator WealthifyX has.
+

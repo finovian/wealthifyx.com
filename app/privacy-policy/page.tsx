@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   description:
     'WealthifyX never stores your financial data. All calculations run locally in your browser. Read our full privacy policy.',
   alternates: {
-    canonical: 'https://wealthifyx.com/privacy',
+    canonical: 'https://wealthifyx.com/privacy-policy',
   },
   openGraph: {
     title: 'Privacy Policy — WealthifyX',
     description: 'WealthifyX never stores your financial data. All calculations are 100% client-side.',
-    url: 'https://wealthifyx.com/privacy',
+    url: 'https://wealthifyx.com/privacy-policy',
     type: 'website',
   },
 };
@@ -24,7 +24,7 @@ export default function PrivacyPage() {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://wealthifyx.com' },
-      { '@type': 'ListItem', position: 2, name: 'Privacy Policy', item: 'https://wealthifyx.com/privacy' },
+      { '@type': 'ListItem', position: 2, name: 'Privacy Policy', item: 'https://wealthifyx.com/privacy-policy' },
     ],
   };
 
