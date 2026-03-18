@@ -467,6 +467,52 @@ export default function InvestmentCalculator() {
         </div>
       </div>
 
+      {/* ── SEO Section ── */}
+      <div className="section-wrapper bg-[var(--bg-base)]">
+        <div className="max-w-[1100px] m-[0_auto]">
+          <div className="section-header">
+            <span className="section-eyebrow">{"// WHY RETURNS COMPOUND"}</span>
+            <h2 className="section-heading">Time in the market beats timing the market.</h2>
+          </div>
+          <div className="grid grid-cols-[1fr_400px] max-lg:grid-cols-1 gap-[48px] items-start">
+            {/* Left Column: Prose */}
+            <div className="flex flex-col gap-[24px]">
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                When you invest, your returns do not just grow your balance — they generate their own returns the following year. This is compound growth. In year one, $10,000 at 10% earns $1,000. In year two, you earn 10% on $11,000 — not $10,000. In year ten, you earn 10% on over $23,000. The same rate applied to a growing base produces accelerating dollar gains every single year without any additional investment.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                Monthly contributions amplify this effect dramatically. Every new dollar you add immediately begins compounding. A $500 monthly contribution at 10% for 30 years produces over $1.1 million — but only $180,000 of that comes from your actual contributions. The rest is compound growth on growth. This is why financial advisors consistently say the most important variable is not how much you invest at once, but how consistently and how early you invest.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                The right return rate to use depends on your investment vehicle. The S&P 500 has averaged approximately 10.7% nominally and 7 to 8% after inflation over long periods. A diversified index fund portfolio is reasonably modeled at 7 to 10%. Bonds average 3 to 5%. Cash in a high-yield savings account currently earns 4 to 5%. Always use the rate that matches the actual asset — overstating your return assumption is the most common planning mistake.
+              </p>
+            </div>
+
+            {/* Right Column: Stat Cards */}
+            <div className="grid grid-cols-1 md:max-lg:grid-cols-3 gap-[16px]">
+              {/* Card 1 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">$25,937</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">What $10,000 becomes in 10 years at 10%</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">With no contributions — pure compound growth on the original investment only</div>
+              </div>
+              {/* Card 2 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">10.7%</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">S&P 500 average annual return</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Nominal annualized return over the past 50 years — use 7–8% for real return planning</div>
+              </div>
+              {/* Card 3 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">30 yrs</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">When compounding becomes extraordinary</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">The gap between invested and total value grows exponentially after year 20</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── How it works ── */}
       <div className="section-wrapper bg-[var(--bg-subtle)]">
         <div className="max-w-[1100px] m-[0_auto]">

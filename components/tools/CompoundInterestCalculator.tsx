@@ -460,6 +460,52 @@ export default function CompoundInterestCalculator() {
         </div>
       </div>
 
+      {/* ── SEO Section ── */}
+      <div className="section-wrapper bg-[var(--bg-base)]">
+        <div className="max-w-[1100px] m-[0_auto]">
+          <div className="section-header">
+            <span className="section-eyebrow">{"// WHY COMPOUNDING MATTERS"}</span>
+            <h2 className="section-heading">The most powerful force in personal finance.</h2>
+          </div>
+          <div className="grid grid-cols-[1fr_400px] max-lg:grid-cols-1 gap-[48px] items-start">
+            {/* Left Column: Prose */}
+            <div className="flex flex-col gap-[24px]">
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                Compound interest means you earn returns not just on your original investment, but on every dollar of growth you have already accumulated. In year one, $10,000 at 10% earns $1,000. In year two, you earn 10% on $11,000 — not $10,000. That extra $100 seems trivial. Over 30 years it is not. The same $10,000 grows to $174,494 with annual compounding — versus $40,000 with simple interest at the same rate.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                Compounding frequency matters too, but less than most people expect. Daily compounding on $10,000 at 10% over 10 years produces $27,179 — versus $25,937 with annual compounding. The difference is $1,242. What matters far more than frequency is time and rate. One extra percentage point of return over 30 years is worth more than switching from annual to daily compounding.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                Monthly contributions accelerate this dramatically. Adding just $500 per month to a $10,000 starting balance at 10% annual return compounds to $1,132,832 over 30 years — versus $174,494 without contributions. The contributions themselves only total $180,000. The remaining $952,000 is pure compounding. This is why starting early matters more than starting with a large amount.
+              </p>
+            </div>
+
+            {/* Right Column: Stat Cards */}
+            <div className="grid grid-cols-1 md:max-lg:grid-cols-3 gap-[16px]">
+              {/* Card 1 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">$174k</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">What $10,000 becomes in 30 years at 10%</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">With no contributions, compounding alone grows $10,000 more than 17x</div>
+              </div>
+              {/* Card 2 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">72</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">The Rule of 72</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Divide 72 by your return rate to estimate how many years it takes to double your money</div>
+              </div>
+              {/* Card 3 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">10.7%</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">S&P 500 historical average return</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Nominal annualized return over the past 50 years — use 7–8% for inflation-adjusted planning</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── How it works ── */}
       <div className="section-wrapper bg-[var(--bg-subtle)]">
         <div className="max-w-[1100px] m-[0_auto]">

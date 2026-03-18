@@ -1,7 +1,7 @@
 export const faqs = [
   {
-    q: "What is an investment calculator?",
-    a: "An investment calculator projects how much your money will grow over time based on an initial amount, expected annual return rate, time horizon, and optional recurring contributions. It uses compound interest math to show you the realistic future value of your investment.",
+    q: "How much will $10,000 grow in 10 years",
+    a: "At a 10% annual return, $10,000 grows to approximately $25,937 in 10 years with no additional contributions — purely through compound growth. At 7% (inflation-adjusted S&P 500 average), the same $10,000 becomes roughly $19,672. Add $500 per month at 10% and the total reaches approximately $127,000. The difference between doing nothing and contributing monthly is the single most powerful variable in long-term investing.",
   },
   {
     q: "What return rate should I use?",
@@ -38,8 +38,8 @@ export const relatedTools = [
     href: "/tools/savings-goal-calculator",
   },
   {
-    name: "Dollar Cost Averaging Calculator",
-    desc: "Model DCA investment returns across any time period",
-    href: "/tools/dollar-cost-averaging-calculator",
+    name: "401k Calculator",
+    desc: "Model pre-tax retirement savings with employer match",
+    href: "/tools/401k-calculator",
   },
 ];

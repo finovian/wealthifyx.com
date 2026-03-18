@@ -4,9 +4,9 @@ import { faqs } from "@/constants/roth-ira";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Roth IRA Calculator",
+  title: "Roth IRA Calculator 2024 — Tax-Free Retirement Balance | WealthifyX",
   description:
-    "Calculate your tax-free Roth IRA balance at retirement. Accounts for 2024 IRS contribution limits ($7,000 / $8,000 catch-up), income phase-outs, and existing balances. Free, no sign-up.",
+    "Free Roth IRA calculator for 2024. Projects your tax-free retirement balance with IRS contribution limits ($7,000 / $8,000 catch-up), income phase-outs, and existing balance. No sign-up, no data stored.",
   alternates: {
     canonical: "https://wealthifyx.com/tools/roth-ira-calculator",
   },
@@ -62,6 +62,25 @@ export default function Page() {
                 item: "https://wealthifyx.com/tools/roth-ira-calculator",
               },
             ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Roth IRA Calculator",
+            "url": "https://wealthifyx.com/tools/roth-ira-calculator",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "description": "Free Roth IRA calculator. Projects tax-free retirement balance with 2024 IRS contribution limits, income phase-outs, and catch-up contributions for age 50+."
           }),
         }}
       />

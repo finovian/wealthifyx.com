@@ -711,6 +711,52 @@ export default function SavingsGoalCalculator() {
         </div>
       </div>
 
+      {/* ── SEO Section ── */}
+      <div className="section-wrapper bg-[var(--bg-base)]">
+        <div className="max-w-[1100px] m-[0_auto]">
+          <div className="section-header">
+            <span className="section-eyebrow">{"// HOW SAVINGS GOALS WORK"}</span>
+            <h2 className="section-heading">Two numbers that change everything: rate and time.</h2>
+          </div>
+          <div className="grid grid-cols-[1fr_400px] max-lg:grid-cols-1 gap-[48px] items-start">
+            {/* Left Column: Prose */}
+            <div className="flex flex-col gap-[24px]">
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                A savings goal has two variables you can control: how much you put in each month, and how long you give it to grow. The interest rate on your account is a third factor — but one you have less control over. The most powerful lever is <strong className="text-[var(--text-primary)] font-[600]">time</strong>. Starting 12 months earlier on a 5-year goal is worth more than increasing your monthly contribution by $100, because every earlier dollar earns interest for the entire remaining period.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                Your existing savings are not idle. Every dollar already saved is compounding right now — earning interest on interest every month before you add a single new contribution. A $5,000 existing balance at 5% annual return earns $250 in year one, $263 in year two, $276 in year three. That growth compounds automatically. The more you already have, the less new money you need to contribute to reach your goal on time.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                The right return rate depends entirely on where the money lives. High-yield savings accounts currently pay 4 to 5% — appropriate for goals under 3 years where the money must stay safe. Index fund accounts average 7% over long periods in real terms — appropriate for goals 5 years or more away where short-term volatility is acceptable. Never use a high return rate for a short-term goal. If you need the money in 18 months, it should not be in equities.
+              </p>
+            </div>
+
+            {/* Right Column: Stat Cards */}
+            <div className="grid grid-cols-1 md:max-lg:grid-cols-3 gap-[16px]">
+              {/* Card 1 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">4–5%</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Current high-yield savings account rate</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">HYSA rates as of 2024 — appropriate for goals under 3 years where capital must be safe</div>
+              </div>
+              {/* Card 2 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">7%</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Long-term index fund return estimate</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">S&P 500 inflation-adjusted average — use for goals 5+ years away in a brokerage account</div>
+              </div>
+              {/* Card 3 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">Month 1</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">When compounding starts working for you</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Your existing savings earn interest immediately — every dollar already saved reduces how much new money you need</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── How it works ── */}
       <div className="section-wrapper bg-[var(--bg-subtle)]">
         <div className="max-w-[1100px] m-[0_auto]">

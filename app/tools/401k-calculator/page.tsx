@@ -65,6 +65,25 @@ export default function Page() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "401k Calculator",
+            "url": "https://wealthifyx.com/tools/401k-calculator",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "description": "Free 401k calculator for 2024. Projects retirement balance with employer match, IRS contribution limits ($23,000), and catch-up contributions for age 50+."
+          }),
+        }}
+      />
       <FourOhOneKCalculator />
     </>
   );

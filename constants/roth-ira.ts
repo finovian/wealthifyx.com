@@ -1,7 +1,7 @@
 export const faqs = [
   {
-    q: "What is a Roth IRA calculator?",
-    a: "A Roth IRA calculator projects how much your retirement account will be worth when you stop working. You enter your current age, retirement age, annual contribution, existing balance, and expected return rate. The calculator compounds that growth annually and shows your total tax-free balance at retirement — the amount you can withdraw without owing any federal income tax.",
+    q: "Can I contribute to a Roth IRA if I already have a 401k?",
+    a: "Yes. Having a 401k through your employer does not affect your Roth IRA eligibility. The two accounts have completely separate contribution limits. You can max both in the same year — $23,000 in a 401k plus $7,000 in a Roth IRA for 2024 if you are under 50. The only factor that affects Roth IRA eligibility is your income level, not whether you have other retirement accounts.",
   },
   {
     q: "How much can I contribute to a Roth IRA in 2024?",

@@ -530,7 +530,53 @@ export default function RothIRACalculator() {
         </div>
       </div>
 
-      <div className="section-wrapper bg-[var(--bg-subtle)]">
+      {/* ── SEO Section ── */}
+      <div className="section-wrapper bg-[var(--bg-base)]">
+        <div className="max-w-[1100px] m-[0_auto]">
+          <div className="section-header">
+            <span className="section-eyebrow">{"// WHAT IS A ROTH IRA"}</span>
+            <h2 className="section-heading">The retirement account that grows tax-free.</h2>
+          </div>
+          <div className="grid grid-cols-[1fr_400px] max-lg:grid-cols-1 gap-[48px] items-start">
+            {/* Left Column: Prose */}
+            <div className="flex flex-col gap-[24px]">
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                A Roth IRA is an individual retirement account where you contribute after-tax dollars — meaning you pay income tax on the money now. In exchange, every dollar of growth and every qualified withdrawal after age 59½ is completely federal-tax-free. No taxes on dividends. No taxes on capital gains. No taxes when you withdraw in retirement.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                The 2024 contribution limit is $7,000 per year if you are under 50, and $8,000 if you are 50 or older. Your ability to contribute phases out if your Modified Adjusted Gross Income (MAGI) exceeds $146,000 as a single filer or $230,000 married filing jointly. Above $161,000 single or $240,000 married, direct contributions are not allowed — though a backdoor Roth conversion remains an option.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                Unlike a Traditional IRA or 401(k), a Roth IRA has no Required Minimum Distributions (RMDs). You are never forced to withdraw. If you do not need the money at retirement, it keeps compounding tax-free and can be passed to heirs. This flexibility makes the Roth IRA one of the most powerful long-term wealth-building tools available to individual investors.
+              </p>
+            </div>
+
+            {/* Right Column: Stat Cards */}
+            <div className="grid grid-cols-1 md:max-lg:grid-cols-3 gap-[16px]">
+              {/* Card 1 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">$7,000</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">2024 contribution limit (under 50)</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">$8,000 with catch-up contribution (age 50+)</div>
+              </div>
+              {/* Card 2 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">0%</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Tax on qualified withdrawals</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">After age 59½, all growth comes out federal-tax-free</div>
+              </div>
+              {/* Card 3 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">$161k</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Single filer income cutoff</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Phase-out begins at $146,000 MAGI</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+            <div className="section-wrapper bg-[var(--bg-subtle)]">
         <div className="max-w-[1100px] m-[0_auto]">
           <div className="section-header">
             <span className="section-eyebrow">{"// HOW IT WORKS"}</span>
