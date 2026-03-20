@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import { TrendingUp, ArrowRight, AlertTriangle, Info } from "lucide-react";
 import FAQSection from "../FAQSection";
+import ShareButton from "@/components/ShareButton";
 import {
   trackCalculatorResult,
   trackRelatedToolClick,
@@ -38,6 +39,21 @@ const FILING_OPTIONS = [
 
 /* ─── Types ──────────────────────────────────────────────── */
 type FilingStatus = "single" | "married" | "married_sep";
+
+interface InitialValues {
+  age?: string;
+  ret?: string;
+  con?: string;
+  bal?: string;
+  rate?: string;
+  fil?: string;
+  inc?: string;
+  result?: string;
+}
+
+interface RothIRACalculatorProps {
+  initialValues?: InitialValues;
+}
 
 interface CalcResult {
   finalBalance: number;
@@ -177,14 +193,14 @@ function CurvedUnderline() {
 }
 
 /* ─── Main component ─────────────────────────────────────── */
-export default function RothIRACalculator() {
-  const [currentAge, setCurrentAge] = useState("30");
-  const [retirementAge, setRetirementAge] = useState("65");
-  const [contribution, setContribution] = useState("7000");
-  const [existingBalance, setExistingBalance] = useState("");
-  const [rate, setRate] = useState("7");
-  const [filing, setFiling] = useState<FilingStatus>("single");
-  const [income, setIncome] = useState("");
+export default function RothIRACalculator({ initialValues }: RothIRACalculatorProps) {
+  const [currentAge, setCurrentAge] = useState(initialValues?.age || "30");
+  const [retirementAge, setRetirementAge] = useState(initialValues?.ret || "65");
+  const [contribution, setContribution] = useState(initialValues?.con || "7000");
+  const [existingBalance, setExistingBalance] = useState(initialValues?.bal || "");
+  const [rate, setRate] = useState(initialValues?.rate || "7");
+  const [filing, setFiling] = useState<FilingStatus>((initialValues?.fil as FilingStatus) || "single");
+  const [income, setIncome] = useState(initialValues?.inc || "");
 
   const maxContribution = useMemo(() => {
     const age = parseInt(currentAge);
@@ -487,6 +503,23 @@ export default function RothIRACalculator() {
                     </span>
                   </motion.div>
                 ))}
+              </div>
+
+              {/* Share Results Button */}
+              <div className="mb-[16px] relative z-10">
+                <ShareButton
+                  params={{
+                    age: currentAge,
+                    ret: retirementAge,
+                    con: contribution,
+                    bal: existingBalance,
+                    rate: rate,
+                    fil: filing,
+                    inc: income,
+                    result: result?.finalBalance.toString() || "",
+                  }}
+                  disabled={!!validationError}
+                />
               </div>
 
               {/* Chart */}
