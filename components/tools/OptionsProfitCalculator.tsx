@@ -14,6 +14,7 @@ import {
 import { Activity, ArrowRight, AlertTriangle, TrendingUp, TrendingDown } from "lucide-react";
 import { faqs, relatedTools } from "@/constants/options-profit";
 import FAQSection from "../FAQSection";
+import ShareButton from "@/components/ShareButton";
 import {
   trackCalculatorResult,
   trackRelatedToolClick,
@@ -22,6 +23,19 @@ import {
 
 /* ─── Types ─────────────────────────────────────────────── */
 type PositionType = "long_call" | "long_put" | "short_call" | "short_put";
+
+interface InitialValues {
+  type?: string;
+  strike?: string;
+  prem?: string;
+  mult?: string;
+  target?: string;
+  result?: string;
+}
+
+interface OptionsProfitCalculatorProps {
+  initialValues?: InitialValues;
+}
 
 interface CalcResult {
   pnlAtTarget: number;
@@ -239,12 +253,12 @@ function PositionSelector({
 }
 
 /* ─── Main component ─────────────────────────────────────── */
-export default function OptionsProfitCalculator() {
-  const [positionType, setPositionType] = useState<PositionType>("long_call");
-  const [strikePrice, setStrikePrice] = useState("150");
-  const [premiumPerShare, setPremiumPerShare] = useState("5");
-  const [contracts, setContracts] = useState("1");
-  const [targetPrice, setTargetPrice] = useState("165");
+export default function OptionsProfitCalculator({ initialValues }: OptionsProfitCalculatorProps) {
+  const [positionType, setPositionType] = useState<PositionType>((initialValues?.type as PositionType) || "long_call");
+  const [strikePrice, setStrikePrice] = useState(initialValues?.strike || "150");
+  const [premiumPerShare, setPremiumPerShare] = useState(initialValues?.prem || "5");
+  const [contracts, setContracts] = useState(initialValues?.mult || "1");
+  const [targetPrice, setTargetPrice] = useState(initialValues?.target || "165");
 
   /* ─── GA4 ── */
   const debouncedTrack = useMemo(
@@ -550,6 +564,21 @@ export default function OptionsProfitCalculator() {
                       : "—"}
                   </span>
                 </div>
+              </div>
+
+              {/* Share Results Button */}
+              <div className="mb-[16px] relative z-10">
+                <ShareButton
+                  params={{
+                    type: positionType,
+                    strike: strikePrice,
+                    prem: premiumPerShare,
+                    mult: contracts,
+                    target: targetPrice,
+                    result: result?.pnlAtTarget.toString() || "",
+                  }}
+                  disabled={!result}
+                />
               </div>
 
               {/* P&L Chart */}

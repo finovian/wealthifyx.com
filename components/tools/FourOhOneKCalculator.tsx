@@ -13,6 +13,7 @@ import {
 import { Landmark, ArrowRight, AlertTriangle, Info } from "lucide-react";
 import { faqs, relatedTools } from "@/constants/401k";
 import FAQSection from "../FAQSection";
+import ShareButton from "@/components/ShareButton";
 import {
   trackCalculatorResult,
   trackRelatedToolClick,
@@ -24,6 +25,22 @@ const LIMIT_UNDER_50 = 23000;
 const LIMIT_50_PLUS = 30500;
 
 /* ─── Types ─────────────────────────────────────────────── */
+interface InitialValues {
+  sal?: string;
+  emp?: string;
+  mp?: string;
+  mu?: string;
+  bal?: string;
+  rate?: string;
+  age?: string;
+  ret?: string;
+  result?: string;
+}
+
+interface FourOhOneKCalculatorProps {
+  initialValues?: InitialValues;
+}
+
 interface CalcResult {
   finalBalance: number;
   totalEmployeeContrib: number;
@@ -166,15 +183,15 @@ function CurvedUnderline() {
 }
 
 /* ─── Main component ─────────────────────────────────────── */
-export default function FourOhOneKCalculator() {
-  const [salary, setSalary] = useState("80000");
-  const [empContribPct, setEmpContribPct] = useState("6");
-  const [matchPct, setMatchPct] = useState("50");
-  const [matchUpToPct, setMatchUpToPct] = useState("6");
-  const [existingBalance, setExistingBalance] = useState("");
-  const [rate, setRate] = useState("7");
-  const [currentAge, setCurrentAge] = useState("30");
-  const [retirementAge, setRetirementAge] = useState("65");
+export default function FourOhOneKCalculator({ initialValues }: FourOhOneKCalculatorProps) {
+  const [salary, setSalary] = useState(initialValues?.sal || "80000");
+  const [empContribPct, setEmpContribPct] = useState(initialValues?.emp || "6");
+  const [matchPct, setMatchPct] = useState(initialValues?.mp || "50");
+  const [matchUpToPct, setMatchUpToPct] = useState(initialValues?.mu || "6");
+  const [existingBalance, setExistingBalance] = useState(initialValues?.bal || "");
+  const [rate, setRate] = useState(initialValues?.rate || "7");
+  const [currentAge, setCurrentAge] = useState(initialValues?.age || "30");
+  const [retirementAge, setRetirementAge] = useState(initialValues?.ret || "65");
 
   /* ─── Derived ── */
   const irsLimit = useMemo(() => {
@@ -552,6 +569,24 @@ export default function FourOhOneKCalculator() {
                     </span>
                   </div>
                 ))}
+              </div>
+
+              {/* Share Results Button */}
+              <div className="mb-[16px] relative z-10">
+                <ShareButton
+                  params={{
+                    sal: salary,
+                    emp: empContribPct,
+                    mp: matchPct,
+                    mu: matchUpToPct,
+                    bal: existingBalance,
+                    rate: rate,
+                    age: currentAge,
+                    ret: retirementAge,
+                    result: result?.finalBalance.toString() || "",
+                  }}
+                  disabled={!result}
+                />
               </div>
 
               {/* Employer match callout */}
