@@ -444,3 +444,5 @@ It must NOT feel like:
 
 The dark luxury aesthetic, gold accents, Playfair Display typography, and animated data visualizations are NON-NEGOTIABLE. This is the single biggest differentiator WealthifyX has.
 
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
