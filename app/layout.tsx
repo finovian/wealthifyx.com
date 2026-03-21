@@ -7,6 +7,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import EmailCapture from "@/components/EmailCapture";
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wealthifyx.com"),
@@ -108,7 +109,8 @@ export default function RootLayout({
             `}
           </Script>
           <Suspense fallback={null}>
-            <AnalyticsProvider />
+            <AnalyticsProvider />\
+            <Analytics />
           </Suspense>
           <Navbar />
           {children}
