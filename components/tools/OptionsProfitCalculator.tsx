@@ -656,6 +656,52 @@ export default function OptionsProfitCalculator() {
         </div>
       </div>
 
+      {/* ── SEO Section ── */}
+      <div className="section-wrapper bg-[var(--bg-base)]">
+        <div className="max-w-[1100px] m-[0_auto]">
+          <div className="section-header">
+            <span className="section-eyebrow">{"// UNDERSTANDING OPTIONS"}</span>
+            <h2 className="section-heading">Know your risk before you place the trade.</h2>
+          </div>
+          <div className="grid grid-cols-[1fr_400px] max-lg:grid-cols-1 gap-[48px] items-start">
+            {/* Left Column: Prose */}
+            <div className="flex flex-col gap-[24px]">
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                A stock option gives you the right — but not the obligation — to buy or sell 100 shares of a stock at a fixed price (the strike price) before expiry. A call option profits when the stock rises above the strike. A put option profits when the stock falls below it. Each contract controls 100 shares, so a $5 premium per share costs $500 total — and that premium is your maximum loss on a long position.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                The <strong className="text-[var(--text-primary)] font-[600]">breakeven price</strong> is the stock price at expiry where your trade neither profits nor loses. For a long call it is the strike price plus the premium paid. For a long put it is the strike price minus the premium paid. If the stock lands exactly at breakeven at expiry, your P&L is zero — you recover the cost of the premium but nothing more. Anything above breakeven on a call, or below it on a put, is profit.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                Short options — selling calls or puts — reverse the risk profile entirely. You receive the premium upfront and keep it if the option expires worthless. But a short call carries theoretically unlimited downside if the stock keeps rising above the breakeven price. A short put loses up to the full strike price minus premium if the stock crashes to zero. This calculator shows the complete P&L curve so you can see where every dollar of profit and loss comes from before entering a position.
+              </p>
+            </div>
+
+            {/* Right Column: Stat Cards */}
+            <div className="grid grid-cols-1 md:max-lg:grid-cols-3 gap-[16px]">
+              {/* Card 1 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">100</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Shares controlled per contract</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Every options contract represents exactly 100 shares of the underlying stock</div>
+              </div>
+              {/* Card 2 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">Defined</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Maximum loss on long options</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Buying calls or puts limits your maximum loss to the premium paid — nothing more</div>
+              </div>
+              {/* Card 3 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500]" style={{ color: "var(--negative, #e11d48)" }}>Unlimited</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Maximum loss on short calls</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Selling uncovered calls exposes you to unlimited loss as the stock price rises</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── How it works ── */}
       <div className="section-wrapper bg-[var(--bg-subtle)]">
         <div className="max-w-[1100px] m-[0_auto]">

@@ -3,9 +3,9 @@ import { faqs } from "@/constants/capital-gains";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Capital Gains Tax Calculator 2024",
+  title: "Capital Gains Tax Calculator 2024 — Estimate Tax Before You Sell | WealthifyX",
   description:
-    "Calculate your 2024 federal capital gains tax on any stock or investment sale. Includes long-term rates (0%, 15%, 20%), short-term ordinary income rates, NIIT, and optional state tax. Free, no sign-up.",
+    "Free capital gains tax calculator for 2024. Estimates federal tax on stock and investment sales using long-term rates (0%, 15%, 20%), short-term ordinary income rates, NIIT surcharge, and optional state tax. No sign-up, no data stored.",
   alternates: {
     canonical: "https://wealthifyx.com/tools/capital-gains-calculator",
   },
@@ -50,6 +50,25 @@ export default function Page() {
                 item: "https://wealthifyx.com/tools/capital-gains-calculator",
               },
             ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Capital Gains Tax Calculator",
+            "url": "https://wealthifyx.com/tools/capital-gains-calculator",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "description": "Free 2024 capital gains tax calculator. Estimates federal tax on investment sales with long-term rates, short-term rates, NIIT, and state tax."
           }),
         }}
       />

@@ -589,12 +589,57 @@ export default function DividendCalculator() {
                 </div>
               )}
             </div>
-
           </div>
         </div>
       </div>
 
-      {/* ── How it works ── */}
+      {/* ── SEO Section ── */}
+      <div className="section-wrapper bg-[var(--bg-base)]">
+        <div className="max-w-[1100px] m-[0_auto]">
+          <div className="section-header">
+            <span className="section-eyebrow">{"// WHAT IS DRIP INVESTING"}</span>
+            <h2 className="section-heading">How dividends compound into serious wealth.</h2>
+          </div>
+          <div className="grid grid-cols-[1fr_400px] max-lg:grid-cols-1 gap-[48px] items-start">
+            {/* Left Column: Prose */}
+            <div className="flex flex-col gap-[24px]">
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                A dividend is a cash payment a company makes to shareholders — typically every quarter — out of its profits. When you own a dividend-paying stock or ETF, you receive these payments simply for holding shares. A Dividend Reinvestment Plan (DRIP) takes those cash payments and automatically uses them to buy more shares instead. More shares means more dividends next quarter. Those dividends buy more shares. The cycle repeats — this is dividend compounding.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                The longer you hold, the more powerful this becomes. <strong className="text-[var(--text-primary)] font-[600]">Yield on cost</strong> is the metric that shows it most clearly: it measures your annual dividend income as a percentage of your original investment. A stock bought at a 4% yield that grows its dividend at 7% per year doubles its yield on cost in roughly 10 years — meaning you are earning 8% annually on the same dollars you originally invested, regardless of what the stock price does.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                <strong className="text-[var(--text-primary)] font-[600]">Dividend Aristocrats</strong> — companies that have raised their dividend every year for 25+ consecutive years — have historically grown dividends at 6 to 8% annually. Combined with share price appreciation and DRIP reinvestment, long-term dividend investors often see their income stream grow faster than inflation every single year. This calculator models all three forces simultaneously: price growth, dividend growth, and reinvestment compounding.
+              </p>
+            </div>
+
+            {/* Right Column: Stat Cards */}
+            <div className="grid grid-cols-1 md:max-lg:grid-cols-3 gap-[16px]">
+              {/* Card 1 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">4×</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">DRIP vs cash dividends over 30 years</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Reinvesting dividends at 4% yield with 6% stock growth produces roughly 4x more wealth than taking cash</div>
+              </div>
+              {/* Card 2 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">25+</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Years of consecutive dividend growth</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Required to qualify as a Dividend Aristocrat — the benchmark for dividend reliability</div>
+              </div>
+              {/* Card 3 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">7%</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Average Dividend Aristocrat growth rate</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Annual dividend growth rate for companies in the S&P 500 Dividend Aristocrats index</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{/* ── How it works ── */}
       <div className="section-wrapper bg-[var(--bg-subtle)]">
         <div className="max-w-[1100px] m-[0_auto]">
           <div className="section-header">

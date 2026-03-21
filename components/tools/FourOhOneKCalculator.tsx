@@ -644,6 +644,52 @@ export default function FourOhOneKCalculator() {
         </div>
       </div>
 
+      {/* ── SEO Section ── */}
+      <div className="section-wrapper bg-[var(--bg-base)]">
+        <div className="max-w-[1100px] m-[0_auto]">
+          <div className="section-header">
+            <span className="section-eyebrow">{"// WHAT IS A 401K"}</span>
+            <h2 className="section-heading">The retirement account that cuts your tax bill today.</h2>
+          </div>
+          <div className="grid grid-cols-[1fr_400px] max-lg:grid-cols-1 gap-[48px] items-start">
+            {/* Left Column: Prose */}
+            <div className="flex flex-col gap-[24px]">
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                A 401(k) is an employer-sponsored retirement account where you contribute pre-tax dollars directly from your paycheck. Pre-tax means the contribution reduces your taxable income today — if you earn $80,000 and contribute $6,000, you only pay income tax on $74,000 that year. Your investments then grow tax-deferred until you withdraw in retirement, when withdrawals are taxed as ordinary income.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                The employer match is the most valuable part most employees underuse. The most common structure is 50% match up to 6% of salary — meaning your employer adds $0.50 for every $1 you contribute, up to 6% of your paycheck. On an $80,000 salary that is $2,400 of free money per year. Employees who contribute below the match ceiling are leaving guaranteed compensation on the table. No investment in the market offers a guaranteed 50% return on day one.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                The 2024 employee contribution limit is $23,000 per year — $30,500 if you are age 50 or older, thanks to the catch-up contribution provision. Employer matching contributions are on top of this and do not count toward your personal limit. The combined limit including employer contributions is $69,000 in 2024. Unlike a Roth IRA, there are no income limits on 401(k) contributions — anyone with access to a plan can contribute up to the IRS maximum.
+              </p>
+            </div>
+
+            {/* Right Column: Stat Cards */}
+            <div className="grid grid-cols-1 md:max-lg:grid-cols-3 gap-[16px]">
+              {/* Card 1 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">$23,000</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">2024 employee contribution limit</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">$30,500 with catch-up contribution for employees age 50 and older</div>
+              </div>
+              {/* Card 2 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">50%</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Guaranteed return on matched contributions</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">A 50% match up to 6% means every matched dollar earns 50% before any market return</div>
+              </div>
+              {/* Card 3 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">$69,000</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Total 2024 combined contribution limit</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">Maximum across employee plus employer contributions to a single 401(k) plan</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── How it works ── */}
       <div className="section-wrapper bg-[var(--bg-subtle)]">
         <div className="max-w-[1100px] m-[0_auto]">

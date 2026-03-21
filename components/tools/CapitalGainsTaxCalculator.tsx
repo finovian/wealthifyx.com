@@ -607,6 +607,52 @@ export default function CapitalGainsTaxCalculator() {
         </div>
       </div>
 
+      {/* ── SEO Section ── */}
+      <div className="section-wrapper bg-[var(--bg-base)]">
+        <div className="max-w-[1100px] m-[0_auto]">
+          <div className="section-header">
+            <span className="section-eyebrow">{"// WHAT IS CAPITAL GAINS TAX"}</span>
+            <h2 className="section-heading">The tax you owe when an investment pays off.</h2>
+          </div>
+          <div className="grid grid-cols-[1fr_400px] max-lg:grid-cols-1 gap-[48px] items-start">
+            {/* Left Column: Prose */}
+            <div className="flex flex-col gap-[24px]">
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                A capital gain is the profit you make when you sell an investment for more than you paid for it. The IRS taxes that profit — but at very different rates depending on one factor: how long you held the asset. Hold for more than one year and you qualify for long-term capital gains rates of 0%, 15%, or 20%. Sell within a year and the profit is taxed as ordinary income, the same rate as your salary — up to 37% in 2024.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                Your tax bracket is determined by your total taxable income including the gain. Your ordinary income fills the brackets first, and the capital gain is stacked on top. This means a $50,000 gain on top of a $100,000 salary is taxed differently than the same gain on top of a $40,000 salary. Income matters as much as the gain itself.
+              </p>
+              <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
+                High-income investors face an additional layer: the Net Investment Income Tax (NIIT) adds 3.8% on top of the regular rate once your income exceeds $200,000 as a single filer or $250,000 married filing jointly. Combined with the top 20% long-term rate, the maximum effective federal rate on long-term gains is 23.8% — before any state tax. This calculator shows your complete picture.
+              </p>
+            </div>
+
+            {/* Right Column: Stat Cards */}
+            <div className="grid grid-cols-1 md:max-lg:grid-cols-3 gap-[16px]">
+              {/* Card 1 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">0%</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Minimum long-term capital gains rate</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">For single filers with income up to $47,025 in 2024</div>
+              </div>
+              {/* Card 2 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">23.8%</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">Maximum federal rate on long-term gains</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">20% LTCG rate plus 3.8% NIIT for high-income investors</div>
+              </div>
+              {/* Card 3 */}
+              <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[14px] p-[28px_32px]">
+                <div className="font-sans text-[32px] font-[500] text-[var(--accent)]">1 year</div>
+                <div className="font-sans text-[13px] font-[600] text-[var(--text-primary)] mt-[4px]">The holding period that changes everything</div>
+                <div className="font-sans text-[12px] text-[var(--text-muted)] mt-[4px] leading-[1.5]">One extra day past 12 months can cut your tax rate in half</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── How it works ── */}
       <div className="section-wrapper bg-[var(--bg-subtle)]">
         <div className="max-w-[1100px] m-[0_auto]">
