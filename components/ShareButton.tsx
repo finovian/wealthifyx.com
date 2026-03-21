@@ -45,7 +45,7 @@ export default function ShareButton({ params, disabled }: ShareButtonProps) {
     <button
       onClick={handleShare}
       disabled={disabled}
-      className="w-full flex items-center justify-center gap-[10px] p-[16px] bg-[var(--accent-bg)] border-[1.5px] border-[var(--accent-border)] rounded-[16px] font-ubuntu text-[14px] font-[600] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[white] hover:border-[var(--accent)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group shadow-[0_2px_10px_-3px_rgba(22,163,74,0.15)] hover:shadow-[0_8px_25px_-5px_rgba(22,163,74,0.3)] active:scale-[0.98]"
+      className="w-full cursor-pointer flex items-center justify-center gap-[10px] p-[16px] bg-[var(--accent-bg)] border-[1.5px] border-[var(--accent-border)] rounded-[16px] font-ubuntu text-[14px] font-[600] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[white] hover:border-[var(--accent)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group shadow-[0_2px_10px_-3px_rgba(22,163,74,0.15)] hover:shadow-[0_8px_25px_-5px_rgba(22,163,74,0.3)] active:scale-[0.98]"
     >
       {copied ? (
         <>

@@ -7,6 +7,26 @@ import Footer from "@/components/Footer";
 import EmailCapture from "@/components/EmailCapture";
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { DM_Sans, DM_Mono, Ubuntu } from 'next/font/google'
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
+  variable: '--font-dm-sans',
+})
+const dmMono = DM_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  display: 'swap',
+  variable: '--font-dm-mono',
+})
+const ubuntu = Ubuntu({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700'],
+  display: 'swap',
+  variable: '--font-ubuntu',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wealthifyx.com"),
@@ -34,14 +54,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html 
+      lang="en" 
+      suppressHydrationWarning
+      className={`${dmSans.variable} ${dmMono.variable} ${ubuntu.variable}`}
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
         {/* Prevent theme flash */}
         <script
           dangerouslySetInnerHTML={{
@@ -89,7 +107,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body style={{ fontFamily: "'DM Sans', sans-serif" }}>
+      <body>
         <ThemeProvider>
           <Analytics />
           <SpeedInsights />

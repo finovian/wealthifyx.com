@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"DM Sans"', 'sans-serif'],
-        mono: ['"DM Mono"', 'monospace'],
-        ubuntu: ['Ubuntu', 'sans-serif'],
+        sans: ['var(--font-dm-sans)', 'sans-serif'],
+        mono: ['var(--font-dm-mono)', 'monospace'],
+        ubuntu: ['var(--font-ubuntu)', 'sans-serif'],
         serif: ['"Instrument Serif"', 'serif'],
       },
       screens: {

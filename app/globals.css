@@ -1,12 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Ubuntu:wght@300;400;500;700&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ========================================
-   TAILWIND v4 THEME TOKENS
-   ======================================== */
 @theme inline {
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
@@ -17,9 +12,9 @@
   --color-foreground: var(--text-primary);
 
   --font-serif: "Instrument Serif", serif;
-  --font-sans: "DM Sans", sans-serif;
-  --font-mono: "DM Mono", monospace;
-  --font-ubuntu: "Ubuntu", sans-serif;
+  --font-sans: var(--font-dm-sans), sans-serif;
+  --font-mono: var(--font-dm-mono), monospace;
+  --font-ubuntu: var(--font-ubuntu), sans-serif;
 
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
@@ -161,7 +156,7 @@ html {
 body {
   background: var(--bg-base);
   color: var(--text-primary);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-dm-sans), sans-serif;
   font-size: 15px;
   line-height: 1.6;
   transition:
@@ -177,7 +172,7 @@ body {
 h1,
 h2,
 h3 {
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-dm-sans), sans-serif;
   color: var(--text-primary);
   line-height: 1.1;
 }
@@ -209,12 +204,12 @@ select,
 .calc-button,
 .result-label,
 button {
-  font-family: "Ubuntu", sans-serif;
+  font-family: var(--font-ubuntu), sans-serif;
 }
 
 input::placeholder,
 textarea::placeholder {
-  font-family: "Ubuntu", sans-serif;
+  font-family: var(--font-ubuntu), sans-serif;
   color: var(--text-faint);
 }
 
@@ -254,7 +249,7 @@ textarea::placeholder {
 }
 
 .section-eyebrow {
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-dm-sans), sans-serif;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 1.5px;
@@ -314,7 +309,7 @@ textarea::placeholder {
   color: #ffffff;
   padding: 10px 24px;
   border-radius: 8px;
-  font-family: "Ubuntu", sans-serif;
+  font-family: var(--font-ubuntu), sans-serif;
   font-size: 14px;
   font-weight: 500;
   border: none;
@@ -347,7 +342,7 @@ textarea::placeholder {
   color: var(--text-secondary);
   padding: 10px 24px;
   border-radius: 8px;
-  font-family: "Ubuntu", sans-serif;
+  font-family: var(--font-ubuntu), sans-serif;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -381,7 +376,7 @@ textarea::placeholder {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 10px 14px;
-  font-family: "Ubuntu", sans-serif;
+  font-family: var(--font-ubuntu), sans-serif;
   font-size: 16px; /* 16px base — prevents iOS zoom */
   color: var(--text-primary);
   transition:
@@ -532,13 +527,13 @@ input[type="number"] {
    RECHARTS OVERRIDES
    ======================================== */
 .recharts-cartesian-axis-tick-value {
-  font-family: "DM Mono", monospace !important;
+  font-family: var(--font-dm-mono), monospace !important;
   font-size: 11px !important;
   fill: var(--text-faint) !important;
 }
 
 .recharts-tooltip-wrapper {
-  font-family: "DM Sans", sans-serif !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
 }
 
 /* ========================================
