@@ -13,11 +13,6 @@ function gtag(...args: unknown[]) {
   }
 }
 
-// ── Page view (called automatically by GA config, but export for manual use) ──
-export function trackPageView(url: string) {
-  gtag('config', 'G-6PR1F8E717', { page_path: url });
-}
-
 // ── Calculator events ──
 
 // Fired when user changes any input field in a calculator
