@@ -13,6 +13,7 @@ import {
 import { DollarSign, ArrowRight, AlertTriangle, Info } from "lucide-react";
 import { faqs, relatedTools } from "@/constants/dividend";
 import FAQSection from "../FAQSection";
+import ShareButton from "@/components/ShareButton";
 import {
   trackCalculatorResult,
   trackRelatedToolClick,
@@ -20,6 +21,20 @@ import {
 } from "@/lib/analytics";
 
 /* ─── Types ─────────────────────────────────────────────── */
+interface InitialValues {
+  principal?: string;
+  shares?: string;
+  yield?: string;
+  growth?: string;
+  years?: string;
+  drip?: string;
+  result?: string;
+}
+
+interface DividendCalculatorProps {
+  initialValues?: InitialValues;
+}
+
 interface ChartPoint {
   year: string;
   portfolioValue: number;
@@ -191,17 +206,17 @@ function DripToggle({ drip, onChange }: { drip: boolean; onChange: (v: boolean) 
 type ChartView = "value" | "income";
 
 /* ─── Main component ─────────────────────────────────────── */
-export default function DividendCalculator() {
-  const [sharePrice,      setSharePrice]      = useState("50");
-  const [shares,          setShares]          = useState("100");
+export default function DividendCalculator({ initialValues }: DividendCalculatorProps) {
+  const [sharePrice,      setSharePrice]      = useState(initialValues?.principal || "50");
+  const [shares,          setShares]          = useState(initialValues?.shares || "100");
   const [inputMode,       setInputMode]       = useState<"dps" | "yield">("yield");
-  const [dividendYield,   setDividendYield]   = useState("4");
+  const [dividendYield,   setDividendYield]   = useState(initialValues?.yield || "4");
   const [dividendPerShare,setDividendPerShare]= useState("2");
   const [stockGrowth,     setStockGrowth]     = useState("6");
-  const [divGrowth,       setDivGrowth]       = useState("5");
-  const [years,           setYears]           = useState("20");
+  const [divGrowth,       setDivGrowth]       = useState(initialValues?.growth || "5");
+  const [years,           setYears]           = useState(initialValues?.years || "20");
   const [additionalShares,setAdditionalShares]= useState("");
-  const [drip,            setDrip]            = useState(true);
+  const [drip,            setDrip]            = useState(initialValues?.drip === "false" ? false : true);
   const [chartView,       setChartView]       = useState<ChartView>("value");
 
   /* ─── Derive DPS from yield or vice versa ── */
@@ -498,6 +513,22 @@ export default function DividendCalculator() {
                       style={{ color: card.color }}>{card.value}</span>
                   </div>
                 ))}
+              </div>
+
+              {/* Share Results Button */}
+              <div className="mb-[16px] relative z-10">
+                <ShareButton
+                  params={{
+                    principal: sharePrice,
+                    shares: shares,
+                    yield: dividendYield,
+                    growth: divGrowth,
+                    years: years,
+                    drip: drip.toString(),
+                    result: result?.finalAnnualIncome.toString() || "",
+                  }}
+                  disabled={!result}
+                />
               </div>
 
               {/* Yield on cost callout */}

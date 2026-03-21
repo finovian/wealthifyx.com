@@ -2,23 +2,66 @@ import DividendCalculator from "@/components/tools/DividendCalculator";
 import { faqs } from "@/constants/dividend";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Dividend Calculator 2024 — DRIP Growth & Income Estimator | WealthifyX",
-  description:
-    "Free dividend calculator for 2024. Projects dividend income, DRIP compounding, yield on cost, and portfolio value for any dividend stock or ETF. Supports quarterly reinvestment, dividend growth rate, and custom holding periods. No sign-up, no data stored.",
-  alternates: {
-    canonical: "https://wealthifyx.com/tools/dividend-calculator",
-  },
-  openGraph: {
-    title: "Dividend Calculator — DRIP Growth & Income Estimator",
-    description:
-      "Project dividend income and DRIP compounding growth over time. See yield on cost, total dividends, and portfolio value at any horizon.",
-    url: "https://wealthifyx.com/tools/dividend-calculator",
-    type: "website",
-  },
-};
+interface PageProps {
+  searchParams: Promise<{
+    principal?: string;
+    shares?: string;
+    yield?: string;
+    growth?: string;
+    years?: string;
+    drip?: string;
+    result?: string;
+  }>;
+}
 
-export default function Page() {
+export async function generateMetadata({
+  searchParams,
+}: PageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const result = params.result;
+
+  if (result) {
+    const formatted = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }).format(Number(result));
+
+    const title = `${formatted} annual dividends — Dividend Calculator | WealthifyX`;
+    const description = `See how ${formatted} in annual dividend income was projected using the WealthifyX Dividend Calculator. Try it with your own numbers.`;
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        url: "https://wealthifyx.com/tools/dividend-calculator",
+        type: "website",
+      },
+    };
+  }
+
+  return {
+    title: "Dividend Calculator 2024 — DRIP Growth & Income Estimator | WealthifyX",
+    description:
+      "Free dividend calculator for 2024. Projects dividend income, DRIP compounding, yield on cost, and portfolio value for any dividend stock or ETF. Supports quarterly reinvestment, dividend growth rate, and custom holding periods. No sign-up, no data stored.",
+    alternates: {
+      canonical: "https://wealthifyx.com/tools/dividend-calculator",
+    },
+    openGraph: {
+      title: "Dividend Calculator — DRIP Growth & Income Estimator",
+      description:
+        "Project dividend income and DRIP compounding growth over time. See yield on cost, total dividends, and portfolio value at any horizon.",
+      url: "https://wealthifyx.com/tools/dividend-calculator",
+      type: "website",
+    },
+  };
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  const params = await searchParams;
+
   return (
     <>
       <script
@@ -72,7 +115,7 @@ export default function Page() {
           }),
         }}
       />
-      <DividendCalculator />
+      <DividendCalculator initialValues={params} />
     </>
   );
 }

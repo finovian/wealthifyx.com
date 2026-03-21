@@ -14,6 +14,7 @@ import {
 import { PiggyBank, ArrowRight, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { faqs, relatedTools } from "@/constants/savings-goal";
 import FAQSection from "../FAQSection";
+import ShareButton from "@/components/ShareButton";
 import {
   trackCalculatorResult,
   trackRelatedToolClick,
@@ -22,6 +23,20 @@ import {
 
 /* ─── Types ─────────────────────────────────────────────── */
 type Mode = "time" | "monthly";
+
+interface InitialValues {
+  target?: string;
+  start?: string;
+  rate?: string;
+  contrib?: string;
+  months?: string;
+  mode?: string;
+  result?: string;
+}
+
+interface SavingsGoalCalculatorProps {
+  initialValues?: InitialValues;
+}
 
 interface ChartPoint {
   label: string;
@@ -226,18 +241,18 @@ function ModeToggle({ mode, onChange }: { mode: Mode; onChange: (m: Mode) => voi
 }
 
 /* ─── Main component ─────────────────────────────────────── */
-export default function SavingsGoalCalculator() {
-  const [mode, setMode] = useState<Mode>("time");
+export default function SavingsGoalCalculator({ initialValues }: SavingsGoalCalculatorProps) {
+  const [mode, setMode] = useState<Mode>((initialValues?.mode as Mode) || "time");
 
   // shared inputs
-  const [goal, setGoal] = useState("50000");
-  const [currentSavings, setCurrentSavings] = useState("5000");
-  const [rate, setRate] = useState("5");
+  const [goal, setGoal] = useState(initialValues?.target || "50000");
+  const [currentSavings, setCurrentSavings] = useState(initialValues?.start || "5000");
+  const [rate, setRate] = useState(initialValues?.rate || "5");
 
   // mode-specific inputs
-  const [monthlyContrib, setMonthlyContrib] = useState("500");
-  const [timeYears, setTimeYears] = useState("5");
-  const [timeMonths, setTimeMonths] = useState("0");
+  const [monthlyContrib, setMonthlyContrib] = useState(initialValues?.contrib || "500");
+  const [timeYears, setTimeYears] = useState(initialValues?.months ? Math.floor(parseInt(initialValues.months) / 12).toString() : "5");
+  const [timeMonths, setTimeMonths] = useState(initialValues?.months ? (parseInt(initialValues.months) % 12).toString() : "0");
 
   /* ─── GA4 ── */
   const debouncedTrack = useMemo(
@@ -620,6 +635,22 @@ export default function SavingsGoalCalculator() {
                   ))}
                 </div>
               )}
+
+              {/* Share Results Button */}
+              <div className="mb-[16px] relative z-10">
+                <ShareButton
+                  params={{
+                    target: goal,
+                    start: currentSavings,
+                    rate: rate,
+                    contrib: monthlyContrib,
+                    months: (parseInt(timeYears) * 12 + parseInt(timeMonths)).toString(),
+                    mode: mode,
+                    result: (result?.mode === "time" ? result.months : result?.requiredMonthly)?.toString() || "",
+                  }}
+                  disabled={!result || (result.mode === "time" && result.unreachable)}
+                />
+              </div>
 
               {/* Chart */}
               {result && result.chartData.length > 1 && (

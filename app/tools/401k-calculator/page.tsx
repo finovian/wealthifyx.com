@@ -3,23 +3,68 @@ import FourOhOneKCalculator from "@/components/tools/FourOhOneKCalculator";
 import { faqs } from "@/constants/401k";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "401k Calculator 2024 — Retirement Savings with Employer Match",
-  description:
-    "Calculate your 401k balance at retirement with employer match, 2024 IRS contribution limits ($23,000), and catch-up contributions for age 50+. See exactly how much your employer match adds over time. Free, no sign-up.",
-  alternates: {
-    canonical: "https://wealthifyx.com/tools/401k-calculator",
-  },
-  openGraph: {
-    title: "401k Calculator 2024 — With Employer Match",
-    description:
-      "Project your 401k retirement balance with employer matching, 2024 IRS limits, and catch-up contributions. See your total balance at retirement.",
-    url: "https://wealthifyx.com/tools/401k-calculator",
-    type: "website",
-  },
-};
+interface PageProps {
+  searchParams: Promise<{
+    sal?: string;
+    emp?: string;
+    mp?: string;
+    mu?: string;
+    bal?: string;
+    rate?: string;
+    age?: string;
+    ret?: string;
+    result?: string;
+  }>;
+}
 
-export default function Page() {
+export async function generateMetadata({
+  searchParams,
+}: PageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const result = params.result;
+
+  if (result) {
+    const formatted = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }).format(Number(result));
+
+    const title = `${formatted} at retirement — 401k Calculator | WealthifyX`;
+    const description = `See how ${formatted} in retirement savings was projected using the WealthifyX 401k Calculator. Try it with your own numbers.`;
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        url: "https://wealthifyx.com/tools/401k-calculator",
+        type: "website",
+      },
+    };
+  }
+
+  return {
+    title: "401k Calculator 2024 — Retirement Savings with Employer Match",
+    description:
+      "Calculate your 401k balance at retirement with employer match, 2024 IRS contribution limits ($23,000), and catch-up contributions for age 50+. See exactly how much your employer match adds over time. Free, no sign-up.",
+    alternates: {
+      canonical: "https://wealthifyx.com/tools/401k-calculator",
+    },
+    openGraph: {
+      title: "401k Calculator 2024 — With Employer Match",
+      description:
+        "Project your 401k retirement balance with employer matching, 2024 IRS limits, and catch-up contributions. See your total balance at retirement.",
+      url: "https://wealthifyx.com/tools/401k-calculator",
+      type: "website",
+    },
+  };
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  const params = await searchParams;
+
   return (
     <>
       <script
@@ -84,7 +129,7 @@ export default function Page() {
           }),
         }}
       />
-      <FourOhOneKCalculator />
+      <FourOhOneKCalculator initialValues={params} />
     </>
   );
 }

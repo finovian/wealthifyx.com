@@ -14,6 +14,7 @@ import {
 import { Receipt, ArrowRight, AlertTriangle, Info, TrendingDown } from "lucide-react";
 import { faqs, relatedTools } from "@/constants/capital-gains";
 import FAQSection from "../FAQSection";
+import ShareButton from "@/components/ShareButton";
 import {
   trackCalculatorResult,
   trackRelatedToolClick,
@@ -63,6 +64,20 @@ const FILING_STATUS_LABELS: Record<FilingStatus, string> = {
 };
 
 /* ─── Types ─────────────────────────────────────────────── */
+interface InitialValues {
+  buy?: string;
+  sell?: string;
+  inc?: string;
+  fil?: string;
+  state?: string;
+  held?: string;
+  result?: string;
+}
+
+interface CapitalGainsTaxCalculatorProps {
+  initialValues?: InitialValues;
+}
+
 interface CalcResult {
   gain: number;
   proceeds: number;
@@ -222,14 +237,14 @@ function HoldingToggle({ isLongTerm, onChange }: { isLongTerm: boolean; onChange
 }
 
 /* ─── Main component ─────────────────────────────────────── */
-export default function CapitalGainsTaxCalculator() {
-  const [buyPrice, setBuyPrice]       = useState("50");
-  const [sellPrice, setSellPrice]     = useState("120");
+export default function CapitalGainsTaxCalculator({ initialValues }: CapitalGainsTaxCalculatorProps) {
+  const [buyPrice, setBuyPrice]       = useState(initialValues?.buy || "50");
+  const [sellPrice, setSellPrice]     = useState(initialValues?.sell || "120");
   const [shares, setShares]           = useState("100");
-  const [isLongTerm, setIsLongTerm]   = useState(true);
-  const [filingStatus, setFilingStatus] = useState<FilingStatus>("single");
-  const [annualIncome, setAnnualIncome] = useState("80000");
-  const [stateTaxRate, setStateTaxRate] = useState("");
+  const [isLongTerm, setIsLongTerm]   = useState(initialValues?.held === "short" ? false : true);
+  const [filingStatus, setFilingStatus] = useState<FilingStatus>((initialValues?.fil as FilingStatus) || "single");
+  const [annualIncome, setAnnualIncome] = useState(initialValues?.inc || "80000");
+  const [stateTaxRate, setStateTaxRate] = useState(initialValues?.state || "");
 
   /* ─── GA4 ── */
   const debouncedTrack = useMemo(() =>
@@ -522,6 +537,22 @@ export default function CapitalGainsTaxCalculator() {
                         </span>
                       </div>
                     ))}
+                  </div>
+
+                  {/* Share Results Button */}
+                  <div className="mb-[16px] relative z-10">
+                    <ShareButton
+                      params={{
+                        buy: buyPrice,
+                        sell: sellPrice,
+                        inc: annualIncome,
+                        fil: filingStatus,
+                        state: stateTaxRate,
+                        held: isLongTerm ? "long" : "short",
+                        result: result?.totalTax.toString() || "",
+                      }}
+                      disabled={!result || result.isLoss}
+                    />
                   </div>
 
                   {/* Rate breakdown bar */}
