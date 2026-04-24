@@ -1,8 +1,17 @@
 import { neon } from "@neondatabase/serverless";
 
-const sql = neon(process.env.NEON_DATABASE_URL!);
+function getDB() {
+  const url = process.env.NEON_DATABASE_URL;
+
+  if (!url) {
+    throw new Error("Missing NEON_DATABASE_URL");
+  }
+
+  return neon(url);
+}
 
 export async function initDB() {
+  const sql = getDB();
 
   await sql`
     CREATE TABLE IF NOT EXISTS conversations (
@@ -14,7 +23,6 @@ export async function initDB() {
       created_at TIMESTAMPTZ DEFAULT NOW()
     )
   `;
-
 
   try {
     await sql`
@@ -34,22 +42,17 @@ export async function initDB() {
     CREATE INDEX IF NOT EXISTS idx_user_session 
     ON conversations(user_id, session_id)
   `;
+
+  await sql`
+    CREATE INDEX IF NOT EXISTS idx_session_created 
+    ON conversations(session_id, created_at DESC)
+  `;
 }
 
-export async function getSessions(userId: string) {
-  const rows = await sql`
-    SELECT DISTINCT session_id, MAX(created_at) as last_active
-    FROM conversations
-    WHERE user_id = ${userId}
-    GROUP BY session_id
-    ORDER BY last_active DESC
-  `;
-  return rows;
-}
 
 const VALID_ROLES = ["user", "assistant", "system", "tool"] as const;
-
 type Role = (typeof VALID_ROLES)[number];
+
 
 export async function saveMessage(
   userId: string,
@@ -58,20 +61,34 @@ export async function saveMessage(
   content: string
 ) {
   if (!content.trim()) return;
+
   if (!VALID_ROLES.includes(role)) {
     throw new Error(`Invalid role: ${role}`);
   }
 
-  await sql`
-    INSERT INTO conversations (user_id, session_id, role, content)
-    VALUES (${userId}, ${sessionId}, ${role}, ${content})
-  `;
+  const sql = getDB();
+
+  try {
+    await sql`
+      INSERT INTO conversations (user_id, session_id, role, content)
+      VALUES (${userId}, ${sessionId}, ${role}, ${content})
+    `;
+  } catch (e) {
+    console.error("DB insert failed:", e);
+  }
 }
 
-export async function getHistory(sessionId: string, limit = 10) {
+
+export async function getHistory(
+  sessionId: string,
+  limit = 10
+) {
+  const sql = getDB();
+
   const rows = await sql`
     SELECT role, content FROM (
-      SELECT role, content, created_at FROM conversations
+      SELECT role, content, created_at 
+      FROM conversations
       WHERE session_id = ${sessionId}
       ORDER BY created_at DESC
       LIMIT ${limit}
@@ -79,8 +96,23 @@ export async function getHistory(sessionId: string, limit = 10) {
     ORDER BY created_at ASC
   `;
 
-  return rows.map(r => ({
+  return rows.map((r) => ({
     role: r.role as Role,
-    content: r.content
+    content: r.content,
   }));
+}
+
+
+export async function getSessions(userId: string) {
+  const sql = getDB();
+
+  const rows = await sql`
+    SELECT session_id, MAX(created_at) as last_active
+    FROM conversations
+    WHERE user_id = ${userId}
+    GROUP BY session_id
+    ORDER BY last_active DESC
+  `;
+
+  return rows;
 }
