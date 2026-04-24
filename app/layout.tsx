@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Suspense } from "react";
+import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import { ThemeProvider } from "../components/ThemeProvider";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import EmailCapture from "@/components/EmailCapture";
+import ConditionalElements from "@/components/ConditionalElements";
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { DM_Sans, DM_Mono, Ubuntu } from 'next/font/google'
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
   },
-    other: {
+  other: {
     "google-adsense-account": "ca-pub-3273200054724359",
   },
 };
@@ -116,19 +117,19 @@ export default function RootLayout({
           <SpeedInsights />
           <Navbar />
           {children}
-          <EmailCapture />
-          <Footer />
+          <ConditionalElements />
           <Script
             src="https://www.googletagmanager.com/gtag/js?id=G-6PR1F8E717"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
           />
-          <Script id="google-analytics" strategy="lazyOnload">
+          <Script id="google-analytics" strategy="afterInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-6PR1F8E717', {
                 page_path: window.location.pathname,
+                send_page_view: true
               });
             `}
           </Script>

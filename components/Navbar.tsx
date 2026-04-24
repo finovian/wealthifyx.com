@@ -240,6 +240,7 @@ export default function Navbar() {
           {/* Static links */}
           {[
             { label: "Methodology", href: "/methodology" },
+            { label: "Chat Advisor", href: "/ai" },
             { label: "About", href: "/about" },
           ].map((link) => (
             <a
