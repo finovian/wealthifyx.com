@@ -7,7 +7,7 @@ import Footer from './Footer';
 export default function ConditionalElements() {
   const pathname = usePathname();
   
-  const isChatPage = pathname === '/chat';
+  const isChatPage = pathname === '/ai';
 
   if (isChatPage) {
     return null;
