@@ -13,6 +13,14 @@ function gtag(...args: unknown[]) {
   }
 }
 
+// Track SPA page navigation on the client
+export function analyticsTracker(url: string) {
+  gtag('event', 'page_view', {
+    page_location: url,
+    page_path: url,
+  });
+}
+
 // ── Calculator events ──
 
 // Fired when user changes any input field in a calculator

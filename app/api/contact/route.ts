@@ -3,7 +3,6 @@ export const runtime = "edge";
 import { Redis } from "@upstash/redis";
 
 export async function POST(req: Request) {
-  // Initialize inside handler — avoids build-time env var access
   const redis = new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL!,
     token: process.env.UPSTASH_REDIS_REST_TOKEN!,
