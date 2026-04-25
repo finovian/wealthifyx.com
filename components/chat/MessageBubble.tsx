@@ -1,7 +1,9 @@
 "use client";
 
-import { User, Zap } from "lucide-react";
+import { User } from "lucide-react";
 import { memo } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export interface ChatMessage {
   id: string;
@@ -23,7 +25,7 @@ function MessageBubble({ message }: MessageBubbleProps) {
       role="listitem"
     >
       <div
-        className={`flex gap-[12px] max-w-[92%] sm:max-w-[85%] md:max-w-[80%] ${isUser ? "flex-row-reverse" : "flex-row"}`}
+        className={`flex gap-[12px] max-w-[95%] sm:max-w-[85%] md:max-w-[80%] ${isUser ? "flex-row-reverse" : "flex-row"}`}
       >
         {/* Avatar */}
         <div
@@ -47,7 +49,7 @@ function MessageBubble({ message }: MessageBubbleProps) {
 
         {/* Bubble */}
         <div
-          className={`flex flex-col gap-[8px] ${isUser ? "items-end" : "items-start"}`}
+          className={`flex flex-col gap-[8px] ${isUser ? "items-end" : "items-start"} min-w-0`}
         >
           <div
             className={`p-[14px_20px] text-[15px] leading-[1.6] font-sans transition-all duration-200 ${
@@ -56,7 +58,20 @@ function MessageBubble({ message }: MessageBubbleProps) {
                 : "bg-white text-[var(--text-primary)] border-[1px] border-[var(--border)] rounded-[4px_20px_20px_20px] shadow-sm hover:shadow-md"
             }`}
           >
-            <div className="whitespace-pre-wrap break-words font-[450]">{message.content}</div>
+            <div className="prose prose-sm max-w-none dark:prose-invert">
+              <ReactMarkdown 
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  p: ({children}) => <p className="mb-2 last:mb-0 whitespace-pre-wrap break-words font-[450]">{children}</p>,
+                  ul: ({children}) => <ul className="list-disc ml-4 mb-2 flex flex-col gap-1">{children}</ul>,
+                  ol: ({children}) => <ol className="list-decimal ml-4 mb-2 flex flex-col gap-1">{children}</ol>,
+                  li: ({children}) => <li className="mb-0">{children}</li>,
+                  strong: ({children}) => <strong className="font-[700]">{children}</strong>,
+                }}
+              >
+                {message.content}
+              </ReactMarkdown>
+            </div>
           </div>
           <div className="flex items-center gap-[6px] px-[4px]">
              <span className="text-[10px] text-[var(--text-faint)] font-[700] tracking-[0.5px] uppercase opacity-70">

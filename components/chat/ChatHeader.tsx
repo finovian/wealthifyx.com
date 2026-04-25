@@ -1,8 +1,9 @@
 "use client";
 
-import { RefreshCcw, Zap, History, ChevronDown, X, ArrowLeft } from "lucide-react";
+import { RefreshCcw, Zap, History, ChevronDown, X, ArrowLeft, Moon, Sun } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useTheme } from "../ThemeProvider";
 
 interface ChatHeaderProps {
   onReset: () => void;
@@ -19,6 +20,7 @@ export default function ChatHeader({
   userId, 
   currentSessionId 
 }: ChatHeaderProps) {
+  const { theme, toggleTheme } = useTheme();
   const [showHistory, setShowHistory] = useState(false);
   const [sessions, setSessions] = useState<{session_id: string, last_active: string}[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -51,7 +53,7 @@ export default function ChatHeader({
 
   return (
     <header className="w-[100%] h-[60px] border-b-[1px] border-[var(--border)] bg-[var(--bg-base)] flex items-center justify-between p-[0_20px] lg:p-[0_48px] shrink-0 z-[100] relative">
-      <div className="flex items-center gap-[12px]">
+      {/* <div className="flex items-center gap-[12px]">
         <Link 
           href="/" 
           className="flex items-center justify-center p-[6px] rounded-[8px] text-[var(--text-faint)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] transition-all mr-[-4px]"
@@ -61,7 +63,7 @@ export default function ChatHeader({
         </Link>
 
         <Link href="/" className="flex items-center gap-[12px] no-underline group">
-          <div className="w-[32px] h-[32px] rounded-[10px] bg-[var(--accent)] flex items-center justify-center text-white shadow-[0_2px_12px_var(--accent-bg)] group-hover:scale-105 transition-transform">
+          <div className="w-[32px] h-[32px] rounded-[10px] bg-[var(--accent)] flex items-center justify-center text-white shadow-[0_2px_12px_var(--accent-bg)] group-hover:scale-105 transition-transform shrink-0">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
               <line x1="7" y1="17" x2="17" y2="7" />
               <polyline points="10 7 17 7 17 14" />
@@ -69,23 +71,44 @@ export default function ChatHeader({
             </svg>
           </div>
           <div className="flex flex-col gap-[1px]">
-            <h1 className="text-[14px] font-[700] text-[var(--text-primary)] leading-none font-sans tracking-[-0.3px]">
+            <h1 className="text-[13px] sm:text-[14px] font-[700] text-[var(--text-primary)] leading-none font-sans tracking-[-0.3px]">
               WealthifyX AI
             </h1>
             <div className="flex items-center gap-[6px]">
-              <span className="relative flex h-[6px] w-[6px]">
+              <span className="relative flex h-[5px] w-[5px] sm:h-[6px] sm:w-[6px]">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-[6px] w-[6px] bg-[var(--accent)]"></span>
+                <span className="relative inline-flex rounded-full h-[5px] w-[5px] sm:h-[6px] sm:w-[6px] bg-[var(--accent)]"></span>
               </span>
-              <p className="text-[10px] text-[var(--text-muted)] font-[600] uppercase tracking-[1px] font-sans m-[0]">
+              <p className="text-[9px] sm:text-[10px] text-[var(--text-muted)] font-[600] uppercase tracking-[1px] font-sans m-[0]">
                 Live Assistant
               </p>
             </div>
           </div>
         </Link>
-      </div>
+      </div> */}
 
-      <div className="flex items-center gap-[10px]" ref={dropdownRef}>
+      <a
+          href="/"
+          className="flex items-center no-underline shrink-0 group w-fit"
+        >
+          <div className="flex flex-col leading-none">
+            <span className="font-sans text-[18px] font-[500] tracking-[-0.5px] text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors duration-[0.15s]">
+              WealthifyX 
+            </span>
+          </div>
+          <span className="w-[5px] h-[5px] rounded-full bg-[var(--accent)] ml-[2px] mb-[-10px] shrink-0" />
+        </a>
+
+      <div className="flex items-center gap-[6px] sm:gap-[10px]" ref={dropdownRef}>
+        {/* Theme toggle */}
+        <button
+          onClick={toggleTheme}
+          aria-label="Toggle theme"
+          className="bg-transparent border-none cursor-pointer text-[var(--text-muted)] flex items-center justify-center rounded-[8px] w-[34px] h-[34px] sm:w-[36px] sm:h-[36px] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] transition-all duration-[0.15s] shrink-0"
+        >
+          {theme === "light" ? <Moon size={17} /> : <Sun size={17} />}
+        </button>
+
         {/* Backdrop for mobile to handle click-away and focus */}
         {showHistory && (
           <div 
@@ -98,7 +121,7 @@ export default function ChatHeader({
         <div className="relative">
           <button
             onClick={() => setShowHistory(!showHistory)}
-            className={`flex items-center gap-[6px] text-[11px] font-[700] uppercase tracking-[1px] font-sans p-[8px_12px] rounded-[10px] border-[1px] transition-all cursor-pointer ${
+            className={`flex items-center gap-[6px] text-[11px] font-[700] uppercase tracking-[1px] font-sans p-[7px_10px] sm:p-[8px_12px] rounded-[10px] border-[1px] transition-all cursor-pointer ${
               showHistory 
                 ? 'bg-[var(--accent-bg)] border-[var(--accent-border)] text-[var(--accent)]' 
                 : 'bg-[var(--bg-subtle)] border-[var(--border)] text-[var(--text-faint)] hover:text-[var(--text-primary)] hover:border-[var(--border-strong)] shadow-sm'

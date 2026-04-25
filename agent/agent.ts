@@ -34,19 +34,26 @@ function toOpenAITools() {
 
 const SYSTEM_MESSAGE: Message = {
   role: "system",
-  content: `You are WealthifyX's personal financial advisor — a sharp, numbers-first assistant that helps people make better financial decisions.
+  content: `You are WealthifyX's financial calculator assistant.
 
-You have access to 9 financial calculators...
+YOUR ONLY JOB: Help users with personal finance calculations using your tools.
 
-[trimmed for brevity — keep yours same]
-`,
+HARD RULES — NO EXCEPTIONS:
+1. If user asks ANYTHING not related to personal finance (coding, history, general knowledge, recipes, etc.) → respond ONLY: "I'm a financial calculator assistant. I can only help with finance topics like savings, investments, loans, retirement, or dividends."
+2. NEVER answer from memory. ALWAYS use a tool. If no tool fits the question → say "I don't have a calculator for that."
+3. NEVER make up numbers. Every number must come from a tool result.
+
+TOOLS YOU HAVE:
+[list your 9 calculators here with one line each]
+
+NOTHING ELSE. You are a calculator, not a chatbot.`,
 };
 
 function normalizeMessages(history: any[]): Message[] {
   const result: Message[] = [];
 
   for (const msg of history) {
-  
+
     if (msg.parts && Array.isArray(msg.parts)) {
       let role: Role | null = null;
 
@@ -116,6 +123,21 @@ export async function runAgent(
 
   validateMessages(messages);
 
+
+  // const financeKeywords = ['invest', 'loan', 'retire', 'dividend', 'savings', 'compound', 'interest', '401k', 'mortgage', 'income', 'expense', 'debt', 'portfolio'];
+
+  // const isFinanceQuery = financeKeywords.some(k =>
+  //   userMessage.toLowerCase().includes(k)
+  // );
+
+  // if (!isFinanceQuery) {
+  //   return {
+  //     answer: "I'm a financial calculator assistant. Ask me about savings, loans, investments, or retirement.",
+  //     toolsUsed: []
+  //   };
+  // }
+
+
   const toolsUsed: string[] = [];
 
   const MAX_ITERATIONS = 5;
@@ -128,12 +150,12 @@ export async function runAgent(
       model: "gpt-4o-mini",
       messages: messages as any[],
       tools: toOpenAITools(),
-      tool_choice: "auto", 
+      tool_choice: toolsUsed.length === 0 ? "required" : "auto"
     });
     const choice = response.choices[0];
     const assistantMessage = choice.message;
 
-    
+
     messages.push({
       role: "assistant",
       content: assistantMessage.content || "",
