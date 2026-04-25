@@ -1,113 +1,116 @@
 # WealthifyX
 
-**Free financial calculators built for US investors — no fluff, just numbers.**
+Free financial calculators + an AI advisor that actually runs the math.
 
-[wealthifyx.com](https://wealthifyx.com) · Built with Next.js · Deployed on Vercel
+**Live at [wealthifyx.com](https://wealthifyx.com)**
 
 ---
 
-## What It Is
+## What it is
 
-WealthifyX is a collection of 8 fast, accurate financial calculators designed for everyday US investors. No signup. No paywalls. No ads cluttering the results. Just clean inputs, instant outputs, and the math explained.
+Most personal finance tools tell you to "invest early" and "diversify your portfolio." That's not advice. That's a fortune cookie.
+
+WealthifyX does the opposite. You give it your numbers, it gives you back a specific answer. The AI advisor at [wealthifyx.com/ai](https://wealthifyx.com/ai) doesn't generate generic tips it runs real calculations and tells you the actual number you need.
+
+Ask it: "I'm 28, earn $80k, want to retire at 55."
+
+It won't say "start a Roth IRA." It'll say: "You need $2.1M. That's $940/month SIP at 10% for 27 years. You're currently on track for $0."
 
 ---
 
 ## Calculators
 
-| Calculator | What It Does |
+Eight calculators, all free, no signup:
+
+| Calculator | What it does |
 |---|---|
-| Compound Interest | Project investment growth over time with reinvestment |
-| SIP Calculator | Systematic Investment Plan returns with monthly contributions |
-| FD Calculator | Fixed Deposit maturity value and interest breakdown |
-| EMI Calculator | Loan EMI with amortization schedule |
-| Retirement Calculator | Corpus needed to retire at your target age |
-| Net Worth Calculator | Assets vs liabilities snapshot |
-| Tax Calculator | US income tax estimate by bracket |
-| Dividend Yield | Yield and annual income from dividend stocks |
+| Compound Interest | Lump sum growth with optional monthly contributions |
+| SIP | Monthly recurring investment returns |
+| Roth IRA | Tax-free retirement projections |
+| 401k | Employer match + balance at retirement |
+| Savings Goal | How long to reach a target, or how much to save monthly |
+| Options Profit | P&L, breakeven, max profit/loss for calls and puts |
+| Capital Gains Tax | Federal + state tax on stock sales |
+| Dividend Calculator | Income, DRIP growth, yield on cost over time |
 
 ---
 
-## Tech Stack
+## AI Advisor
+
+Live at [wealthifyx.com/ai](https://wealthifyx.com/ai)
+
+The agent picks the right calculator based on your question, runs it, and explains what the number means. Session memory keeps your details across the conversation so you don't repeat yourself.
+
+This is V1. It works. It also has rough edges — if you find one, open an issue or just tell me.
+
+---
+
+## Tech stack
 
 | Layer | Tech |
 |---|---|
-| Framework | Next.js (App Router) |
-| Styling | Tailwind CSS |
-| State | React Hooks |
-| API / Cache | Upstash Redis (edge-compatible) |
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS + shadcn/ui |
+| State | Zustand |
+| AI agent | OpenAI API + function calling |
+| Package manager | pnpm |
 | Deployment | Vercel |
 
-**Why Upstash Redis?** Migrated from MongoDB Data API after hitting Cloudflare Pages' 3MB edge worker size limit. Upstash provides a serverless, edge-compatible key-value store with zero cold-start overhead — fits perfectly with Vercel's edge runtime.
-
 ---
 
-## Local Development
+## Local setup
 
 ```bash
-# Clone the repo
-git clone https://github.com/finovian/wealthifyx
-cd wealthifyx
-
-# Install dependencies
-npm install
-
-# Set up environment variables
+git clone https://github.com/finovian/wealthifyx.com
+cd wealthifyx.com
+pnpm install
 cp .env.example .env.local
-# Add your UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN
-
-# Run locally
-npm run dev
+pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Open [localhost:3000](http://localhost:3000)
 
 ---
 
-## Environment Variables
-
-```env
-UPSTASH_REDIS_REST_URL=your_url_here
-UPSTASH_REDIS_REST_TOKEN=your_token_here
-```
-
----
-
-## Project Structure
+## Project structure
 
 ```
-wealthifyx/
+wealthifyx.com/
 ├── app/
-│   ├── page.tsx              # Homepage
-│   ├── calculators/
-│   │   ├── compound-interest/
-│   │   ├── sip/
-│   │   ├── emi/
-│   │   └── ...
-│   └── api/
-│       └── ...               # Edge API routes
+│   ├── page.tsx                  # Homepage
+│   ├── ai/
+│   │   └── page.tsx              # AI advisor chat
+│   ├── api/
+│   │   └── agent/
+│   │       └── route.ts          # Agent API endpoint
+│   └── tools/                    # Individual calculator pages
+├── agent/
+│   ├── agent.ts                  # Claude loop + tool execution
+│   └── tools.ts                  # Calculator math + tool definitions
 ├── components/
-│   ├── Calculator/           # Shared calculator UI components
-│   └── Layout/
-├── lib/
-│   └── redis.ts              # Upstash client
-└── public/
+│   ├── tools/                    # Calculator UI components
+│   └── chat/                     # Chat interface components
+├── constants/                    # Calculator formulas (pure functions)
+└── lib/
+    └── analytics.ts
 ```
 
 ---
 
-## Roadmap
+## Status
 
-- [ ] Stock screener integration
-- [ ] Portfolio tracker (US stocks + ETFs)
-- [ ] Inflation-adjusted projections
-- [ ] PDF export for calculator results
-- [ ] Dark mode
+V1 — live and working. Actively improving.
+
+Things that work: all 8 calculators, AI advisor, session memory, mobile layout.
+
+Things still rough: the agent sometimes asks too many follow-up questions before calculating. Working on it.
 
 ---
 
-## Related Projects
+## Related
 
-**[Finovian](https://finovian.com)** — Semiconductor and tech stock analysis with a public, falsifiable Track Record. Built on Astro.
+[Finovian](https://finovian.com) — semiconductor and AI infrastructure analysis with a public track record. Built on Astro.
 
 ---
 
