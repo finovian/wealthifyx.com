@@ -9,14 +9,13 @@ import EmptyState from "./EmptyState";
 import ErrorBanner from "./ErrorBanner";
 import ChatHeader from "./ChatHeader";
 
-/* ─── Helpers ────────────────────────────────── */
 
 let idCounter = 0;
 function generateId(): string {
   return `msg_${Date.now()}_${++idCounter}`;
 }
 
-/* ─── Component ──────────────────────────────── */
+
 
 export default function ChatClient() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -28,7 +27,7 @@ export default function ChatClient() {
   const [userId, setUserId] = useState<string>("");
   const [sessionId, setSessionId] = useState<string>("");
 
-  // Initial load of session history
+
   const fetchHistory = useCallback(async (sid: string) => {
     setIsHistoryLoading(true);
     try {
@@ -54,7 +53,7 @@ export default function ChatClient() {
     }
   }, []);
 
-  // Initialize IDs and load history
+
   useEffect(() => {
     let storedUserId = localStorage.getItem("wx_user_id");
     if (!storedUserId) {
@@ -197,14 +196,17 @@ export default function ChatClient() {
         aria-live="polite"
       >
         {isHistoryLoading ? (
-          <div className="h-full flex items-center justify-center animate-fade-in">
-            <div className="flex flex-col items-center gap-[16px]">
-              <div className="w-[36px] h-[32px] flex items-center justify-center gap-[3px]">
-                <span className="w-[6px] h-[6px] bg-[var(--accent)] rounded-full animate-[bounce_1s_infinite_0ms] opacity-40"></span>
-                <span className="w-[6px] h-[6px] bg-[var(--accent)] rounded-full animate-[bounce_1s_infinite_200ms] opacity-40"></span>
-                <span className="w-[6px] h-[6px] bg-[var(--accent)] rounded-full animate-[bounce_1s_infinite_400ms] opacity-40"></span>
+          <div className="h-full flex items-center justify-center animate-fade-in bg-[var(--bg-base)]">
+            <div className="flex flex-col items-center gap-[20px]">
+              <div className="flex items-center gap-[6px]">
+                <span className="w-[8px] h-[8px] bg-[var(--accent)] rounded-full animate-[pulse_1s_infinite_0ms] shadow-[0_0_8px_var(--accent-bg)]"></span>
+                <span className="w-[8px] h-[8px] bg-[var(--accent)] rounded-full animate-[pulse_1s_infinite_200ms] shadow-[0_0_8px_var(--accent-bg)]"></span>
+                <span className="w-[8px] h-[8px] bg-[var(--accent)] rounded-full animate-[pulse_1s_infinite_400ms] shadow-[0_0_8px_var(--accent-bg)]"></span>
               </div>
-              <span className="text-[11px] text-[var(--text-faint)] font-[600] uppercase tracking-[1.5px]">Retrieving Context</span>
+              <div className="flex flex-col items-center gap-[4px]">
+                <span className="text-[12px] text-[var(--text-primary)] font-[700] uppercase tracking-[2px]">Synchronizing</span>
+                <span className="text-[10px] text-[var(--text-faint)] font-[500] uppercase tracking-[1px]">Loading your conversation</span>
+              </div>
             </div>
           </div>
         ) : !hasMessages && !isLoading ? (
