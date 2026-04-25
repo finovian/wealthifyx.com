@@ -197,7 +197,7 @@ export default function AboutPage() {
               <div className="font-sans text-[15px] md:text-[16px] text-[var(--text-muted)] leading-[1.8] flex flex-col gap-[20px]">
                 <p>
                   WealthifyX is a labor of love. We believe professional-grade financial modeling
-                  should be available to every retail investor — not behind a paywall or a "free trial"
+                  should be available to every retail investor — not behind a paywall or a &quot;free trial&quot;
                   that expires when you need it most.
                 </p>
                 <p>
@@ -280,7 +280,7 @@ export default function AboutPage() {
               <h2 className="section-heading mt-[8px]">Why our numbers are different.</h2>
               <p className="section-subtext max-w-[600px] mt-[12px]">
                 Most free calculators take shortcuts that silently skew long-term projections.
-                Here's exactly what we do differently.
+                Here&apos;s exactly what we do differently.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-1 gap-[16px] md:gap-[20px]">

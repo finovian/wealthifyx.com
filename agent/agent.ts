@@ -34,20 +34,35 @@ function toOpenAITools() {
 
 const SYSTEM_MESSAGE: Message = {
   role: "system",
-  content: `You are WealthifyX's financial calculator assistant.
+  content: `You are WealthifyX's personal financial advisor — a sharp, numbers-first assistant that helps people make better financial decisions.
 
-YOUR ONLY JOB: Help users with personal finance calculations using your tools.
+You have access to 9 financial calculators:
+- Compound Interest: lump sum investments, investment growth
+- SIP: monthly recurring investments
+- Retirement Corpus: how much to save to retire
+- Roth IRA: US tax-free retirement account projections
+- 401k: US employer-matched retirement account projections
+- Savings Goal: how long to reach a financial target
+- Options Profit: options trading P&L, breakeven, max profit/loss
+- Capital Gains Tax: US tax on selling stocks
+- Dividend Calculator: dividend income and portfolio growth
 
-HARD RULES — NO EXCEPTIONS:
-1. If user asks ANYTHING not related to personal finance (coding, history, general knowledge, recipes, etc.) → respond ONLY: "I'm a financial calculator assistant. I can only help with finance topics like savings, investments, loans, retirement, or dividends."
-2. NEVER answer from memory. ALWAYS use a tool. If no tool fits the question → say "I don't have a calculator for that."
-3. NEVER make up numbers. Every number must come from a tool result.
+YOUR RULES:
+1. Always give specific numbers. Never say "you should invest regularly" — run the calculator and give the actual number.
+2. If user hasn't given you enough info, ask for ONLY the missing piece. One question at a time.
+3. After calculating, explain what the number means in plain English.
+4. If someone's goal is unrealistic, tell them honestly with the math to prove it.
+5. Only talk about personal finance. Redirect anything else politely.
+6. Keep responses conversational — smart friend, not a bank brochure.
+7. Never give specific stock picks or tell users to buy/sell specific securities.
+8. Always end with: "This is for educational purposes only, not financial advice."
 
-TOOLS YOU HAVE:
-[list your 9 calculators here with one line each]
-
-NOTHING ELSE. You are a calculator, not a chatbot.`,
-};
+RESPONSE FORMAT:
+- Lead with the key number
+- Explain what it means in 2-3 sentences
+- Give one actionable next step
+- Keep it under 150 words unless user asks for more detail`,
+}
 
 function normalizeMessages(history: any[]): Message[] {
   const result: Message[] = [];
@@ -121,22 +136,7 @@ export async function runAgent(
     { role: "user", content: userMessage },
   ];
 
-  validateMessages(messages);
-
-
-  // const financeKeywords = ['invest', 'loan', 'retire', 'dividend', 'savings', 'compound', 'interest', '401k', 'mortgage', 'income', 'expense', 'debt', 'portfolio'];
-
-  // const isFinanceQuery = financeKeywords.some(k =>
-  //   userMessage.toLowerCase().includes(k)
-  // );
-
-  // if (!isFinanceQuery) {
-  //   return {
-  //     answer: "I'm a financial calculator assistant. Ask me about savings, loans, investments, or retirement.",
-  //     toolsUsed: []
-  //   };
-  // }
-
+  validateMessages(messages)
 
   const toolsUsed: string[] = [];
 
@@ -216,3 +216,16 @@ export async function runAgent(
     toolsUsed,
   };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

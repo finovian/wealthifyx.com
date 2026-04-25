@@ -24,11 +24,33 @@ export default function ChatClient() {
   const [error, setError] = useState<string | null>(null);
   const [lastUserMessage, setLastUserMessage] = useState<string | null>(null);
   
-  const [userId, setUserId] = useState<string>("");
-  const [sessionId, setSessionId] = useState<string>("");
+  const [userId, setUserId] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      let storedUserId = localStorage.getItem("wx_user_id");
+      if (!storedUserId) {
+        storedUserId = uuidv4();
+        localStorage.setItem("wx_user_id", storedUserId);
+      }
+      return storedUserId;
+    }
+    return "";
+  });
+
+  const [sessionId, setSessionId] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      let currentSessionId = sessionStorage.getItem("wx_session_id");
+      if (!currentSessionId) {
+        currentSessionId = uuidv4();
+        sessionStorage.setItem("wx_session_id", currentSessionId);
+      }
+      return currentSessionId;
+    }
+    return "";
+  });
 
 
   const fetchHistory = useCallback(async (sid: string) => {
+    if (!sid) return;
     setIsHistoryLoading(true);
     try {
       const res = await fetch(`/api/chat?sessionId=${sid}`);
@@ -55,22 +77,10 @@ export default function ChatClient() {
 
 
   useEffect(() => {
-    let storedUserId = localStorage.getItem("wx_user_id");
-    if (!storedUserId) {
-      storedUserId = uuidv4();
-      localStorage.setItem("wx_user_id", storedUserId);
+    if (sessionId) {
+      fetchHistory(sessionId);
     }
-    setUserId(storedUserId);
-
-    let currentSessionId = sessionStorage.getItem("wx_session_id");
-    if (!currentSessionId) {
-      currentSessionId = uuidv4();
-      sessionStorage.setItem("wx_session_id", currentSessionId);
-    }
-    setSessionId(currentSessionId);
-    
-    fetchHistory(currentSessionId);
-  }, [fetchHistory]);
+  }, [sessionId, fetchHistory]);
 
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -179,7 +189,7 @@ export default function ChatClient() {
   const hasMessages = messages.length > 0;
 
   return (
-    <div className="flex flex-col h-[100%] w-[100%] overflow-hidden bg-[var(--bg-base)]">
+    <div className="flex flex-col h-[100%] w-[100%] overflow-hidden bg-[var(--bg-base)]" suppressHydrationWarning>
       <ChatHeader 
         onReset={handleReset} 
         onSessionSelect={handleSessionSelect}

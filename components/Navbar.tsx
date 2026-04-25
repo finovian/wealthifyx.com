@@ -16,6 +16,7 @@ import {
   Calculator,
   Building2,
 } from "lucide-react";
+import Link from "next/link";
 import { useTheme } from "./ThemeProvider";
 
 /* ─── Tool data ─────────────────────────────────────────── */
@@ -145,7 +146,7 @@ export default function Navbar() {
         }`}
       >
         {/* ── ZONE 1: Logo ── */}
-        <a
+        <Link
           href="/"
           className="flex items-center no-underline shrink-0 group w-fit"
         >
@@ -155,7 +156,7 @@ export default function Navbar() {
             </span>
           </div>
           <span className="w-[5px] h-[5px] rounded-full bg-[var(--accent)] ml-[2px] mb-[-10px] shrink-0" />
-        </a>
+        </Link>
 
         {/* ── ZONE 2: Center nav — naturally centered by grid ── */}
         <div className="hidden lg:flex items-center gap-[2px]">
@@ -190,13 +191,13 @@ export default function Navbar() {
                   <span className="font-sans text-[11px] font-[600] uppercase tracking-[1.2px] text-[var(--text-faint)]">
                     All Calculators
                   </span>
-                  <a
+                  <Link
                     href="/tools"
                     onClick={() => setDropOpen(false)}
                     className="font-ubuntu text-[11px] font-[600] text-[var(--accent)] no-underline hover:underline"
                   >
                     Browse all →
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Tool groups */}
@@ -206,7 +207,7 @@ export default function Navbar() {
                       {group.category}
                     </div>
                     {group.items.map((tool) => (
-                      <a
+                      <Link
                         key={tool.name}
                         href={tool.href}
                         onClick={() => setDropOpen(false)}
@@ -229,7 +230,7 @@ export default function Navbar() {
                             {tool.desc}
                           </span>
                         </div>
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 ))}
@@ -243,13 +244,13 @@ export default function Navbar() {
             { label: "Chat Advisor", href: "/ai" },
             { label: "About", href: "/about" },
           ].map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               className="flex items-center h-[34px] px-[14px] rounded-full font-ubuntu text-[13px] font-[500] text-[var(--text-muted)] no-underline hover:text-[var(--text-primary)] transition-colors duration-[0.15s]"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -265,12 +266,12 @@ export default function Navbar() {
           </button>
 
           {/* Get Started — desktop */}
-          <a
+          <Link
             href="/tools"
             className="hidden lg:flex items-center h-[34px] px-[16px] rounded-full bg-[var(--accent)] text-[white] font-ubuntu text-[13px] font-[600] no-underline hover:bg-[var(--accent-hover)] transition-colors duration-[0.15s] shrink-0"
           >
             Get Started
-          </a>
+          </Link>
 
           {/* Hamburger — mobile */}
           <button
@@ -296,7 +297,7 @@ export default function Navbar() {
           <div className="drawer-slide fixed top-0 right-0 bottom-0 w-[min(100%,100vw)] z-[200] bg-[var(--bg-base)] border-l border-[var(--border)] flex flex-col overflow-hidden">
             {/* Header */}
             <div className="flex items-center justify-between h-[60px] px-[20px] border-b border-[var(--border)] shrink-0">
-              <a
+              <Link
                 href="/"
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center no-underline"
@@ -305,7 +306,7 @@ export default function Navbar() {
                   WealthifyX
                 </span>
                 <span className="w-[5px] h-[5px] rounded-full bg-[var(--accent)] ml-[2px] mb-[-3px] inline-block" />
-              </a>
+              </Link>
               <button
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close menu"
@@ -337,7 +338,7 @@ export default function Navbar() {
                         {group.category}
                       </div>
                       {group.items.map((tool) => (
-                        <a
+                        <Link
                           key={tool.name}
                           href={tool.href}
                           onClick={() => setMobileOpen(false)}
@@ -360,7 +361,7 @@ export default function Navbar() {
                               {tool.desc}
                             </span>
                           </div>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   ))}
@@ -372,26 +373,26 @@ export default function Navbar() {
                 { label: "Chat Advisor", href: "/ai" },
                 { label: "About", href: "/about" },
               ].map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className="flex items-center h-[52px] px-[4px] font-ubuntu text-[15px] font-[500] text-[var(--text-primary)] no-underline border-b border-[var(--border)] hover:text-[var(--accent)] transition-colors duration-[0.15s]"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </div>
 
             {/* Footer */}
             <div className="px-[16px] pt-[14px] pb-[32px] border-t border-[var(--border)] flex flex-col gap-[10px] shrink-0">
-              <a
+              <Link
                 href="/tools"
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center justify-center w-full h-[50px] bg-[var(--accent)] text-[white] rounded-[10px] font-ubuntu text-[15px] font-[600] no-underline hover:bg-[var(--accent-hover)] transition-colors duration-[0.15s]"
               >
                 Explore All Tools →
-              </a>
+              </Link>
               <button
                 onClick={toggleTheme}
                 className="bg-[var(--bg-subtle)] border border-[var(--border)] rounded-[10px] h-[44px] px-[16px] text-[var(--text-primary)] font-ubuntu text-[14px] cursor-pointer flex items-center justify-center gap-[8px] w-full hover:border-[var(--border-strong)] transition-colors duration-[0.15s]"

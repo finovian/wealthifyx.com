@@ -1,6 +1,6 @@
 "use client";
 
-import { RefreshCcw, Zap, History, ChevronDown, X, ArrowLeft, Moon, Sun } from "lucide-react";
+import { RefreshCcw, History, ChevronDown, X, Moon, Sun } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useTheme } from "../ThemeProvider";
@@ -87,7 +87,7 @@ export default function ChatHeader({
         </Link>
       </div> */}
 
-      <a
+      <Link
           href="/"
           className="flex items-center no-underline shrink-0 group w-fit"
         >
@@ -97,59 +97,75 @@ export default function ChatHeader({
             </span>
           </div>
           <span className="w-[5px] h-[5px] rounded-full bg-[var(--accent)] ml-[2px] mb-[-10px] shrink-0" />
-        </a>
+        </Link>
 
-      <div className="flex items-center gap-[6px] sm:gap-[10px]" ref={dropdownRef}>
-        {/* Theme toggle */}
+      <div className="flex items-center gap-[4px] sm:gap-[8px] relative" ref={dropdownRef}>
+        {/* Theme toggle - Minimalist style */}
         <button
           onClick={toggleTheme}
           aria-label="Toggle theme"
-          className="bg-transparent border-none cursor-pointer text-[var(--text-muted)] flex items-center justify-center rounded-[8px] w-[34px] h-[34px] sm:w-[36px] sm:h-[36px] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] transition-all duration-[0.15s] shrink-0"
+          className="bg-transparent border-none cursor-pointer text-[var(--text-muted)] flex items-center justify-center rounded-full w-[34px] h-[34px] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] transition-all duration-[0.15s] shrink-0"
         >
-          {theme === "light" ? <Moon size={17} /> : <Sun size={17} />}
+          {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
         </button>
 
-        {/* Backdrop for mobile to handle click-away and focus */}
-        {showHistory && (
-          <div 
-            className="md:hidden fixed inset-0 bg-black/5 backdrop-blur-[2px] z-[105]" 
-            onClick={() => setShowHistory(false)}
-          />
-        )}
-        
-        {/* History Dropdown */}
-        <div className="relative">
-          <button
-            onClick={() => setShowHistory(!showHistory)}
-            className={`flex items-center gap-[6px] text-[11px] font-[700] uppercase tracking-[1px] font-sans p-[7px_10px] sm:p-[8px_12px] rounded-[10px] border-[1px] transition-all cursor-pointer ${
-              showHistory 
-                ? 'bg-[var(--accent-bg)] border-[var(--accent-border)] text-[var(--accent)]' 
-                : 'bg-[var(--bg-subtle)] border-[var(--border)] text-[var(--text-faint)] hover:text-[var(--text-primary)] hover:border-[var(--border-strong)] shadow-sm'
-            }`}
-          >
-            <History size={14} />
-            <span className="hidden sm:inline">History</span>
-            <ChevronDown size={12} className={`transition-transform duration-200 ${showHistory ? 'rotate-180' : ''}`} />
-          </button>
+        <div className="h-[20px] w-[1px] bg-[var(--border)] mx-[4px] hidden sm:block" />
 
-          {showHistory && (
-            <div className="absolute top-[calc(100%+8px)] right-0 w-[300px] max-md:fixed max-md:top-[70px] max-md:left-[16px] max-md:right-[16px] max-md:w-auto bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[20px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-[12px] flex flex-col gap-[8px] animate-fade-up z-[110] backdrop-blur-[10px]">
-              <div className="flex items-center justify-between px-[10px] py-[6px] border-b-[1px] border-[var(--border)] mb-[6px]">
-                <span className="text-[10px] font-[800] text-[var(--text-faint)] uppercase tracking-[1.5px]">Recent Conversations</span>
+        {/* History Action */}
+        <button
+          onClick={() => setShowHistory(!showHistory)}
+          className={`flex items-center gap-[6px] h-[34px] px-[12px] rounded-full border transition-all duration-[0.15s] cursor-pointer font-sans text-[12px] font-[600] ${
+            showHistory 
+              ? 'bg-[var(--text-primary)] border-[var(--text-primary)] text-[var(--bg-base)] shadow-md' 
+              : 'bg-transparent border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)]'
+          }`}
+        >
+          <History size={14} strokeWidth={2.5} />
+          <span className="hidden md:inline">History</span>
+          <ChevronDown size={12} className={`transition-transform duration-[0.2s] opacity-60 ${showHistory ? 'rotate-180' : ''}`} />
+        </button>
+
+        {/* New Thread CTA - Fixed position for stability */}
+        <button
+          onClick={onReset}
+          disabled={messageCount === 0}
+          aria-label="New thread"
+          className={`flex items-center justify-center gap-[8px] h-[34px] px-[14px] rounded-full transition-all duration-[0.15s] font-ubuntu text-[12px] font-[600] shrink-0 border ${
+            messageCount > 0 
+              ? 'bg-[var(--accent-bg)] text-[var(--accent)] border-[var(--accent-border)] cursor-pointer hover:bg-[var(--accent)] hover:text-[white]! shadow-sm'
+              : 'bg-[var(--bg-subtle)] text-[var(--text-faint)] border-[var(--border)] cursor-not-allowed opacity-50'
+          }`}
+        >
+          <RefreshCcw size={14} strokeWidth={2.5} />
+          <span className="hidden sm:inline ">New Thread</span>
+        </button>
+
+        {showHistory && (
+          <>
+            {/* Mobile Backdrop Overlay */}
+            <div className="md:hidden fixed inset-0 bg-black/20 backdrop-blur-[2px] z-[105]" onClick={() => setShowHistory(false)} />
+            
+            <div className="nav-drop absolute top-[calc(100%+12px)] right-0 md:w-[320px] max-md:fixed max-md:top-[64px] max-md:left-[16px] max-md:right-[16px] max-md:w-auto bg-[var(--bg-card)] border border-[var(--border)] rounded-[16px] shadow-[0_20px_48px_rgba(0,0,0,0.14)] flex flex-col overflow-hidden z-[110] backdrop-blur-[12px]">
+              <div className="flex items-center justify-between px-[16px] py-[12px] border-b border-[var(--border)] bg-[var(--bg-subtle)]/50">
+                <div className="flex items-center gap-[8px]">
+                  <History size={13} className="text-[var(--accent)]" />
+                  <span className="font-sans text-[11px] font-[800] text-[var(--text-primary)] uppercase tracking-[1.2px]">Recent Threads</span>
+                </div>
                 <button 
                   onClick={() => setShowHistory(false)}
-                  className="p-[4px] hover:bg-[var(--bg-subtle)] rounded-full transition-colors"
+                  className="p-[5px] hover:bg-[var(--bg-muted)] rounded-full transition-colors duration-[0.1s] border-none h-[24px]! w-[24px]!"
                 >
-                  <X size={14} className="text-[var(--text-faint)]" />
+                  <X size={14} className="text-[var(--text-primary)] " />
                 </button>
               </div>
-              <div className="max-h-[350px] overflow-y-auto flex flex-col gap-[6px] no-scrollbar">
+
+              <div className="max-h-[40vh] md:max-h-[350px] overflow-y-auto p-[8px] flex flex-col gap-[2px] no-scrollbar">
                 {sessions.length === 0 ? (
                   <div className="text-center py-[32px]">
-                    <div className="w-[40px] h-[40px] bg-[var(--bg-subtle)] rounded-full flex items-center justify-center mx-auto mb-[10px]">
-                      <History size={18} className="text-[var(--text-faint)] opacity-30" />
+                    <div className="w-[40px] h-[40px] bg-[var(--bg-subtle)] rounded-full flex items-center justify-center mx-auto mb-[12px] opacity-40">
+                      <History size={18} />
                     </div>
-                    <p className="text-[13px] text-[var(--text-muted)] font-[500]">No chat history found</p>
+                    <p className="font-sans text-[12px] text-[var(--text-faint)] font-[500]">No history found</p>
                   </div>
                 ) : (
                   sessions.map(s => (
@@ -159,42 +175,41 @@ export default function ChatHeader({
                         onSessionSelect(s.session_id);
                         setShowHistory(false);
                       }}
-                      className={`text-left p-[12px_14px] rounded-[14px] transition-all cursor-pointer group relative overflow-hidden ${
+                      className={`text-left p-[10px_12px] rounded-[10px] transition-all duration-[0.1s] cursor-pointer group relative border ${
                         currentSessionId === s.session_id 
-                          ? 'bg-[var(--accent-bg)] text-[var(--accent)] border-[1px] border-[var(--accent-border)]' 
-                          : 'text-[var(--text-secondary)] hover:bg-[var(--bg-subtle)] border-[1px] border-transparent hover:border-[var(--border)]'
+                          ? 'bg-[var(--accent-bg)] border-[var(--accent-border)]' 
+                          : 'bg-transparent border-transparent hover:bg-[var(--bg-subtle)]'
                       }`}
                     >
-                      <div className="flex items-center justify-between gap-3 relative z-10">
-                        <div className="flex flex-col gap-1 min-w-0">
-                          <div className="truncate font-[700] text-[13px] tracking-[-0.2px]">
-                            {s.session_id.split('-')[0].toUpperCase()} Thread
+                      <div className="flex items-center justify-between gap-[12px]">
+                        <div className="flex flex-col gap-[1px] min-w-0">
+                          <div className={`truncate font-ubuntu text-[13px] font-[600] ${currentSessionId === s.session_id ? 'text-[var(--accent)]' : 'text-[var(--text-primary)]'}`}>
+                            {s.session_id.split('-')[0].toUpperCase()} Conversation
                           </div>
-                          <div className="text-[10px] opacity-60 font-[500]">
-                            {new Date(s.last_active).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                          <div className="font-sans text-[10px] text-[var(--text-faint)] font-[500]">
+                            {new Date(s.last_active).toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                           </div>
                         </div>
                         {currentSessionId === s.session_id && (
-                          <div className="w-[6px] h-[6px] bg-[var(--accent)] rounded-full shadow-[0_0_8px_var(--accent)]"></div>
+                          <div className="w-[6px] h-[6px] bg-[var(--accent)] rounded-full shadow-[0_0_8px_var(--accent)]" />
                         )}
                       </div>
                     </button>
                   ))
                 )}
               </div>
+              
+              <div className="p-[12px] border-t border-[var(--border)] bg-[var(--bg-subtle)]/30">
+                <button
+                  onClick={() => { onReset(); setShowHistory(false); }}
+                  className="w-full flex items-center justify-center gap-[8px] h-[38px] rounded-[10px] bg-[var(--accent)] text-white font-ubuntu text-[13px] font-[600] hover:bg-[var(--accent-hover)] transition-all duration-[0.15s] shadow-sm border-none"
+                >
+                  <RefreshCcw size={13} strokeWidth={2.5} />
+                  New Conversation
+                </button>
+              </div>
             </div>
-          )}
-        </div>
-
-        {messageCount > 0 && (
-          <button
-            onClick={onReset}
-            aria-label="Reset chat session"
-            className="text-[11px] font-[700] text-[var(--text-faint)] hover:text-[var(--accent)] uppercase tracking-[1px] flex items-center gap-[8px] transition-all duration-[0.2s] bg-[var(--bg-subtle)] border-[1px] border-[var(--border)] cursor-pointer font-sans p-[8px_14px] rounded-[10px] hover:border-[var(--accent-border)] hover:bg-[var(--accent-bg)] shadow-sm"
-          >
-            <RefreshCcw size={12} strokeWidth={2.5} />
-            <span className="hidden sm:inline">New Thread</span>
-          </button>
+          </>
         )}
       </div>
     </header>

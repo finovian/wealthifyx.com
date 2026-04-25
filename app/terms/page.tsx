@@ -60,8 +60,8 @@ export default function TermsPage() {
                   </h2>
                   <p className="font-sans text-[15px] text-[var(--text-primary)] m-0 leading-[1.65]">
                     WealthifyX is free to use. Our tools are for educational purposes only — not
-                    financial advice. Don't misuse the site or copy our work without permission.
-                    That's the short version. The full version is below.
+                    financial advice. Don&apos;t misuse the site or copy our work without permission.
+                    That&apos;s the short version. The full version is below.
                   </p>
                 </div>
               </div>
@@ -74,7 +74,7 @@ export default function TermsPage() {
                     1. Acceptance of Terms
                   </h2>
                   <p className="m-0">
-                    By accessing and using WealthifyX ("the Website"), you agree to be bound by these
+                    By accessing and using WealthifyX (&quot;the Website&quot;), you agree to be bound by these
                     Terms of Service and our Privacy Policy. If you do not agree to these terms, please
                     do not use our tools or services.
                   </p>
@@ -153,8 +153,8 @@ export default function TermsPage() {
                     7. Changes to Terms
                   </h2>
                   <p className="m-0">
-                    We reserve the right to update these Terms of Service at any time. The "Last
-                    updated" date at the top of this page will reflect any changes. Continued use of
+                    We reserve the right to update these Terms of Service at any time. The &quot;Last
+                    updated&quot; date at the top of this page will reflect any changes. Continued use of
                     WealthifyX after changes are posted constitutes your acceptance of the revised terms.
                   </p>
                 </div>
