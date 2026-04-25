@@ -53,57 +53,58 @@ export default function TermsPage() {
 
               {/* Summary banner */}
               <div className="flex gap-[16px] p-[24px] bg-[var(--accent-bg)] border border-[var(--accent-border)] rounded-2xl">
-                <FileText size={22} className="text-[var(--accent)] shrink-0 mt-[2px]" />
-                <div className="flex flex-col gap-[8px]">
-                  <h2 className="font-ubuntu text-[15px] font-[700] text-[var(--text-primary)] uppercase tracking-[1px] m-0">
-                    Plain English Summary
-                  </h2>
-                  <p className="font-sans text-[15px] text-[var(--text-primary)] m-0 leading-[1.65]">
-                    WealthifyX is free to use. Our tools are for educational purposes only — not
-                    financial advice. Don&apos;t misuse the site or copy our work without permission.
-                    That&apos;s the short version. The full version is below.
-                  </p>
-                </div>
+              <FileText size={22} className="text-[var(--accent)] shrink-0 mt-[2px]" />
+              <div className="flex flex-col gap-[8px]">
+                <h2 className="font-ubuntu text-[15px] font-[700] text-[var(--text-primary)] uppercase tracking-[1px] m-0">
+                  Plain English Summary
+                </h2>
+                <p className="font-sans text-[15px] text-[var(--text-primary)] m-0 leading-[1.65]">
+                  WealthifyX is free to use. Our tools and AI Assistant are for educational purposes 
+                  only — not financial advice. Don&apos;t misuse the site or copy our work without 
+                  permission. That&apos;s the short version. The full version is below.
+                </p>
+              </div>
               </div>
 
               {/* Body */}
               <div className="font-sans text-[15px] md:text-[16px] text-[var(--text-muted)] leading-[1.8] flex flex-col gap-[32px]">
 
-                <div className="flex flex-col gap-[12px]">
-                  <h2 className="font-sans text-[20px] font-[600] text-[var(--text-primary)] m-0">
-                    1. Acceptance of Terms
-                  </h2>
-                  <p className="m-0">
-                    By accessing and using WealthifyX (&quot;the Website&quot;), you agree to be bound by these
-                    Terms of Service and our Privacy Policy. If you do not agree to these terms, please
-                    do not use our tools or services.
-                  </p>
-                </div>
+              <div className="flex flex-col gap-[12px]">
+                <h2 className="font-sans text-[20px] font-[600] text-[var(--text-primary)] m-0">
+                  1. Acceptance of Terms
+                </h2>
+                <p className="m-0">
+                  By accessing and using WealthifyX (&quot;the Website&quot;), including our 
+                  financial calculators and AI Assistant, you agree to be bound by these
+                  Terms of Service and our Privacy Policy. If you do not agree to these terms, please
+                  do not use our tools or services.
+                </p>
+              </div>
 
-                <div className="flex flex-col gap-[12px]">
-                  <h2 className="font-sans text-[20px] font-[600] text-[var(--text-primary)] m-0">
-                    2. Use of Tools
-                  </h2>
-                  <p className="m-0">
-                    The financial calculators on this Website are for educational and informational
-                    purposes only. They are not intended to provide professional financial, investment,
-                    or tax advice. You must consult a qualified professional before making any
-                    significant financial decision based on our calculator outputs.
-                  </p>
-                </div>
+              <div className="flex flex-col gap-[12px]">
+                <h2 className="font-sans text-[20px] font-[600] text-[var(--text-primary)] m-0">
+                  2. Use of Tools and AI
+                </h2>
+                <p className="m-0">
+                  The financial calculators and AI Assistant on this Website are for educational 
+                  and informational purposes only. They are not intended to provide professional 
+                  financial, investment, or tax advice. AI-generated responses should be treated 
+                  as experimental guidance and should not be used as the sole basis for financial 
+                  decisions.
+                </p>
+              </div>
 
-                <div className="flex flex-col gap-[12px]">
-                  <h2 className="font-sans text-[20px] font-[600] text-[var(--text-primary)] m-0">
-                    3. Accuracy of Results
-                  </h2>
-                  <p className="m-0">
-                    While we use industry-standard financial formulas with full floating-point precision,
-                    WealthifyX does not guarantee the accuracy, completeness, or reliability of any
-                    calculation results. Results are projections based on user-provided inputs and
-                    mathematical models — not guarantees of future financial performance.
-                  </p>
-                </div>
-
+              <div className="flex flex-col gap-[12px]">
+                <h2 className="font-sans text-[20px] font-[600] text-[var(--text-primary)] m-0">
+                  3. Accuracy of Results and AI Outputs
+                </h2>
+                <p className="m-0">
+                  While we use industry-standard formulas and advanced AI models, WealthifyX 
+                  does not guarantee the accuracy, completeness, or reliability of any 
+                  calculation results or AI responses. Results are projections or model-generated 
+                  guidance — not guarantees of future financial performance.
+                </p>
+              </div>
                 <div className="flex flex-col gap-[12px]">
                   <h2 className="font-sans text-[20px] font-[600] text-[var(--text-primary)] m-0">
                     4. Intellectual Property

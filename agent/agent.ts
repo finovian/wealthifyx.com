@@ -1,11 +1,11 @@
 import OpenAI from "openai";
 import { TOOLS, executeTool } from "./tools";
+import { getProfile, extractAndSaveProfile } from "./db";
 
 const openai = new OpenAI({
   baseURL: "https://models.inference.ai.azure.com",
   apiKey: process.env.GITHUB_TOKEN,
 });
-
 
 type Role = "user" | "assistant" | "system" | "tool";
 
@@ -32,64 +32,68 @@ function toOpenAITools() {
   }));
 }
 
-const SYSTEM_MESSAGE: Message = {
-  role: "system",
-  content: `You are WealthifyX's personal financial advisor — a sharp, numbers-first assistant that helps people make better financial decisions.
+function buildSystemMessage(profile: Record<string, any>): Message {
+  const profileSection =
+    Object.keys(profile).length > 0
+      ? `\n\nKNOWN USER PROFILE (use these numbers directly — do not ask again):\n${JSON.stringify(profile, null, 2)}`
+      : "";
 
-You have access to 9 financial calculators:
-- Compound Interest: lump sum investments, investment growth
-- SIP: monthly recurring investments
-- Retirement Corpus: how much to save to retire
-- Roth IRA: US tax-free retirement account projections
-- 401k: US employer-matched retirement account projections
-- Savings Goal: how long to reach a financial target
-- Options Profit: options trading P&L, breakeven, max profit/loss
-- Capital Gains Tax: US tax on selling stocks
-- Dividend Calculator: dividend income and portfolio growth
+  return {
+    role: "system",
+    content: `You are WealthifyX's financial calculator assistant.
 
-YOUR RULES:
-1. Always give specific numbers. Never say "you should invest regularly" — run the calculator and give the actual number.
-2. If user hasn't given you enough info, ask for ONLY the missing piece. One question at a time.
-3. After calculating, explain what the number means in plain English.
-4. If someone's goal is unrealistic, tell them honestly with the math to prove it.
-5. Only talk about personal finance. Redirect anything else politely.
-6. Keep responses conversational — smart friend, not a bank brochure.
-7. Never give specific stock picks or tell users to buy/sell specific securities.
-8. Always end with: "This is for educational purposes only, not financial advice."
+YOUR ONLY JOB: Help users with personal finance calculations using your tools.
 
-RESPONSE FORMAT:
-- Lead with the key number
-- Explain what it means in 2-3 sentences
-- Give one actionable next step
-- Keep it under 150 words unless user asks for more detail`,
+HARD RULES — NO EXCEPTIONS:
+1. If user asks ANYTHING not related to personal finance → respond ONLY: "I'm a financial calculator assistant. I can only help with finance topics like savings, investments, loans, retirement, or dividends."
+2. NEVER answer from memory. ALWAYS use a tool. If no tool fits → say "I don't have a calculator for that."
+3. NEVER make up numbers. Every number must come from a tool result.
+4. If user profile has the numbers you need — use them directly. Never ask for info you already have.
+5. NEVER assume missing inputs. If a required value is not in user profile and not mentioned in conversation → ask for it. One missing value = one question. Never ask multiple questions at once.
+6. Required inputs you must NEVER assume:
+   - monthly_expenses → always ask if not provided
+   - retirement_age → always ask if not provided
+   - goal amount → always ask if not provided
+   - investment amount → always ask if not provided
+7. NEVER run a calculator until you have ALL required inputs either from user profile or from the conversation.
+8. If user provides financial info without asking a question →
+acknowledge the info and ask "What would you like to calculate?"
+9. If any result shows time > 50 years or monthly amount > 80%
+of income → flag it as unrealistic and suggest alternatives.
+
+TOOLS YOU HAVE:
+- calculate_compound_interest: lump sum investment growth
+- calculate_sip: monthly recurring investment returns
+- calculate_retirement: corpus needed + monthly SIP to retire
+- calculate_roth_ira: US Roth IRA balance at retirement
+- calculate_401k: 401k balance with employer match
+- calculate_savings_goal: time to reach a savings target
+- calculate_options_profit: options P&L, breakeven, max profit/loss
+- calculate_capital_gains_tax: US tax on stock sales
+- calculate_dividend: dividend income and portfolio growth
+
+NOTHING ELSE. You are a calculator, not a chatbot.${profileSection}`,
+  };
 }
 
 function normalizeMessages(history: any[]): Message[] {
   const result: Message[] = [];
 
   for (const msg of history) {
-
     if (msg.parts && Array.isArray(msg.parts)) {
       let role: Role | null = null;
-
       if (msg.role === "model") role = "assistant";
       else if (msg.role === "user") role = "user";
       else continue;
 
-      const content = msg.parts
-        .map((p: any) => p?.text || "")
-        .join("");
-
+      const content = msg.parts.map((p: any) => p?.text || "").join("");
       if (!content) continue;
 
       result.push({ role, content });
       continue;
     }
 
-    if (
-      msg.content &&
-      ["user", "assistant", "system", "tool"].includes(msg.role)
-    ) {
+    if (msg.content && ["user", "assistant", "system", "tool"].includes(msg.role)) {
       result.push({
         role: msg.role,
         content: String(msg.content),
@@ -104,18 +108,15 @@ function normalizeMessages(history: any[]): Message[] {
 
 function validateMessages(messages: Message[]) {
   const validRoles = ["system", "user", "assistant", "tool"];
-
   for (const msg of messages) {
     if (!validRoles.includes(msg.role)) {
       throw new Error(`Invalid role detected: ${msg.role}`);
     }
-
     if (typeof msg.content !== "string") {
       throw new Error(`Invalid content for role: ${msg.role}`);
     }
   }
 }
-
 
 function safeParseJSON(input: string) {
   try {
@@ -125,21 +126,24 @@ function safeParseJSON(input: string) {
   }
 }
 
-
 export async function runAgent(
   userMessage: string,
+  sessionId: string,
   conversationHistory: any[] = []
 ): Promise<AgentResponse> {
+
+  const profile = await getProfile(sessionId);
+
+
   const messages: Message[] = [
-    SYSTEM_MESSAGE,
+    buildSystemMessage(profile),
     ...normalizeMessages(conversationHistory),
     { role: "user", content: userMessage },
   ];
 
-  validateMessages(messages)
+  validateMessages(messages);
 
   const toolsUsed: string[] = [];
-
   const MAX_ITERATIONS = 5;
   let iteration = 0;
 
@@ -150,11 +154,11 @@ export async function runAgent(
       model: "gpt-4o-mini",
       messages: messages as any[],
       tools: toOpenAITools(),
-      tool_choice: toolsUsed.length === 0 ? "required" : "auto"
+      tool_choice: toolsUsed.length === 0 ? "required" : "auto",
     });
+
     const choice = response.choices[0];
     const assistantMessage = choice.message;
-
 
     messages.push({
       role: "assistant",
@@ -162,27 +166,21 @@ export async function runAgent(
       tool_calls: assistantMessage.tool_calls,
     });
 
+    if (choice.finish_reason === "stop" || !assistantMessage.tool_calls?.length) {
+      const finalAnswer = assistantMessage.content || "I couldn't generate a response.";
 
-    if (
-      choice.finish_reason === "stop" ||
-      !assistantMessage.tool_calls?.length
-    ) {
-      return {
-        answer:
-          assistantMessage.content ||
-          "I couldn't generate a response.",
-        toolsUsed,
-      };
+      extractAndSaveProfile(sessionId, userMessage, finalAnswer).catch((e) =>
+        console.error("[Profile extract failed]", e)
+      );
+
+      return { answer: finalAnswer, toolsUsed };
     }
-
 
     for (const toolCall of assistantMessage.tool_calls) {
       if (toolCall.type !== "function") continue;
-      const name = toolCall.function.name;
 
-      const parsedInput = safeParseJSON(
-        toolCall.function.arguments
-      );
+      const name = toolCall.function.name;
+      const parsedInput = safeParseJSON(toolCall.function.arguments);
 
       if (!parsedInput) {
         console.error("Invalid tool arguments:", toolCall.function.arguments);
@@ -202,30 +200,13 @@ export async function runAgent(
       messages.push({
         role: "tool",
         tool_call_id: toolCall.id,
-        content:
-          typeof result === "string"
-            ? result
-            : JSON.stringify(result),
+        content: typeof result === "string" ? result : JSON.stringify(result),
       });
     }
   }
-
 
   return {
     answer: "Agent stopped due to too many iterations.",
     toolsUsed,
   };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
