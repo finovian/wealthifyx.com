@@ -1,7 +1,5 @@
 "use client";
 
-import { Zap } from "lucide-react";
-
 export default function TypingIndicator() {
   return (
     <div className="flex justify-start animate-fade-up" role="status" aria-label="Assistant is typing">

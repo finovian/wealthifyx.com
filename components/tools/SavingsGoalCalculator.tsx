@@ -175,12 +175,22 @@ function formatDuration(months: number): string {
 }
 
 /* ─── Tooltip ────────────────────────────────────────────── */
-function CustomTooltip({ active, payload, label }: any) {
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    name: string;
+    value: number;
+    color: string;
+  }>;
+  label?: string;
+}
+
+function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[180px]">
       <div className="text-[var(--text-faint)] mb-[8px] text-[11px]">{label}</div>
-      {payload.map((p: any) => (
+      {payload.map((p) => (
         <div key={p.name} className="flex justify-between gap-[16px] mb-[4px]">
           <span style={{ color: p.color }}>{p.name}</span>
           <span className="text-[var(--text-primary)] font-[500]">{fmt(p.value)}</span>
@@ -372,8 +382,8 @@ export default function SavingsGoalCalculator({ initialValues }: SavingsGoalCalc
             <PiggyBank size={13} />
             <span>Savings Goal Calculator</span>
           </div>
-          <h1 className="font-sans font-[400] tracking-[-2px] leading-[1.05] text-[var(--text-primary)] m-[0_auto_20px] max-w-[860px] text-center text-[clamp(48px,6vw,72px)] max-md:text-[32px] max-md:tracking-[0px]">
-            Find out when you'll hit your{" "}
+          <h1 className="font-sans font-[400] tracking-[-2px] leading-[1.05] text-[var(--text-primary)] m-[0_auto_20px] max-w-[860px] text-center text-[clamp(48px,6vw,72px)] max-md:text-[32px] max-md:tracking-[-1px]">
+            Find out when you&apos;ll hit your{" "}
             <span className="relative inline-block text-[var(--accent)]">
               savings goal.
               <CurvedUnderline />
@@ -535,7 +545,7 @@ export default function SavingsGoalCalculator({ initialValues }: SavingsGoalCalc
                   <CheckCircle2 size={16} className="text-[var(--accent)] shrink-0 mt-[1px]" />
                   <p className="font-sans text-[13px] text-[var(--text-primary)] leading-[1.55] m-0">
                     Your current savings already exceed your goal.{" "}
-                    <strong className="font-semibold text-[var(--accent)]">You're there.</strong>
+                    <strong className="font-semibold text-[var(--accent)]">You&apos;re there.</strong>
                   </p>
                 </div>
               )}
@@ -818,10 +828,10 @@ export default function SavingsGoalCalculator({ initialValues }: SavingsGoalCalc
             </div>
           </div>
           <p className="font-sans text-[15px] text-[var(--text-muted)] leading-[1.75] max-w-[680px]">
-            For the "How long?" mode, the calculator iterates month by month —
+            For the &quot;How long?&quot; mode, the calculator iterates month by month —
             applying your monthly return rate to the current balance, then
             adding your contribution — and counts the months until the balance
-            first reaches your goal. For the "How much/mo?" mode, it solves
+            first reaches your goal. For the &quot;How much/mo?&quot; mode, it solves
             the future value of an ordinary annuity formula directly for the
             monthly payment. Both modes account for interest compounding on
             your existing savings from day one.

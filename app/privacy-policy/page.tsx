@@ -60,7 +60,7 @@ export default function PrivacyPage() {
                   </h2>
                   <p className="font-sans text-[15px] text-[var(--text-primary)] m-0 leading-[1.65]">
                     When you use our calculators, the numbers stay on your device. Nothing you enter
-                    is transmitted to our servers. Close the tab and it's gone — because we never had it.
+                    is transmitted to our servers. Close the tab and it&apos;s gone — because we never had it.
                   </p>
                 </div>
               </div>
@@ -89,7 +89,7 @@ export default function PrivacyPage() {
                       No financial data entered into our calculators is ever transmitted to or stored
                       on our servers.
                     </strong>{' '}
-                    When you close your browser tab, that data is cleared from your device's memory.
+                    When you close your browser tab, that data is cleared from your device&apos;s memory.
                     We have no database of user financial inputs.
                   </p>
                 </div>
@@ -99,7 +99,7 @@ export default function PrivacyPage() {
                     3. What We Do Collect
                   </h2>
                   <p className="m-0">
-                    While we don't collect your financial data, we do collect limited technical information:
+                    While we don&apos;t collect your financial data, we do collect limited technical information:
                   </p>
                   <div className="flex flex-col gap-[12px] mt-[4px]">
                     {[
@@ -142,7 +142,7 @@ export default function PrivacyPage() {
                     5. Changes to This Policy
                   </h2>
                   <p className="m-0">
-                    We may update this Privacy Policy from time to time. The "Last updated" date at the
+                    We may update this Privacy Policy from time to time. The &quot;Last updated&quot; date at the
                     top of this page will reflect any changes. Continued use of WealthifyX after changes
                     are posted constitutes your acceptance of the updated policy.
                   </p>

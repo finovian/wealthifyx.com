@@ -4,7 +4,6 @@ import SocialProofBar from "../components/SocialProofBar";
 import ToolsDirectory from "../components/ToolsDirectory";
 import FeatureCards from "../components/FeatureCards";
 import InlineCalculator from "../components/InlineCalculator";
-import EmailCapture from "../components/EmailCapture";
 import FAQSection from "../components/FAQSection";
 
 export const metadata: Metadata = {

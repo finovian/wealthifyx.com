@@ -143,12 +143,22 @@ function fmtK(v: number) {
 }
 
 /* ─── Custom Tooltip ─────────────────────────────────────── */
-function CustomTooltip({ active, payload, label }: any) {
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    name: string;
+    value: number;
+    color: string;
+  }>;
+  label?: string;
+}
+
+function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[180px]">
       <div className="text-[var(--text-faint)] mb-[8px] text-[11px]">Age {label}</div>
-      {payload.map((p: any) => (
+      {payload.map((p) => (
         <div key={p.name} className="flex justify-between gap-[16px] mb-[4px]">
           <span style={{ color: p.color }}>{p.name}</span>
           <span className="text-[var(--text-primary)] font-[500]">{fmt(p.value)}</span>
@@ -448,10 +458,10 @@ export default function FourOhOneKCalculator({ initialValues }: FourOhOneKCalcul
                   <div className="calc-fade-in flex gap-[10px] p-[10px_12px] bg-[#fefce8] border border-[#fde68a] rounded-xl">
                     <Info size={14} className="text-[#ca8a04] shrink-0 mt-[2px]" />
                     <p className="font-sans text-[12px] text-[#92400e] leading-[1.5] m-0">
-                      You're contributing less than your employer's match
+                      You&apos;re contributing less than your employer&apos;s match
                       ceiling. Increase your contribution to{" "}
                       <strong>{matchUpToPct}%</strong> to capture the full
-                      employer match — it's free money.
+                      employer match — it&apos;s free money.
                     </p>
                   </div>
                 )}
@@ -600,7 +610,7 @@ export default function FourOhOneKCalculator({ initialValues }: FourOhOneKCalcul
                     <strong className="font-semibold text-[var(--accent)]">
                       {fmt(result.totalEmployerMatch)}
                     </strong>{" "}
-                    total over {result.years} years before growth. That's free
+                    total over {result.years} years before growth. That&apos;s free
                     money added to your balance at zero cost to you.
                   </p>
                 </div>

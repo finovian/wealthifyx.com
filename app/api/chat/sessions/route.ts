@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSessions } from "@/agent/db";
+import { getSessions, initDB } from "@/agent/db";
+let initialized = false;
 
 export async function GET(req: NextRequest) {
+  if (!initialized) {
+    await initDB();
+    initialized = true;
+  }
   const { searchParams } = new URL(req.url);
   const userId = searchParams.get("userId");
 
@@ -12,7 +17,8 @@ export async function GET(req: NextRequest) {
   try {
     const sessions = await getSessions(userId);
     return NextResponse.json({ sessions });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : "An unknown error occurred";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

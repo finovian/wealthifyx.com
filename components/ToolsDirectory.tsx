@@ -6,7 +6,6 @@ import {
   BarChart3,
   Landmark,
   PiggyBank,
-  Calculator,
   Receipt,
   DollarSign,
   Activity,

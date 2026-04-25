@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Suspense } from "react";
-import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import { ThemeProvider } from "../components/ThemeProvider";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -36,7 +34,7 @@ export const metadata: Metadata = {
     template: "%s | WealthifyX",
   },
   description:
-    "Free, precise finance calculators for investors. CAGR, compound interest, retirement planning, and more. No accounts. No data stored. Always free.",
+    "Free, precise finance calculators for investors. CAGR, compound interest, retirement planning, and more. Always free, built for the community.",
   openGraph: {
     siteName: "WealthifyX",
     type: "website",

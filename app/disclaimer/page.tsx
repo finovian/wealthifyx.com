@@ -85,7 +85,7 @@ export default function DisclaimerPage() {
                   </h3>
                   <p className="m-0">
                     Your use of WealthifyX does not create a fiduciary or advisor-client relationship
-                    between you and WealthifyX. All information is provided on an "as-is" basis without
+                    between you and WealthifyX. All information is provided on an &quot;as-is&quot; basis without
                     warranty of any kind, express or implied.
                   </p>
                 </div>

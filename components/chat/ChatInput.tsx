@@ -59,7 +59,7 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
             onClick={handleSubmit}
             disabled={disabled || !value.trim()}
             aria-label="Send message"
-            className="w-[36px] h-[36px] sm:w-[40px] sm:h-[40px] rounded-[12px] sm:rounded-[14px] bg-[var(--accent)] text-white flex items-center justify-center disabled:opacity-[0.25] transition-all duration-[0.2s] hover:bg-[var(--accent-hover)] active:scale-[0.92] cursor-pointer shrink-0 m-[2px] shadow-sm hover:shadow-md"
+            className="w-[36px] h-[36px] sm:w-[40px] sm:h-[40px] rounded-[12px] sm:rounded-[14px] bg-[var(--accent)] text-white flex items-center justify-center disabled:opacity-[0.25] transition-all duration-[0.2s] hover:bg-[var(--accent-hover)] active:scale-[0.92] cursor-pointer shrink-0 m-[2px] shadow-sm hover:shadow-md border-none focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:hover:bg-[var(--accent)] disabled:focus:ring-[var(--accent)] disabled:focus:ring-offset-0"
           >
             <ArrowUp size={18} strokeWidth={2.5} />
           </button>
