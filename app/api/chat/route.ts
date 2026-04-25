@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       content: m.content
     })).filter(m => m.content !== message);
 
-    const result = await runAgent(message, historyForModel);
+    const result = await runAgent(message, sessionId, historyForModel ?? []);
 
     await saveMessage(userId, sessionId, "assistant", result.answer);
 

@@ -99,17 +99,18 @@ const tools = [
   },
 ];
 
-/* ─── Component ─────────────────────────────────────────── */
+
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
   const [mobileCalcOpen, setMobileCalcOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement>(null);
 
-  /* scroll shadow */
   useEffect(() => {
+    setMounted(true);
     const fn = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
@@ -125,7 +126,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Keyframes ── */}
+   
       <style>{`
         @keyframes navDrop { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
         @keyframes slideIn { from { transform:translateX(100%); }           to { transform:translateX(0); } }
@@ -135,9 +136,7 @@ export default function Navbar() {
         .drawer-backdrop { animation: fadeIn  0.2s ease forwards; }
       `}</style>
 
-      {/* ══════════════════════════════════════════════════ */}
-      {/*  NAV BAR — CSS grid 3-zone layout                 */}
-      {/* ══════════════════════════════════════════════════ */}
+
       <nav
         className={`fixed top-0 left-0 right-0 z-[100] w-full flex items-center justify-between h-[60px] px-[20px] lg:px-[48px] transition-[background,border-color] duration-[0.25s] ${
           scrolled
@@ -145,7 +144,7 @@ export default function Navbar() {
             : "bg-[var(--bg-base)] border-b border-transparent"
         }`}
       >
-        {/* ── ZONE 1: Logo ── */}
+
         <Link
           href="/"
           className="flex items-center no-underline shrink-0 group w-fit"
@@ -158,9 +157,9 @@ export default function Navbar() {
           <span className="w-[5px] h-[5px] rounded-full bg-[var(--accent)] ml-[2px] mb-[-10px] shrink-0" />
         </Link>
 
-        {/* ── ZONE 2: Center nav — naturally centered by grid ── */}
+
         <div className="hidden lg:flex items-center gap-[2px]">
-          {/* Calculators — hover trigger */}
+   
           <div
             ref={dropRef}
             className="relative"
@@ -183,10 +182,10 @@ export default function Navbar() {
 
             <div className="absolute top-[100%] left-[-20px] right-[-20px] h-[10px]" />
 
-            {/* Mega-menu — stays open while hovering wrapper */}
+            
             {dropOpen && (
               <div className="nav-drop absolute top-[calc(100%+10px)] left-[50%] -translate-x-[50%] w-[640px] bg-[var(--bg-card)] border border-[var(--border)] rounded-[16px] shadow-[0_20px_48px_rgba(0,0,0,0.14)] p-[20px] grid grid-cols-2 gap-x-[8px]">
-                {/* Header */}
+                
                 <div className="col-span-2 flex items-center justify-between pb-[12px] mb-[4px] border-b border-[var(--border)]">
                   <span className="font-sans text-[11px] font-[600] uppercase tracking-[1.2px] text-[var(--text-faint)]">
                     All Calculators
@@ -200,7 +199,7 @@ export default function Navbar() {
                   </Link>
                 </div>
 
-                {/* Tool groups */}
+               
                 {tools.map((group) => (
                   <div key={group.category} className="mb-[8px]">
                     <div className="font-sans text-[10px] font-[600] uppercase tracking-[1.2px] text-[var(--text-faint)] px-[8px] mb-[4px]">
@@ -238,7 +237,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Static links */}
+   
           {[
             { label: "Methodology", href: "/methodology" },
             { label: "Chat Advisor", href: "/ai" },
@@ -262,7 +261,7 @@ export default function Navbar() {
             aria-label="Toggle theme"
             className="bg-transparent border-none cursor-pointer text-[var(--text-muted)] flex items-center justify-center rounded-[8px] w-[36px] h-[36px] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] transition-all duration-[0.15s]"
           >
-            {theme === "light" ? <Moon size={17} /> : <Sun size={17} />}
+            {mounted ? (theme === "light" ? <Moon size={17} /> : <Sun size={17} />) : <div className="w-[17px] h-[17px]" />}
           </button>
 
           {/* Get Started — desktop */}
@@ -397,10 +396,16 @@ export default function Navbar() {
                 onClick={toggleTheme}
                 className="bg-[var(--bg-subtle)] border border-[var(--border)] rounded-[10px] h-[44px] px-[16px] text-[var(--text-primary)] font-ubuntu text-[14px] cursor-pointer flex items-center justify-center gap-[8px] w-full hover:border-[var(--border-strong)] transition-colors duration-[0.15s]"
               >
-                {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
-                {theme === "light"
-                  ? "Switch to Dark Mode"
-                  : "Switch to Light Mode"}
+                {mounted ? (
+                  <>
+                    {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
+                    {theme === "light"
+                      ? "Switch to Dark Mode"
+                      : "Switch to Light Mode"}
+                  </>
+                ) : (
+                  <div className="h-[15px]" />
+                )}
               </button>
               <span className="font-sans text-[11px] text-[var(--text-faint)] text-center">
                 Free. Always.

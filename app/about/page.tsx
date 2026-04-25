@@ -23,18 +23,18 @@ export const metadata: Metadata = {
 const values = [
   {
     icon: Shield,
-    title: 'Privacy by Design',
-    desc: 'We never see your numbers. Every calculation runs entirely in your browser — no servers, no databases, no logs. Close the tab and it never existed.',
+    title: 'Privacy-First Tools',
+    desc: 'Our calculators run entirely in your browser — no servers, no databases, no logs. Our AI Assistant processes messages securely to provide guidance without compromise.',
   },
   {
     icon: Lock,
     title: 'Zero Accounts Required',
-    desc: 'Financial planning should be frictionless. Every tool on this site is available immediately — no sign-up wall, no email, no credit card, ever.',
+    desc: 'Financial planning should be frictionless. Every tool and our AI Agent are available immediately — no sign-up wall, no email, no credit card, ever.',
   },
   {
     icon: Zap,
     title: 'Institutional-Grade Math',
-    desc: 'Our calculators use the same formulas professional analysts use — no rounding drift, no shortcuts, no simplified assumptions that silently skew your results.',
+    desc: 'Our calculators and AI models use industry-standard financial formulas — no shortcuts or simplified assumptions that silently skew your results.',
   },
   {
     icon: Heart,
@@ -44,9 +44,9 @@ const values = [
 ];
 
 const stats = [
-  { value: '0', label: 'Data Points Stored', mono: true },
-  { value: '100%', label: 'Client-Side Calculations', mono: true },
-  { value: '14+', label: 'Tools Being Built', mono: true },
+  { value: '0', label: 'Personal Data Stored', mono: true },
+  { value: '100%', label: 'Private Calculations', mono: true },
+  { value: '14+', label: 'Advanced Tools', mono: true },
   { value: '$0', label: 'Cost to You, Ever', mono: true },
 ];
 
@@ -58,25 +58,25 @@ const tools = [
   { name: 'Savings Goal Calculator', href: '/tools/savings-goal-calculator' },
   { name: 'Capital Gains Tax Calculator', href: '/tools/capital-gains-calculator' },
   { name: 'Dividend Calculator', href: '/tools/dividend-calculator' },
-  { name: 'APY Interest Calculator', href: '/tools/apy-interest-calculator' },
+  { name: 'AI Financial Assistant', href: '/ai' },
 ];
 
 const faqs = [
   {
     q: 'Is WealthifyX really free?',
-    a: 'Yes. Every calculator on WealthifyX is completely free with no usage limits, no account required, and no premium tier. We sustain the site through affiliate partnerships with financial services we personally vet.',
+    a: 'Yes. Every calculator and the AI Assistant on WealthifyX are completely free with no usage limits, no account required, and no premium tier. We sustain the site through affiliate partnerships with financial services we personally vet.',
   },
   {
     q: 'Does WealthifyX store my financial data?',
-    a: 'No. All calculations run entirely in your browser using JavaScript. Nothing is sent to our servers. When you close the tab, the numbers are gone. We have no database of user financial data because we never collect it.',
+    a: 'For calculators, no. All calculations run entirely in your browser. For our AI Assistant, we securely process and store chat history associated with an anonymous session ID to provide conversation continuity, but we never link this to your personal identity.',
   },
   {
-    q: 'How accurate are the calculators?',
-    a: 'We use industry-standard formulas — the same ones used in professional financial modeling software. Unlike simplified online calculators, we avoid intermediate rounding that causes drift in long-term projections.',
+    q: 'How accurate are the results?',
+    a: 'We use industry-standard formulas for all calculators. Our AI Assistant is powered by advanced financial models designed for educational guidance, though outputs should always be verified for your specific situation.',
   },
   {
     q: 'Who is WealthifyX built for?',
-    a: 'Retail investors, personal finance beginners, and anyone who wants to model their financial decisions without paying for software or handing over personal information to a data broker masquerading as a finance app.',
+    a: 'Retail investors, personal finance beginners, and anyone who wants to model their financial decisions without paying for software or handing over personal information to a data broker.',
   },
 ];
 

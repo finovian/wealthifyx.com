@@ -21,18 +21,26 @@ export default function ChatHeader({
   currentSessionId 
 }: ChatHeaderProps) {
   const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [sessions, setSessions] = useState<{session_id: string, last_active: string}[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (showHistory && userId) {
+      setIsLoading(true);
       fetch(`/api/chat/sessions?userId=${userId}`)
         .then(res => res.json())
         .then(data => {
           if (data.sessions) setSessions(data.sessions);
         })
-        .catch(err => console.error("Failed to load sessions:", err));
+        .catch(err => console.error("Failed to load sessions:", err))
+        .finally(() => setIsLoading(false));
     }
   }, [showHistory, userId]);
 
@@ -106,7 +114,7 @@ export default function ChatHeader({
           aria-label="Toggle theme"
           className="bg-transparent border-none cursor-pointer text-[var(--text-muted)] flex items-center justify-center rounded-full w-[34px] h-[34px] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] transition-all duration-[0.15s] shrink-0"
         >
-          {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+          {mounted ? (theme === "light" ? <Moon size={16} /> : <Sun size={16} />) : <div className="w-[16px] h-[16px]" />}
         </button>
 
         <div className="h-[20px] w-[1px] bg-[var(--border)] mx-[4px] hidden sm:block" />
@@ -153,14 +161,23 @@ export default function ChatHeader({
                 </div>
                 <button 
                   onClick={() => setShowHistory(false)}
-                  className="p-[5px] hover:bg-[var(--bg-muted)] rounded-full transition-colors duration-[0.1s] border-none h-[24px]! w-[24px]!"
+                  className="p-[5px] hover:bg-[var(--bg-muted)] rounded-full transition-colors duration-[0.1s] border-none h-[24px] w-[24px]"
                 >
                   <X size={14} className="text-[var(--text-primary)] " />
                 </button>
               </div>
 
               <div className="max-h-[40vh] md:max-h-[350px] overflow-y-auto p-[8px] flex flex-col gap-[2px] no-scrollbar">
-                {sessions.length === 0 ? (
+                {isLoading ? (
+                  <div className="flex flex-col gap-[2px]">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="p-[10px_12px] rounded-[10px] bg-[var(--bg-subtle)]/50 animate-pulse flex flex-col gap-[6px]">
+                        <div className="h-[14px] w-[60%] bg-[var(--border)] rounded-[4px]" />
+                        <div className="h-[10px] w-[40%] bg-[var(--border)]/60 rounded-[4px]" />
+                      </div>
+                    ))}
+                  </div>
+                ) : sessions.length === 0 ? (
                   <div className="text-center py-[32px]">
                     <div className="w-[40px] h-[40px] bg-[var(--bg-subtle)] rounded-full flex items-center justify-center mx-auto mb-[12px] opacity-40">
                       <History size={18} />

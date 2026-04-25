@@ -60,7 +60,8 @@ export default function PrivacyPage() {
                   </h2>
                   <p className="font-sans text-[15px] text-[var(--text-primary)] m-0 leading-[1.65]">
                     When you use our calculators, the numbers stay on your device. Nothing you enter
-                    is transmitted to our servers. Close the tab and it&apos;s gone — because we never had it.
+                    is transmitted to our servers. For our AI Chat Agent, interactions are processed
+                    securely to provide real-time financial guidance.
                   </p>
                 </div>
               </div>
@@ -74,23 +75,26 @@ export default function PrivacyPage() {
                   </h2>
                   <p className="m-0">
                     WealthifyX was built on the principle that your financial data is your business.
-                    We do not require you to create an account, provide an email, or link any financial
-                    accounts to use our tools. You can run every calculator on this site anonymously.
+                    We do not require you to create an account or link any financial
+                    accounts to use our tools. You can run every calculator and interact with our AI Assistant anonymously.
                   </p>
                 </div>
 
                 <div className="flex flex-col gap-[12px]">
                   <h2 className="font-sans text-[20px] font-[600] text-[var(--text-primary)] m-0">
-                    2. Calculator Data (Client-Side Only)
+                    2. Data Processing (Calculators vs. AI Chat)
                   </h2>
                   <p className="m-0">
-                    All calculator math runs locally in your browser via JavaScript.{' '}
-                    <strong className="text-[var(--text-primary)] font-[600]">
-                      No financial data entered into our calculators is ever transmitted to or stored
-                      on our servers.
-                    </strong>{' '}
-                    When you close your browser tab, that data is cleared from your device&apos;s memory.
-                    We have no database of user financial inputs.
+                    <strong className="text-[var(--text-primary)] font-[600]">Calculators:</strong> All calculator math runs locally in your browser via JavaScript.
+                    No financial data entered into our calculators is ever transmitted to or stored
+                    on our servers.
+                  </p>
+                  <p className="m-0">
+                    <strong className="text-[var(--text-primary)] font-[600]">AI Chat Agent:</strong> When you interact with our AI Assistant, your messages are
+                    processed on our secure servers to generate responses. We store your chat history 
+                    locally in your browser and on our server (associated with an anonymous session ID) 
+                    so you can continue your conversation. This data is not used for advertising or 
+                    shared with third parties beyond the AI model providers.
                   </p>
                 </div>
 
@@ -99,21 +103,25 @@ export default function PrivacyPage() {
                     3. What We Do Collect
                   </h2>
                   <p className="m-0">
-                    While we don&apos;t collect your financial data, we do collect limited technical information:
+                    While we don&apos;t collect your calculator data, we do collect limited information to provide and improve our services:
                   </p>
                   <div className="flex flex-col gap-[12px] mt-[4px]">
                     {[
                       {
+                        label: 'AI Chat History',
+                        desc: 'We store chat transcripts associated with an anonymous session ID to enable conversation continuity. We do not link these to your personal identity.',
+                      },
+                      {
                         label: 'Analytics',
-                        desc: 'We use Google Analytics (GA4) to understand which tools are popular and how users navigate the site. This data is anonymized — we cannot identify individual users from it.',
+                        desc: 'We use Google Analytics (GA4) to understand which tools are popular and how users navigate the site. This data is anonymized.',
                       },
                       {
                         label: 'Cookies',
-                        desc: 'We use a minimal cookie to remember your theme preference (Light/Dark mode). No advertising cookies, no tracking pixels.',
+                        desc: 'We use minimal cookies to remember your theme preference and maintain your anonymous chat session.',
                       },
                       {
                         label: 'Email (optional)',
-                        desc: 'If you subscribe to our newsletter, we store your email address solely to send you tool updates. You can unsubscribe at any time. We never sell or share email lists.',
+                        desc: 'If you subscribe to our newsletter, we store your email address solely to send you tool updates. We never sell or share email lists.',
                       },
                     ].map((item) => (
                       <div key={item.label} className="flex gap-[12px] p-[16px] bg-[var(--bg-subtle)] border border-[var(--border)] rounded-xl">

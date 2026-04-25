@@ -104,13 +104,25 @@ export default function DisclaimerPage() {
 
                 <div className="flex flex-col gap-[12px]">
                   <h3 className="font-sans text-[18px] font-[600] text-[var(--text-primary)] m-0">
-                    Calculator Accuracy
+                    AI Assistant Guidance
                   </h3>
                   <p className="m-0">
-                    While we use industry-standard financial formulas and full floating-point precision,
-                    our calculators produce projections — not guarantees. Real investment returns vary
-                    based on market conditions, fees, taxes, timing, and other factors our tools do not
-                    model.
+                    Our AI Financial Assistant is an experimental tool designed for educational 
+                    guidance. While it is powered by advanced financial models, its responses may 
+                    contain inaccuracies or hallucinations. You should never rely solely on AI-generated 
+                    advice for financial decisions. Always verify important numbers and logic.
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-[12px]">
+                  <h3 className="font-sans text-[18px] font-[600] text-[var(--text-primary)] m-0">
+                    Data and Accuracy
+                  </h3>
+                  <p className="m-0">
+                    While we use industry-standard financial formulas for our calculators and 
+                    sophisticated models for our AI, WealthifyX produces projections — not guarantees. 
+                    Real investment returns vary based on market conditions, fees, taxes, timing, 
+                    and other factors our tools do not model.
                   </p>
                 </div>
 
