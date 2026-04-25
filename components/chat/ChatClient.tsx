@@ -23,6 +23,7 @@ export default function ChatClient() {
   const [isHistoryLoading, setIsHistoryLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastUserMessage, setLastUserMessage] = useState<string | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
   
   const [userId, setUserId] = useState<string>(() => {
     if (typeof window !== "undefined") {
@@ -51,11 +52,20 @@ export default function ChatClient() {
 
   const fetchHistory = useCallback(async (sid: string) => {
     if (!sid) return;
+
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    abortControllerRef.current = new AbortController();
+
     setIsHistoryLoading(true);
     try {
-      const res = await fetch(`/api/chat?sessionId=${sid}`);
+      const res = await fetch(`/api/chat?sessionId=${sid}`, {
+        signal: abortControllerRef.current.signal
+      });
       if (res.ok) {
         const data = await res.json();
+        // Double check sid matches current session before updating state
         if (data.history) {
           const chatMessages: ChatMessage[] = data.history.map((h: any) => ({
             id: generateId(),
@@ -68,7 +78,10 @@ export default function ChatClient() {
           setMessages([]);
         }
       }
-    } catch (err) {
+    } catch (err: any) {
+      if (err.name === 'AbortError') {
+        return;
+      }
       console.error("Failed to load history:", err);
     } finally {
       setIsHistoryLoading(false);
@@ -80,6 +93,11 @@ export default function ChatClient() {
     if (sessionId) {
       fetchHistory(sessionId);
     }
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
   }, [sessionId, fetchHistory]);
 
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -99,6 +117,12 @@ export default function ChatClient() {
     async (text: string) => {
       if (!text.trim() || isLoading || !userId || !sessionId) return;
 
+     
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+      abortControllerRef.current = new AbortController();
+
       setError(null);
       setLastUserMessage(text);
 
@@ -112,15 +136,18 @@ export default function ChatClient() {
       setMessages((prev) => [...prev, userMsg]);
       setIsLoading(true);
 
+      const currentSid = sessionId;
+
       try {
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             message: text,
-            sessionId,
+            sessionId: currentSid,
             userId,
           }),
+          signal: abortControllerRef.current.signal
         });
 
         if (!res.ok) {
@@ -135,15 +162,19 @@ export default function ChatClient() {
         const data = await res.json();
         const reply = data.answer || "I encountered an issue. Please try again.";
 
-        const assistantMsg: ChatMessage = {
-          id: generateId(),
-          role: "assistant",
-          content: reply,
-          timestamp: Date.now(),
-        };
-
-        setMessages((prev) => [...prev, assistantMsg]);
-      } catch (err) {
+        
+        setMessages((prev) => {
+          const assistantMsg: ChatMessage = {
+            id: generateId(),
+            role: "assistant",
+            content: reply,
+            timestamp: Date.now(),
+          };
+          return [...prev, assistantMsg];
+        });
+      } catch (err: any) {
+        if (err.name === 'AbortError') return;
+        
         console.error("[ChatClient] error:", err);
         const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
         setError(message);
@@ -175,6 +206,9 @@ export default function ChatClient() {
     setMessages([]);
     setError(null);
     setLastUserMessage(null);
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
   }, []);
 
   const handleSessionSelect = useCallback((sid: string) => {
@@ -184,6 +218,9 @@ export default function ChatClient() {
     fetchHistory(sid);
     setError(null);
     setLastUserMessage(null);
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
   }, [sessionId, fetchHistory]);
 
   const hasMessages = messages.length > 0;
@@ -240,7 +277,11 @@ export default function ChatClient() {
         )}
       </div>
 
-      <ChatInput onSend={sendMessage} disabled={isLoading || isHistoryLoading} />
+      <ChatInput 
+        key={sessionId}
+        onSend={sendMessage} 
+        disabled={isLoading || isHistoryLoading} 
+      />
     </div>
   );
 }
