@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     await initDB();
     await saveMessage(userId, sessionId, "user", message);
 
-    const dbHistory = await getHistory(sessionId, 3);
+    const dbHistory = await getHistory(sessionId, 10);
 
     const historyForModel = dbHistory.map(m => ({
       role: (m.role === "assistant" ? "assistant" : "user") as "assistant" | "user",

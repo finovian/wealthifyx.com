@@ -79,10 +79,10 @@ The system directly uses LLM outputs (tool inputs, extracted data, responses) wi
 **Expected Behavior:**  
 - Validate all LLM outputs before usage  
 - Apply schema validation and type checks  
-- Enforce business rules and sanity constraints  
+- Enforce business rules
 - Use deterministic logic for all critical calculations  
 
 **Fix:**  
 - Add JSON parsing safeguards  
-- Implement schema validation (e.g., Zod or manual checks)  
+- Implement schema validation 
 - Introduce a validation layer before execution  
