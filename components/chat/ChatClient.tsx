@@ -25,7 +25,7 @@ export default function ChatClient() {
   const [lastUserMessage, setLastUserMessage] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   
-  const [userId, setUserId] = useState<string>(() => {
+  const [userId] = useState<string>(() => {
     if (typeof window !== "undefined") {
       let storedUserId = localStorage.getItem("wx_user_id");
       if (!storedUserId) {
@@ -67,7 +67,7 @@ export default function ChatClient() {
         const data = await res.json();
         // Double check sid matches current session before updating state
         if (data.history) {
-          const chatMessages: ChatMessage[] = data.history.map((h: any) => ({
+          const chatMessages: ChatMessage[] = data.history.map((h: { role: string; content: string }) => ({
             id: generateId(),
             role: h.role === "assistant" ? "assistant" : "user",
             content: h.content,
@@ -78,8 +78,8 @@ export default function ChatClient() {
           setMessages([]);
         }
       }
-    } catch (err: any) {
-      if (err.name === 'AbortError') {
+    } catch (err: unknown) {
+      if (err instanceof Error && err.name === 'AbortError') {
         return;
       }
       console.error("Failed to load history:", err);
@@ -91,6 +91,7 @@ export default function ChatClient() {
 
   useEffect(() => {
     if (sessionId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchHistory(sessionId);
     }
     return () => {
@@ -160,7 +161,7 @@ export default function ChatClient() {
         }
 
         const data = await res.json();
-        const reply = data.answer || "I encountered an issue. Please try again.";
+        const reply = data.answer || "I couldn't generate a response.";
 
         
         setMessages((prev) => {
@@ -172,8 +173,8 @@ export default function ChatClient() {
           };
           return [...prev, assistantMsg];
         });
-      } catch (err: any) {
-        if (err.name === 'AbortError') return;
+      } catch (err: unknown) {
+        if (err instanceof Error && err.name === 'AbortError') return;
         
         console.error("[ChatClient] error:", err);
         const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";

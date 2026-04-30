@@ -135,7 +135,7 @@ function calcNIIT(gain: number, ordinaryIncome: number, fs: FilingStatus): numbe
 function getLTCGMarginalRate(gain: number, ordinaryIncome: number, fs: FilingStatus): number {
   // Rate that applies to the last dollar of gain
   const brackets = LTCG_BRACKETS[fs];
-  let cursor = ordinaryIncome + gain;
+  const cursor = ordinaryIncome + gain;
   for (const b of brackets) { if (cursor <= b.upTo) return b.rate; }
   return 0.20;
 }
@@ -190,7 +190,7 @@ function pct(n: number, dp = 1) {
 }
 
 /* ─── Custom Bar Tooltip ─────────────────────────────────── */
-function CustomTooltip({ active, payload, label }: any) {
+function CustomTooltip({ active, payload, label }: { active?: boolean; payload?: { fill: string; value: number }[]; label?: string }) {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[160px]">

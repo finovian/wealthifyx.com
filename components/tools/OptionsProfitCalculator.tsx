@@ -170,14 +170,22 @@ const POSITIONS: { value: PositionType; label: string; short: string; direction:
 ];
 
 /* ─── Custom Tooltip ─────────────────────────────────────── */
-function CustomTooltip({ active, payload, label }: any) {
+function CustomTooltip({ 
+  active, 
+  payload, 
+  label 
+}: { 
+  active?: boolean; 
+  payload?: { value: number }[]; 
+  label?: string | number;
+}) {
   if (!active || !payload?.length) return null;
   const pnl = payload[0]?.value as number;
   const isPos = pnl >= 0;
   return (
     <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[160px]">
       <div className="text-[var(--text-faint)] mb-[8px] text-[11px]">
-        Stock @ {fmtPrice(label)}
+        Stock @ {fmtPrice(Number(label))}
       </div>
       <div className="flex justify-between gap-[16px]">
         <span style={{ color: isPos ? "var(--positive)" : "var(--negative, #e11d48)" }}>

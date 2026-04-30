@@ -13,7 +13,7 @@ export interface Message {
   role: Role;
   content: string;
   tool_call_id?: string;
-  tool_calls?: any[];
+  tool_calls?: OpenAI.Chat.Completions.ChatCompletionMessageToolCall[];
 }
 
 export interface AgentResponse {
@@ -32,7 +32,7 @@ function toOpenAITools() {
   }));
 }
 
-function buildSystemMessage(profile: Record<string, any>, context: any): Message {
+function buildSystemMessage(profile: Record<string, unknown>, context: string): Message {
   const profileSection =
     Object.keys(profile).length > 0
       ? `\n\nKNOWN USER PROFILE (use these numbers directly — do not ask again):\n${JSON.stringify(profile, null, 2)}`
@@ -86,7 +86,7 @@ NOTHING ELSE. You are a calculator, not a chatbot.${profileSection}`,
   };
 }
 
-function normalizeMessages(history: any[]): Message[] {
+function normalizeMessages(history: { parts?: { text?: string }[]; role: string; content?: string; tool_call_id?: string; tool_calls?: OpenAI.Chat.Completions.ChatCompletionMessageToolCall[] }[]): Message[] {
   const result: Message[] = [];
 
   for (const msg of history) {
@@ -96,7 +96,7 @@ function normalizeMessages(history: any[]): Message[] {
       else if (msg.role === "user") role = "user";
       else continue;
 
-      const content = msg.parts.map((p: any) => p?.text || "").join("");
+      const content = msg.parts.map((p) => p?.text || "").join("");
       if (!content) continue;
 
       result.push({ role, content });
@@ -105,7 +105,7 @@ function normalizeMessages(history: any[]): Message[] {
 
     if (msg.content && ["user", "assistant", "system", "tool"].includes(msg.role)) {
       result.push({
-        role: msg.role,
+        role: msg.role as Role,
         content: String(msg.content),
         tool_call_id: msg.tool_call_id,
         tool_calls: msg.tool_calls,
@@ -159,7 +159,7 @@ async function getRelevantContext(question: string): Promise<string> {
 export async function runAgent(
   userMessage: string,
   sessionId: string,
-  conversationHistory: any[] = []
+  conversationHistory: { parts?: { text?: string }[]; role: string; content?: string; tool_call_id?: string; tool_calls?: OpenAI.Chat.Completions.ChatCompletionMessageToolCall[] }[] = []
 ): Promise<AgentResponse> {
 
   const profile = await getProfile(sessionId);
@@ -183,7 +183,7 @@ export async function runAgent(
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
-      messages: messages as any[],
+      messages: messages as unknown as OpenAI.Chat.Completions.ChatCompletionMessageParam[],
       tools: toOpenAITools(),
       tool_choice: toolsUsed.length === 0 ? "required" : "auto",
     });

@@ -118,12 +118,12 @@ export function trackToolCardClick(params: {
 }
 
 // Utility for debouncing events
-export function debounce<T extends (...args: any[]) => void>(
-  fn: T,
+export function debounce<Args extends unknown[]>(
+  fn: (...args: Args) => void,
   delay: number
-): (...args: Parameters<T>) => void {
+): (...args: Args) => void {
   let timer: ReturnType<typeof setTimeout>;
-  return (...args) => {
+  return (...args: Args) => {
     clearTimeout(timer);
     timer = setTimeout(() => fn(...args), delay);
   };

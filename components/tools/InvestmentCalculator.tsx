@@ -107,7 +107,15 @@ const FREQUENCIES = [
 ];
 
 /* ─── Custom Tooltip ─────────────────────────────────── */
-function CustomTooltip({ active, payload, label }: any) {
+function CustomTooltip({ 
+  active, 
+  payload, 
+  label 
+}: { 
+  active?: boolean; 
+  payload?: { name: string; value: number; color: string }[]; 
+  label?: string | number;
+}) {
   if (!active || !payload?.length) return null;
   return (
     <div
@@ -118,7 +126,7 @@ function CustomTooltip({ active, payload, label }: any) {
       >
         {label}
       </div>
-      {payload.map((p: any) => (
+      {payload.map((p) => (
         <div
           key={p.name}
           className="flex justify-between gap-[16px] mb-[4px]"
@@ -306,7 +314,7 @@ export default function InvestmentCalculator({ initialValues }: InvestmentCalcul
                           setFrequency(f.value);
                           trackFrequencyChange({
                             calculator_name: "investment_calculator",
-                            frequency: f.label.toLowerCase() as any,
+                            frequency: f.label.toLowerCase(),
                           });
                         }}
                         className={`h-[36px] border-[1px] rounded-[8px] font-ubuntu text-[12px] font-[500] cursor-pointer transition-all duration-[0.15s] ease-[ease] ${

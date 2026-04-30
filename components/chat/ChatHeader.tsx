@@ -28,11 +28,13 @@ export default function ChatHeader({
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
   useEffect(() => {
     if (showHistory && userId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsLoading(true);
       fetch(`/api/chat/sessions?userId=${userId}`)
         .then(res => res.json())

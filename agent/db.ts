@@ -158,7 +158,7 @@ export async function getProfile(sessionId: string) {
 
 export async function updateProfile(
   sessionId: string,
-  newFacts: Record<string, any>
+  newFacts: Record<string, unknown>
 ) {
   const sql = getDB();
 
@@ -245,7 +245,7 @@ Return only fields to update or {}.
 export async function saveDocument(
   content: string,
   embedding: number[],
-  metadata: Record<string, any> = {}
+  metadata: Record<string, unknown> = {}
 ) {
   const sql = getDB();
   const vectorString = `[${embedding.join(",")}]`;

@@ -148,12 +148,20 @@ function fmtK(v: number) {
 }
 
 /* ─── Custom Tooltip ─────────────────────────────────────── */
-function CustomTooltip({ active, payload, label }: any) {
+function CustomTooltip({ 
+  active, 
+  payload, 
+  label 
+}: { 
+  active?: boolean; 
+  payload?: { name: string; value: number; color: string }[]; 
+  label?: string | number;
+}) {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-[var(--bg-card)] border-[1px] border-[var(--border)] rounded-[10px] p-[12px_16px] font-sans text-[12px] shadow-[var(--shadow-md)] min-w-[180px]">
       <div className="text-[var(--text-faint)] mb-[8px] text-[11px]">Age {label}</div>
-      {payload.map((p: any) => (
+      {payload.map((p) => (
         <div key={p.name} className="flex justify-between gap-[16px] mb-[4px]">
           <span style={{ color: p.color }}>{p.name}</span>
           <span className="text-[var(--text-primary)] font-[500]">{fmt(p.value)}</span>

@@ -503,107 +503,110 @@ export const TOOLS = [
 ];
 
 
-export function executeTool(name: string, input: any): string {
+export function executeTool(name: string, input: Record<string, unknown>): string {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const i = input as any;
     switch (name) {
       case "calculate_compound_interest":
-        if (input.principal <= 0) throw new Error("Principal must be greater than 0");
-        if (input.annual_rate < 0) throw new Error("Annual rate cannot be negative");
-        if (input.years <= 0) throw new Error("Years must be greater than 0");
+        if (i.principal <= 0) throw new Error("Principal must be greater than 0");
+        if (i.annual_rate < 0) throw new Error("Annual rate cannot be negative");
+        if (i.years <= 0) throw new Error("Years must be greater than 0");
         return JSON.stringify(calculateCompoundInterest(
-          input.principal, input.annual_rate, input.years,
-          input.frequency ?? 12, input.monthly_contribution ?? 0
+          i.principal, i.annual_rate, i.years,
+          i.frequency ?? 12, i.monthly_contribution ?? 0
         ));
 
       case "calculate_sip":
-        if (input.monthly_amount <= 0) throw new Error("Monthly amount must be greater than 0");
-        if (input.annual_rate < 0) throw new Error("Annual rate cannot be negative");
-        if (input.years <= 0) throw new Error("Years must be greater than 0");
+        if (i.monthly_amount <= 0) throw new Error("Monthly amount must be greater than 0");
+        if (i.annual_rate < 0) throw new Error("Annual rate cannot be negative");
+        if (i.years <= 0) throw new Error("Years must be greater than 0");
         return JSON.stringify(calculateSIP(
-          input.monthly_amount, input.annual_rate, input.years
+          i.monthly_amount, i.annual_rate, i.years
         ));
 
       case "calculate_retirement":
-        if (input.monthly_expenses <= 0) throw new Error("Monthly expenses must be greater than 0");
-        if (input.years_to_retire < 0) throw new Error("Years to retire cannot be negative");
+        if (i.monthly_expenses <= 0) throw new Error("Monthly expenses must be greater than 0");
+        if (i.years_to_retire < 0) throw new Error("Years to retire cannot be negative");
         return JSON.stringify(calculateRetirementCorpus(
-          input.monthly_expenses, input.years_to_retire,
-          input.inflation_rate ?? 6
+          i.monthly_expenses, i.years_to_retire,
+          i.inflation_rate ?? 6
         ));
 
       case "calculate_roth_ira":
-        if (input.current_age < 0) throw new Error("Current age cannot be negative");
-        if (input.retirement_age <= input.current_age) throw new Error("Retirement age must be greater than current age");
-        if (input.annual_contribution <= 0) throw new Error("Annual contribution must be greater than 0");
+        if (i.current_age < 0) throw new Error("Current age cannot be negative");
+        if (i.retirement_age <= i.current_age) throw new Error("Retirement age must be greater than current age");
+        if (i.annual_contribution <= 0) throw new Error("Annual contribution must be greater than 0");
         return JSON.stringify(calculateRothIRA(
-          input.current_age, input.retirement_age,
-          input.annual_contribution, input.existing_balance ?? 0,
-          input.rate ?? 10
+          i.current_age, i.retirement_age,
+          i.annual_contribution, i.existing_balance ?? 0,
+          i.rate ?? 10
         ));
 
       case "calculate_401k":
-        if (input.salary <= 0) throw new Error("Salary must be greater than 0");
-        if (input.emp_contrib_pct < 0 || input.emp_contrib_pct > 100) throw new Error("Employee contribution percentage must be between 0 and 100");
-        if (input.match_pct < 0 || input.match_pct > 100) throw new Error("Match percentage must be between 0 and 100");
-        if (input.match_up_to_pct < 0 || input.match_up_to_pct > 100) throw new Error("Match up to percentage must be between 0 and 100");
-        if (input.current_age < 0) throw new Error("Current age cannot be negative");
-        if (input.retirement_age <= input.current_age) throw new Error("Retirement age must be greater than current age");
+        if (i.salary <= 0) throw new Error("Salary must be greater than 0");
+        if (i.emp_contrib_pct < 0 || i.emp_contrib_pct > 100) throw new Error("Employee contribution percentage must be between 0 and 100");
+        if (i.match_pct < 0 || i.match_pct > 100) throw new Error("Match percentage must be between 0 and 100");
+        if (i.match_up_to_pct < 0 || i.match_up_to_pct > 100) throw new Error("Match up to percentage must be between 0 and 100");
+        if (i.current_age < 0) throw new Error("Current age cannot be negative");
+        if (i.retirement_age <= i.current_age) throw new Error("Retirement age must be greater than current age");
         return JSON.stringify(calculate401k(
-          input.salary, input.emp_contrib_pct, input.match_pct,
-          input.match_up_to_pct, input.existing_balance ?? 0,
-          input.rate ?? 10, input.current_age,
-          input.retirement_age ?? 65
+          i.salary, i.emp_contrib_pct, i.match_pct,
+          i.match_up_to_pct, i.existing_balance ?? 0,
+          i.rate ?? 10, i.current_age,
+          i.retirement_age ?? 65
         ));
 
       case "calculate_savings_goal":
-        if (input.goal <= 0) throw new Error("Goal must be greater than 0");
-        if (input.monthly_contrib < 0) throw new Error("Monthly contribution cannot be negative");
-        if (input.annual_rate < 0) throw new Error("Annual rate cannot be negative");
+        if (i.goal <= 0) throw new Error("Goal must be greater than 0");
+        if (i.monthly_contrib < 0) throw new Error("Monthly contribution cannot be negative");
+        if (i.annual_rate < 0) throw new Error("Annual rate cannot be negative");
         return JSON.stringify(calculateSavingsGoal(
-          input.goal, input.current_savings ?? 0,
-          input.monthly_contrib, input.annual_rate ?? 0
+          i.goal, i.current_savings ?? 0,
+          i.monthly_contrib, i.annual_rate ?? 0
         ));
 
       case "calculate_options_profit":
-        if (!["long_call", "long_put", "short_call", "short_put"].includes(input.position_type)) {
+        if (!["long_call", "long_put", "short_call", "short_put"].includes(i.position_type as string)) {
           throw new Error("Invalid position type");
         }
-        if (input.strike_price <= 0) throw new Error("Strike price must be greater than 0");
-        if (input.premium_per_share < 0) throw new Error("Premium per share cannot be negative");
-        if (input.contracts <= 0) throw new Error("Contracts must be greater than 0");
-        if (input.target_price <= 0) throw new Error("Target price must be greater than 0");
+        if (i.strike_price <= 0) throw new Error("Strike price must be greater than 0");
+        if (i.premium_per_share < 0) throw new Error("Premium per share cannot be negative");
+        if (i.contracts <= 0) throw new Error("Contracts must be greater than 0");
+        if (i.target_price <= 0) throw new Error("Target price must be greater than 0");
         return JSON.stringify(calculateOptionsProfit(
-          input.position_type, input.strike_price,
-          input.premium_per_share, input.contracts ?? 1,
-          input.target_price
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          i.position_type as any, i.strike_price,
+          i.premium_per_share, i.contracts ?? 1,
+          i.target_price
         ));
 
       case "calculate_capital_gains_tax":
-        if (input.buy_price <= 0) throw new Error("Buy price must be greater than 0");
-        if (input.sell_price <= 0) throw new Error("Sell price must be greater than 0");
-        if (input.shares <= 0) throw new Error("Shares must be greater than 0");
-        if (input.annual_income < 0) throw new Error("Annual income cannot be negative");
+        if (i.buy_price <= 0) throw new Error("Buy price must be greater than 0");
+        if (i.sell_price <= 0) throw new Error("Sell price must be greater than 0");
+        if (i.shares <= 0) throw new Error("Shares must be greater than 0");
+        if (i.annual_income < 0) throw new Error("Annual income cannot be negative");
         return JSON.stringify(calculateCapitalGainsTax(
-          input.buy_price, input.sell_price, input.shares,
-          input.is_long_term, input.annual_income,
-          input.state_tax_rate ?? 0
+          i.buy_price, i.sell_price, i.shares,
+          i.is_long_term, i.annual_income,
+          i.state_tax_rate ?? 0
         ));
 
       case "calculate_dividend":
-        if (input.share_price <= 0) throw new Error("Share price must be greater than 0");
-        if (input.shares <= 0) throw new Error("Shares must be greater than 0");
-        if (input.dividend_per_share < 0) throw new Error("Dividend per share cannot be negative");
-        if (input.years <= 0) throw new Error("Years must be greater than 0");
+        if (i.share_price <= 0) throw new Error("Share price must be greater than 0");
+        if (i.shares <= 0) throw new Error("Shares must be greater than 0");
+        if (i.dividend_per_share < 0) throw new Error("Dividend per share cannot be negative");
+        if (i.years <= 0) throw new Error("Years must be greater than 0");
         return JSON.stringify(calculateDividend(
-          input.share_price, input.shares, input.dividend_per_share,
-          input.stock_growth_rate ?? 7, input.div_growth_rate ?? 5,
-          input.years, input.drip ?? false
+          i.share_price, i.shares, i.dividend_per_share,
+          i.stock_growth_rate ?? 7, i.div_growth_rate ?? 5,
+          i.years, i.drip ?? false
         ));
 
       default:
         return JSON.stringify({ error: `Unknown tool: ${name}` });
     }
-  } catch (err: any) {
-    return JSON.stringify({ error: err.message });
+  } catch (err: unknown) {
+    return JSON.stringify({ error: (err as Error).message });
   }
 }
