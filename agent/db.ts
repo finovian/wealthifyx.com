@@ -33,6 +33,24 @@ export async function initDB() {
     )
   `;
 
+  await sql`
+  CREATE EXTENSION IF NOT EXISTS vector
+`;
+
+  await sql`
+  CREATE TABLE IF NOT EXISTS documents (
+    id SERIAL PRIMARY KEY,
+    content TEXT NOT NULL,
+    embedding vector(1536),
+    metadata JSONB
+  )
+`;
+
+  await sql`
+  CREATE INDEX IF NOT EXISTS idx_documents_embedding
+  ON documents USING ivfflat (embedding vector_cosine_ops)
+`;
+
   try {
     await sql`
       ALTER TABLE conversations 
@@ -221,4 +239,38 @@ Return only fields to update or {}.
   } catch {
 
   }
+}
+
+
+export async function saveDocument(
+  content: string,
+  embedding: number[],
+  metadata: Record<string, any> = {}
+) {
+  const sql = getDB();
+  const vectorString = `[${embedding.join(",")}]`;
+
+  await sql`
+    INSERT INTO documents (content, embedding, metadata)
+    VALUES (${content}, ${vectorString}::vector, ${JSON.stringify(metadata)})
+  `;
+}
+
+export async function searchDocuments(
+  embedding: number[],
+  limit = 3
+) {
+  const sql = getDB();
+
+  const vectorString = `[${embedding.join(",")}]`;
+
+  const rows = await sql`
+    SELECT content, metadata,
+    1 - (embedding <=> ${vectorString}::vector) as similarity
+    FROM documents
+    ORDER BY embedding <=> ${vectorString}::vector
+    LIMIT ${limit}
+  `;
+
+  return rows;
 }

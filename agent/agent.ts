@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 import { TOOLS, executeTool } from "./tools";
-import { getProfile, extractAndSaveProfile } from "./db";
+import { getProfile, extractAndSaveProfile, searchDocuments } from "./db";
 
 const openai = new OpenAI({
   baseURL: process.env.BASE_URL,
@@ -32,7 +32,7 @@ function toOpenAITools() {
   }));
 }
 
-function buildSystemMessage(profile: Record<string, any>): Message {
+function buildSystemMessage(profile: Record<string, any>, context: any): Message {
   const profileSection =
     Object.keys(profile).length > 0
       ? `\n\nKNOWN USER PROFILE (use these numbers directly — do not ask again):\n${JSON.stringify(profile, null, 2)}`
@@ -41,6 +41,7 @@ function buildSystemMessage(profile: Record<string, any>): Message {
   return {
     role: "system",
     content: `You are WealthifyX's financial calculator assistant.
+    ${context ? `Use this relevant context to answer:\n${context}` : ""}
 
 YOUR ONLY JOB: Help users with personal finance calculations using your tools.
 
@@ -135,6 +136,26 @@ function safeParseJSON(input: string) {
   }
 }
 
+async function getRelevantContext(question: string): Promise<string> {
+
+  const embeddingResponse = await openai.embeddings.create({
+    model: "text-embedding-3-small",
+    input: question,
+  });
+
+  console.log('embeddingResponse.data[0].embedding', embeddingResponse.data[0].embedding)
+
+  const embedding = embeddingResponse.data[0].embedding;
+  const docs = await searchDocuments(embedding, 3);
+  console.log('docs', docs)
+  if (docs.length === 0) return "";
+
+  return docs
+    .map((d) => d.content)
+    .join("\n\n");
+}
+
+
 export async function runAgent(
   userMessage: string,
   sessionId: string,
@@ -143,15 +164,15 @@ export async function runAgent(
 
   const profile = await getProfile(sessionId);
 
-
+  const context = await getRelevantContext(userMessage);
+  console.log('context', context)
   const messages: Message[] = [
-    buildSystemMessage(profile),
+    buildSystemMessage(profile, context),
     ...normalizeMessages(conversationHistory),
     { role: "user", content: userMessage },
   ];
 
   validateMessages(messages);
-  console.log('messages', messages)
 
   const toolsUsed: string[] = [];
   const MAX_ITERATIONS = 5;
