@@ -105,37 +105,6 @@
   color-scheme: dark;
 }
 
-/* System preference fallback */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg-base: #0a0a0a;
-    --bg-subtle: #111111;
-    --bg-muted: #1a1a1a;
-    --bg-card: #141414;
-
-    --border: #262626;
-    --border-strong: #404040;
-
-    --text-primary: #f9fafb;
-    --text-secondary: #e5e7eb;
-    --text-muted: #9ca3af;
-    --text-faint: #6b7280;
-
-    --accent: #22c55e;
-    --accent-light: #4ade80;
-    --accent-bg: rgba(34, 197, 94, 0.06);
-    --accent-border: rgba(34, 197, 94, 0.2);
-    --accent-hover: #16a34a;
-
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
-    --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.6);
-
-    color-scheme: dark;
-  }
-}
-
 /* ========================================
    BASE RESET
    ======================================== */

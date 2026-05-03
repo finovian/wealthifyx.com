@@ -15,8 +15,6 @@ function generateId(): string {
   return `msg_${Date.now()}_${++idCounter}`;
 }
 
-
-
 export default function ChatClient() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +47,6 @@ export default function ChatClient() {
     return "";
   });
 
-
   const fetchHistory = useCallback(async (sid: string) => {
     if (!sid) return;
 
@@ -79,15 +76,15 @@ export default function ChatClient() {
         }
       }
     } catch (err: unknown) {
-      if (err instanceof Error && err.name === 'AbortError') {
-        return;
-      }
+      const isAbort = (err instanceof Error && err.name === 'AbortError') || 
+                      (typeof err === 'object' && err !== null && 'name' in err && err.name === 'AbortError');
+      if (isAbort) return;
+      
       console.error("Failed to load history:", err);
     } finally {
       setIsHistoryLoading(false);
     }
   }, []);
-
 
   useEffect(() => {
     if (sessionId) {
@@ -118,7 +115,6 @@ export default function ChatClient() {
     async (text: string) => {
       if (!text.trim() || isLoading || !userId || !sessionId) return;
 
-     
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
       }
@@ -156,14 +152,15 @@ export default function ChatClient() {
           try {
             const errData = await res.json();
             errorMessage = errData.error || errorMessage;
-          } catch (e) {}
+          } catch (e) {
+             console.error("Error parsing error response:", e);
+          }
           throw new Error(errorMessage);
         }
 
         const data = await res.json();
         const reply = data.answer || "I couldn't generate a response.";
 
-        
         setMessages((prev) => {
           const assistantMsg: ChatMessage = {
             id: generateId(),
@@ -174,7 +171,9 @@ export default function ChatClient() {
           return [...prev, assistantMsg];
         });
       } catch (err: unknown) {
-        if (err instanceof Error && err.name === 'AbortError') return;
+        const isAbort = (err instanceof Error && err.name === 'AbortError') || 
+                        (typeof err === 'object' && err !== null && 'name' in err && err.name === 'AbortError');
+        if (isAbort) return;
         
         console.error("[ChatClient] error:", err);
         const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
@@ -223,13 +222,9 @@ export default function ChatClient() {
     if (sid === sessionId) return;
     sessionStorage.setItem("wx_session_id", sid);
     setSessionId(sid);
-    fetchHistory(sid);
     setError(null);
     setLastUserMessage(null);
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-  }, [sessionId, fetchHistory]);
+  }, [sessionId]);
 
   const hasMessages = messages.length > 0;
 

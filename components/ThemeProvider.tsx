@@ -26,21 +26,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-    const root = document.documentElement;
-    
-    // Watch for system theme changes if no preference is stored
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => {
-      const stored = localStorage.getItem('wealthifyx-theme');
-      if (!stored) {
-        const next = mediaQuery.matches ? 'dark' : 'light';
-        setTheme(next);
-        root.setAttribute('data-theme', next);
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    // We no longer watch for system theme changes to keep 'light' as default
   }, []);
 
   const toggleTheme = useCallback(() => {
